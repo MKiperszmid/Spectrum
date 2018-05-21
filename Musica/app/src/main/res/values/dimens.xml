@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="maxSizeImage">125dp</dimen>
+    <dimen name="maxSizeSongName">15sp</dimen>
+    <dimen name="maxSizeArtistName">13sp</dimen>
+    <dimen name="maxSizeTitleName">18sp</dimen>
+    <dimen name="maxSizeNavBarItem">12sp</dimen>
+    <dimen name="maxSizeNavBarIcon">25dp</dimen>
+    <dimen name="maxSizeExpandSong">20dp</dimen>
+    <dimen name="maxSizeCurrentPlayingPlay">25dp</dimen>
+    <dimen name="maxSizeUpPlayingIcon">35dp</dimen>
+    <dimen name="maxSizeWIDTHUpPlayingIcon">35dp</dimen>
+    <dimen name="maxSizeCurrentPlayingSize">16dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+</resources>
