@@ -61,6 +61,7 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+
         LoadCanciones();
 
         RelativeLayout queue = view.findViewById(R.id.relativeQueue);
@@ -74,6 +75,10 @@ public class HomeFragment extends Fragment {
 
         rvAgregado.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
         rvAgregado.setAdapter(adapterCancionArtistaPortada);
+
+        RecyclerView rvArgentina = view.findViewById(R.id.recyclerTrendingArgentina);
+        rvArgentina.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
+        rvArgentina.setAdapter(adapterCancionArtistaPortada);
 
 
         /* Feed */
