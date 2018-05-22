@@ -16,18 +16,17 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.dh.tpmusicagrupo3.AdapterCancionArtistaPortada.NotificadorCancionCelda;
+
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements NotificadorCancionCelda {
 
     private NotificadorActivity notificadorActivity;
-    private TextView textViewCancion;
-    private TextView textViewArtista;
-    private ImageView imageViewPortada;
     private Cancion cancion;
     private List<Cancion> canciones;
 
@@ -51,11 +50,6 @@ public class HomeFragment extends Fragment {
         canciones.add(new Cancion("Bella", "Wolfine", R.drawable.wolfinebella));
     }
 
-    private void LoadCancion(TextView nombreCancion, TextView nombreArtista, int resource){
-        cancion = new Cancion(nombreCancion.getText().toString(), nombreArtista.getText().toString(), resource);
-        notificadorActivity.recibirCancion(cancion);
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -70,7 +64,7 @@ public class HomeFragment extends Fragment {
         RecyclerView rvAgregado = view.findViewById(R.id.recyclerAgregadoRecientemente);
 
         rvPopular.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
-        AdapterCancionArtistaPortada adapterCancionArtistaPortada = new AdapterCancionArtistaPortada(canciones);
+        AdapterCancionArtistaPortada adapterCancionArtistaPortada = new AdapterCancionArtistaPortada(canciones, this);
         rvPopular.setAdapter(adapterCancionArtistaPortada);
 
         rvAgregado.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
@@ -148,12 +142,9 @@ public class HomeFragment extends Fragment {
         return view;
     }
 
-    private void cargarFragment(Fragment fragment){
-        FragmentManager fragmentManager = getFragmentManager();
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.homeID, fragment);
-        transaction.addToBackStack(null);
-        transaction.commit();
+    @Override
+    public void notificarCancionClickeada(Cancion cancionClickeada) {
+        notificadorActivity.recibirCancion(cancionClickeada);
     }
 
     public interface NotificadorActivity{

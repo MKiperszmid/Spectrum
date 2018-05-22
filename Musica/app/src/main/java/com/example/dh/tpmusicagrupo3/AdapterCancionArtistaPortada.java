@@ -19,9 +19,11 @@ import java.util.List;
 public class AdapterCancionArtistaPortada extends RecyclerView.Adapter {
 
     private List<Cancion> canciones;
+    private NotificadorCancionCelda notificadorCancionCelda;
 
-    public AdapterCancionArtistaPortada(List<Cancion> canciones){
+    public AdapterCancionArtistaPortada(List<Cancion> canciones, NotificadorCancionCelda notificadorCancionCelda){
         this.canciones = canciones;
+        this.notificadorCancionCelda = notificadorCancionCelda;
     }
 
     @NonNull
@@ -57,6 +59,14 @@ public class AdapterCancionArtistaPortada extends RecyclerView.Adapter {
             tvCancion = itemView.findViewById(R.id.celdaCancionID);
             tvArtista = itemView.findViewById(R.id.celdaArtistaID);
             ivPortada = itemView.findViewById(R.id.celdaPortadaID);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int pos = getAdapterPosition();
+                    notificadorCancionCelda.notificarCancionClickeada(canciones.get(pos));
+                }
+            });
         }
 
         public void bindCancion(Cancion cancion){
@@ -64,5 +74,8 @@ public class AdapterCancionArtistaPortada extends RecyclerView.Adapter {
             tvArtista.setText(cancion.getNombreArtista());
             ivPortada.setImageResource(cancion.getImagenPortada());
         }
+    }
+    public interface NotificadorCancionCelda{
+        void notificarCancionClickeada(Cancion cancionClickeada);
     }
 }
