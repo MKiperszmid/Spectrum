@@ -1,22 +1,23 @@
 package com.example.dh.tpmusicagrupo3;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import android.support.v7.app.AppCompatActivity;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -28,6 +29,7 @@ public class HomeFragment extends Fragment {
     private TextView textViewArtista;
     private ImageView imageViewPortada;
     private Cancion cancion;
+    private List<Cancion> canciones;
 
     public HomeFragment() {
         // Required empty public constructo
@@ -39,6 +41,15 @@ public class HomeFragment extends Fragment {
         this.notificadorActivity = (NotificadorActivity) context;
     }
 
+    private void LoadCanciones(){
+        canciones = new ArrayList<>();
+        canciones.add(new Cancion("La Nuba", "La Vela Puerca", R.drawable.lavelapuercalanube));
+        canciones.add(new Cancion("This is America", "Childish Gambino", R.drawable.childishgambinothisisamerica));
+        canciones.add(new Cancion("X", "Nicky Jam - J Balvin", R.drawable.nickyjamjbalvinx));
+        canciones.add(new Cancion("Dimelo", "Paulo Londra", R.drawable.paulolondradimelo));
+        canciones.add(new Cancion("Me Niego", "Reik ft Osuna y Wisin", R.drawable.reikftozunawisinmeniego));
+        canciones.add(new Cancion("Bella", "Wolfine", R.drawable.wolfinebella));
+    }
 
     private void LoadCancion(TextView nombreCancion, TextView nombreArtista, int resource){
         cancion = new Cancion(nombreCancion.getText().toString(), nombreArtista.getText().toString(), resource);
@@ -49,36 +60,23 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        final View view = inflater.inflate(R.layout.fragment_home, container, false);
+        View view = inflater.inflate(R.layout.fragment_home, container, false);
+        LoadCanciones();
 
-        LinearLayout mySong1 = view.findViewById(R.id.mySong1);
-        LinearLayout mySong2 = view.findViewById(R.id.mySong2);
         RelativeLayout queue = view.findViewById(R.id.relativeQueue);
 
+        RecyclerView rvPopular = view.findViewById(R.id.recyclerPopularAhora);
+        RecyclerView rvAgregado = view.findViewById(R.id.recyclerAgregadoRecientemente);
+
+        rvPopular.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
+        AdapterCancionArtistaPortada adapterCancionArtistaPortada = new AdapterCancionArtistaPortada(canciones);
+        rvPopular.setAdapter(adapterCancionArtistaPortada);
+
+        rvAgregado.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
+        rvAgregado.setAdapter(adapterCancionArtistaPortada);
+
+
         /* Feed */
-
-        /* Canción 1 */
-        mySong1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                textViewCancion = view.findViewById(R.id.song1NameID);
-                textViewArtista = view.findViewById(R.id.artist1NameID);
-
-                LoadCancion(textViewCancion, textViewArtista, R.drawable.lavelapuercalanube);
-
-                //   SongFragment songFragment = new SongFragment();
-             //   cargarFragment(songFragment); // Play canción
-            }
-        });
-        mySong2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                textViewCancion = view.findViewById(R.id.song2NameID);
-                textViewArtista = view.findViewById(R.id.artist2NameID);
-
-                LoadCancion(textViewCancion, textViewArtista, R.drawable.paulolondradimelo);
-            }
-        });
 
         queue.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
@@ -87,6 +85,14 @@ public class HomeFragment extends Fragment {
         });
 
         /* Bottom bar */
+
+        LinearLayout homeBtn = view.findViewById(R.id.homeBtn);
+        homeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getActivity(), "Home", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         /* Botón Explorar */
         LinearLayout explorarBtn = view.findViewById(R.id.explorarBtn);
@@ -146,6 +152,6 @@ public class HomeFragment extends Fragment {
     }
 
     public interface NotificadorActivity{
-        public void recibirCancion(Cancion cancion);
+        void recibirCancion(Cancion cancion);
     }
 }

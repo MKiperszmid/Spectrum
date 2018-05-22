@@ -17,112 +17,11 @@
         android:textStyle="bold"
         android:textColor="@color/colorWhite"/>
 
-    <LinearLayout
+    <android.support.v7.widget.RecyclerView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:id="@+id/mySong1"
-        android:layout_below="@id/nowTrendingID"
-        android:layout_marginStart="15dp">
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/lavelapuercalanube"
-            android:adjustViewBounds="true"
-            android:maxWidth="@dimen/maxSizeImage"
-            android:maxHeight="@dimen/maxSizeImage"
-            android:id="@+id/song1CoverID"
-            android:layout_marginBottom="5dp"/>
-        <TextView
-            android:layout_width="@dimen/maxSizeImage"
-            android:layout_height="wrap_content"
-            android:text="La Nube"
-            android:textStyle="bold"
-            android:textSize="@dimen/maxSizeSongName"
-            android:gravity="center"
-            android:id="@+id/song1NameID"
-            android:textColor="@color/colorWhite"/>
-        <TextView
-            android:layout_width="@dimen/maxSizeImage"
-            android:layout_height="wrap_content"
-            android:text="La vela puerca"
-            android:textSize="@dimen/maxSizeArtistName"
-            android:gravity="center"
-            android:textColor="@color/colorGray"
-            android:id="@+id/artist1NameID"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:id="@+id/mySong2"
-        android:layout_below="@id/nowTrendingID"
-        android:layout_marginStart="15dp"
-        android:layout_toEndOf="@id/mySong1">
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/paulolondradimelo"
-            android:adjustViewBounds="true"
-            android:maxWidth="@dimen/maxSizeImage"
-            android:maxHeight="@dimen/maxSizeImage"
-            android:id="@+id/song2CoverID"
-            android:layout_marginBottom="5dp"/>
-        <TextView
-            android:layout_width="@dimen/maxSizeImage"
-            android:layout_height="wrap_content"
-            android:textColor="@color/colorWhite"
-            android:text="Cancion"
-            android:textSize="@dimen/maxSizeSongName"
-            android:textStyle="bold"
-            android:gravity="center"
-            android:id="@+id/song2NameID"/>
-        <TextView
-            android:layout_width="@dimen/maxSizeImage"
-            android:layout_height="wrap_content"
-            android:textColor="@color/colorGray"
-            android:text="Artista"
-            android:textSize="@dimen/maxSizeArtistName"
-            android:gravity="center"
-            android:id="@+id/artist2NameID"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:id="@+id/mySong3"
-        android:layout_below="@id/nowTrendingID"
-        android:layout_marginStart="15dp"
-        android:layout_toEndOf="@id/mySong2">
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/childishgambinothisisamerica"
-            android:adjustViewBounds="true"
-            android:maxWidth="@dimen/maxSizeImage"
-            android:maxHeight="@dimen/maxSizeImage"
-            android:id="@+id/song3CoverID"
-            android:layout_marginBottom="5dp"/>
-        <TextView
-            android:layout_width="@dimen/maxSizeImage"
-            android:layout_height="wrap_content"
-            android:textColor="@color/colorWhite"
-            android:text="Cancion"
-            android:textSize="@dimen/maxSizeSongName"
-            android:textStyle="bold"
-            android:gravity="center"
-            android:id="@+id/song3NameID"/>
-        <TextView
-            android:layout_width="@dimen/maxSizeImage"
-            android:layout_height="wrap_content"
-            android:textColor="@color/colorGray"
-            android:text="Artista"
-            android:textSize="@dimen/maxSizeArtistName"
-            android:gravity="center"
-            android:id="@+id/artist3NameID"/>
-    </LinearLayout>
+        android:id="@+id/recyclerPopularAhora"
+        android:layout_below="@id/nowTrendingID"/>
 
     <TextView
         android:id="@+id/recentlyAddedID"
@@ -134,115 +33,14 @@
         android:layout_marginBottom="25dp"
         android:text="@string/recentlyAdded"
         android:textSize="@dimen/maxSizeTitleName"
-        android:layout_below="@id/mySong1"
+        android:layout_below="@id/recyclerPopularAhora"
         android:textStyle="bold"/>
 
-    <LinearLayout
+    <android.support.v7.widget.RecyclerView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:id="@+id/mySong4"
-        android:layout_below="@id/recentlyAddedID"
-        android:layout_marginStart="15dp">
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/nickyjamjbalvinx"
-            android:adjustViewBounds="true"
-            android:maxWidth="@dimen/maxSizeImage"
-            android:maxHeight="@dimen/maxSizeImage"
-            android:id="@+id/song4CoverID"
-            android:layout_marginBottom="5dp"/>
-        <TextView
-            android:layout_width="@dimen/maxSizeImage"
-            android:layout_height="wrap_content"
-            android:textColor="@color/colorWhite"
-            android:text="Cancion"
-            android:textSize="@dimen/maxSizeSongName"
-            android:textStyle="bold"
-            android:gravity="center"
-            android:id="@+id/song4NameID"/>
-        <TextView
-            android:layout_width="@dimen/maxSizeImage"
-            android:layout_height="wrap_content"
-            android:textColor="@color/colorGray"
-            android:text="Artista"
-            android:textSize="@dimen/maxSizeArtistName"
-            android:gravity="center"
-            android:id="@+id/artist4NameID"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:id="@+id/mySong5"
-        android:layout_below="@id/recentlyAddedID"
-        android:layout_toEndOf="@id/mySong4"
-        android:layout_marginStart="15dp">
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/reikftozunawisinmeniego"
-            android:adjustViewBounds="true"
-            android:maxWidth="@dimen/maxSizeImage"
-            android:maxHeight="@dimen/maxSizeImage"
-            android:id="@+id/song5CoverID"
-            android:layout_marginBottom="5dp"/>
-        <TextView
-            android:layout_width="@dimen/maxSizeImage"
-            android:layout_height="wrap_content"
-            android:text="Cancion"
-            android:textColor="@color/colorWhite"
-            android:textSize="@dimen/maxSizeSongName"
-            android:textStyle="bold"
-            android:gravity="center"
-            android:id="@+id/song5NameID"/>
-        <TextView
-            android:layout_width="@dimen/maxSizeImage"
-            android:layout_height="wrap_content"
-            android:textColor="@color/colorGray"
-            android:text="Artista"
-            android:textSize="@dimen/maxSizeArtistName"
-            android:gravity="center"
-            android:id="@+id/artist5NameID"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:id="@+id/mySong6"
-        android:layout_below="@id/recentlyAddedID"
-        android:layout_marginStart="15dp"
-        android:layout_toEndOf="@id/mySong5">
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/wolfinebella"
-            android:adjustViewBounds="true"
-            android:maxWidth="@dimen/maxSizeImage"
-            android:maxHeight="@dimen/maxSizeImage"
-            android:id="@+id/song6CoverID"
-            android:layout_marginBottom="5dp"/>
-        <TextView
-            android:layout_width="@dimen/maxSizeImage"
-            android:layout_height="wrap_content"
-            android:textColor="@color/colorWhite"
-            android:text="Cancion"
-            android:textSize="@dimen/maxSizeSongName"
-            android:textStyle="bold"
-            android:gravity="center"
-            android:id="@+id/song6NameID"/>
-        <TextView
-            android:layout_width="@dimen/maxSizeImage"
-            android:layout_height="wrap_content"
-            android:textColor="@color/colorGray"
-            android:text="Artista"
-            android:textSize="@dimen/maxSizeArtistName"
-            android:gravity="center"
-            android:id="@+id/artist6NameID"/>
-    </LinearLayout>
+        android:id="@+id/recyclerAgregadoRecientemente"
+        android:layout_below="@id/recentlyAddedID"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -327,7 +125,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:id="@+id/homeBtn">
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
