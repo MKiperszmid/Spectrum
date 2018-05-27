@@ -3,40 +3,178 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".SongFragment"
     android:background="@color/colorPrimaryDark">
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/childishgambinothisisamerica"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        android:id="@+id/descripcionCancionPortada"
+        android:alpha="0.47"/>
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-        <ImageView
-            android:layout_width="wrap_content"
+        android:layout_height="210dp"
+        android:orientation="vertical"
+        android:layout_gravity="bottom">
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:id="@+id/descripcionCancionPortada"
-            android:maxHeight="@dimen/maxSizeImage"
-            android:maxWidth="@dimen/maxSizeImage"
-            android:adjustViewBounds="true"
-            android:layout_margin="50dp"/>
-        <TextView
-            android:layout_width="wrap_content"
+            android:id="@+id/infoCancionContenedor"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Canción sonando"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/maxSizeSongOpenTitle"
+                android:id="@+id/descripcionCancionNombre"
+                android:layout_gravity="center"
+                android:layout_marginBottom="15dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Artista"
+                android:textColor="@color/colorWhite"
+                android:alpha="0.7"
+                android:textSize="@dimen/maxSizeSongName"
+                android:id="@+id/descripcionCancionArtista"
+                android:layout_gravity="center"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Song play"
-            android:textColor="@color/colorWhite"
-            android:textSize="@dimen/maxSizeTitleName"
-            android:id="@+id/descripcionCancionNombre"
-            android:layout_gravity="center"
-            android:layout_marginBottom="15dp"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Song play"
-            android:textColor="@color/colorWhite"
-            android:textSize="@dimen/maxSizeTitleName"
-            android:id="@+id/descripcionCancionArtista"
-            android:layout_gravity="center"/>
+            android:id="@+id/playerContainer"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="4dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp"
+                android:id="@+id/barraProgresoContainer">
+
+                <View android:layout_width="250dp"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/rectroundborders"
+                    android:backgroundTint="@color/colorAccent"
+                    android:id="@+id/barraEscuchado">
+                </View>
+
+                <View android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/barraDuracion"
+                    android:background="@drawable/rectroundborders"
+                    android:backgroundTint="@color/colorPrimaryDark">
+                </View>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
+
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_weight="1">
+
+                <ImageView android:layout_width="40dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/fav"
+                    android:scaleType="centerCrop"
+                    android:padding="10dp"
+                    android:layout_gravity="center">
+                </ImageView>
+
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_weight="1">
+                <ImageView android:layout_width="40dp"
+                    android:padding="10dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/prev"
+                    android:scaleType="centerCrop"
+                    android:layout_gravity="center">
+                </ImageView>
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_weight="1">
+
+                <android.support.design.widget.FloatingActionButton
+                    android:id="@+id/floatinActionButton"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:src="@drawable/stop"
+                    android:padding="40dp"
+                    android:scaleType="centerInside"
+                    android:layout_gravity="center"
+                    app:backgroundTint="@color/colorPrimary"/>
+            </FrameLayout>
+
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_weight="1">
+                <ImageView android:layout_width="40dp"
+                    android:padding="10dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/next"
+                    android:scaleType="centerCrop"
+                    android:layout_gravity="center">
+                </ImageView>
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_weight="1">
+                <ImageView android:layout_width="40dp"
+                    android:padding="10dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/plus"
+                    android:scaleType="centerCrop"
+                    android:layout_gravity="center">
+                </ImageView>
+            </FrameLayout>
+
+
+        </LinearLayout>
+
+
+
+
+
 
     </LinearLayout>
+
+
+
 
 </FrameLayout>
