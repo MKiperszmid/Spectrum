@@ -12,6 +12,8 @@ public class SongActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().hide();
+        //getSupportActionBar().setTitle("TITULO"); Sirve para cambiar el Titulo.
         setContentView(R.layout.activity_song);
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
