@@ -42,7 +42,7 @@ public class HomeFragment extends Fragment implements NotificadorCancionCelda {
 
     private void LoadCanciones(){
         canciones = new ArrayList<>();
-        canciones.add(new Cancion("La Nuba", "La Vela Puerca", R.drawable.lavelapuercalanube));
+        canciones.add(new Cancion("La Nube", "La Vela Puerca", R.drawable.lavelapuercalanube));
         canciones.add(new Cancion("This is America", "Childish Gambino", R.drawable.childishgambinothisisamerica));
         canciones.add(new Cancion("X", "Nicky Jam - J Balvin", R.drawable.nickyjamjbalvinx));
         canciones.add(new Cancion("Dimelo", "Paulo Londra", R.drawable.paulolondradimelo));

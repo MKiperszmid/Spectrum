@@ -80,14 +80,11 @@
 
         </LinearLayout>
 
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="70dp"
             android:layout_marginTop="20dp"
             android:orientation="horizontal">
-
-
             <FrameLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
@@ -99,6 +96,7 @@
                     android:src="@drawable/fav"
                     android:scaleType="centerCrop"
                     android:padding="10dp"
+                    android:id="@+id/heartClick"
                     android:layout_gravity="center">
                 </ImageView>
 
@@ -113,6 +111,7 @@
                     android:padding="10dp"
                     android:layout_height="20dp"
                     android:src="@drawable/prev"
+                    android:id="@+id/backClick"
                     android:scaleType="centerCrop"
                     android:layout_gravity="center">
                 </ImageView>
@@ -125,7 +124,7 @@
                 android:layout_weight="1">
 
                 <android.support.design.widget.FloatingActionButton
-                    android:id="@+id/floatinActionButton"
+                    android:id="@+id/pauseplayClick"
                     android:layout_width="70dp"
                     android:layout_height="70dp"
                     android:src="@drawable/stop"
@@ -146,6 +145,7 @@
                     android:layout_height="20dp"
                     android:src="@drawable/next"
                     android:scaleType="centerCrop"
+                    android:id="@+id/nextClick"
                     android:layout_gravity="center">
                 </ImageView>
             </FrameLayout>
@@ -160,17 +160,13 @@
                     android:layout_height="20dp"
                     android:src="@drawable/plus"
                     android:scaleType="centerCrop"
+                    android:id="@+id/agregarOffline"
                     android:layout_gravity="center">
                 </ImageView>
             </FrameLayout>
 
 
         </LinearLayout>
-
-
-
-
-
 
     </LinearLayout>
 
