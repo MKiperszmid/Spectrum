@@ -12,6 +12,7 @@
     <dimen name="maxSizeWIDTHUpPlayingIcon">35dp</dimen>
     <dimen name="maxSizeCurrentPlayingSize">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
-    <dimen name="maxSizeSongOpenTitle">20dp</dimen>
+    <dimen name="maxSizeSongNamePlaying">20dp</dimen>
+    <dimen name="maxSizeArtistNamePlaying">15sp</dimen>
     <dimen name="maxSongOptionIconsSize">40dp</dimen>
 </resources>

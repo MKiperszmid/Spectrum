@@ -1,6 +1,8 @@
 package com.example.dh.tpmusicagrupo3;
 import android.content.Context;
+import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -29,6 +31,7 @@ public class HomeFragment extends Fragment implements NotificadorCancionCelda {
     private NotificadorActivity notificadorActivity;
     private Cancion cancion;
     private List<Cancion> canciones;
+    public static MediaPlayer mp;
 
     public HomeFragment() {
         // Required empty public constructo
@@ -42,12 +45,12 @@ public class HomeFragment extends Fragment implements NotificadorCancionCelda {
 
     private void LoadCanciones(){
         canciones = new ArrayList<>();
-        canciones.add(new Cancion("La Nube", "La Vela Puerca", R.drawable.lavelapuercalanube));
-        canciones.add(new Cancion("This is America", "Childish Gambino", R.drawable.childishgambinothisisamerica));
-        canciones.add(new Cancion("X", "Nicky Jam - J Balvin", R.drawable.nickyjamjbalvinx));
-        canciones.add(new Cancion("Dimelo", "Paulo Londra", R.drawable.paulolondradimelo));
-        canciones.add(new Cancion("Me Niego", "Reik ft Osuna y Wisin", R.drawable.reikftozunawisinmeniego));
-        canciones.add(new Cancion("Bella", "Wolfine", R.drawable.wolfinebella));
+        canciones.add(new Cancion("La Nube", "La Vela Puerca", R.drawable.lavelapuercalanube, R.raw.thisisamerica));
+        canciones.add(new Cancion("This is America", "Childish Gambino", R.drawable.childishgambinothisisamerica, R.raw.thisisamerica));
+        canciones.add(new Cancion("X", "Nicky Jam - J Balvin", R.drawable.nickyjamjbalvinx, R.raw.thisisamerica));
+        canciones.add(new Cancion("Dimelo", "Paulo Londra", R.drawable.paulolondradimelo, R.raw.thisisamerica));
+        canciones.add(new Cancion("Me Niego", "Reik ft Osuna y Wisin", R.drawable.reikftozunawisinmeniego, R.raw.thisisamerica));
+        canciones.add(new Cancion("Bella", "Wolfine", R.drawable.wolfinebella, R.raw.thisisamerica));
     }
 
     @Override
@@ -144,6 +147,11 @@ public class HomeFragment extends Fragment implements NotificadorCancionCelda {
 
     @Override
     public void notificarCancionClickeada(Cancion cancionClickeada) {
+        if(mp != null){
+            mp.release();
+        }
+        mp = MediaPlayer.create(getActivity(), cancionClickeada.getCancionID());
+        mp.start();
         notificadorActivity.recibirCancion(cancionClickeada);
     }
 

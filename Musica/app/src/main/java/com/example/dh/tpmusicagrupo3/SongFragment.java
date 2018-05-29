@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import static com.example.dh.tpmusicagrupo3.HomeFragment.mp;
 
 public class SongFragment extends Fragment {
 
@@ -25,6 +26,7 @@ public class SongFragment extends Fragment {
     private ImageView agregarOffline;
     private FloatingActionButton pauseplayClick;
     private Cancion cancion;
+    private int currentPosition;
     public SongFragment() {
         // Required empty public constructor
     }
@@ -62,13 +64,26 @@ public class SongFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getActivity(), "Retroceder", Toast.LENGTH_SHORT).show();
+                currentPosition = 0;
+                mp.pause();
+                mp.seekTo(currentPosition);
+                mp.start();
             }
         });
         pauseplayClick = view.findViewById(R.id.pauseplayClick);
         pauseplayClick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getActivity(), "Pausa/Play", Toast.LENGTH_SHORT).show();
+                if(mp.isPlaying()){
+                    Toast.makeText(getActivity(), "Pausa", Toast.LENGTH_SHORT).show();
+                    mp.pause();
+                    currentPosition = mp.getCurrentPosition();
+                }
+                else {
+                    Toast.makeText(getActivity(), "Play", Toast.LENGTH_SHORT).show();
+                    mp.seekTo(currentPosition);
+                    mp.start();
+                }
             }
         });
 
