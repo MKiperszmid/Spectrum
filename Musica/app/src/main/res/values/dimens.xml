@@ -13,4 +13,5 @@
     <dimen name="maxSizeCurrentPlayingSize">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="maxSizeSongOpenTitle">20dp</dimen>
+    <dimen name="maxSongOptionIconsSize">40dp</dimen>
 </resources>

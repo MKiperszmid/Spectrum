@@ -41,7 +41,7 @@
                 android:layout_height="wrap_content"
                 android:text="Artista"
                 android:textColor="@color/colorWhite"
-                android:alpha="0.7"
+                android:alpha="0.75"
                 android:textSize="@dimen/maxSizeSongName"
                 android:id="@+id/descripcionCancionArtista"
                 android:layout_gravity="center"/>
@@ -91,13 +91,11 @@
                 android:orientation="horizontal"
                 android:layout_weight="1">
 
-                <ImageView android:layout_width="40dp"
-                    android:layout_height="20dp"
+                <ImageView android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/SongOptionsIcons"
                     android:src="@drawable/fav"
-                    android:scaleType="centerCrop"
-                    android:padding="10dp"
-                    android:id="@+id/heartClick"
-                    android:layout_gravity="center">
+                    android:id="@+id/heartClick">
                 </ImageView>
 
             </FrameLayout>
@@ -107,13 +105,11 @@
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
                 android:layout_weight="1">
-                <ImageView android:layout_width="40dp"
-                    android:padding="10dp"
-                    android:layout_height="20dp"
+                <ImageView android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/SongOptionsIcons"
                     android:src="@drawable/prev"
-                    android:id="@+id/backClick"
-                    android:scaleType="centerCrop"
-                    android:layout_gravity="center">
+                    android:id="@+id/backClick">
                 </ImageView>
             </FrameLayout>
 
@@ -134,19 +130,16 @@
                     app:backgroundTint="@color/colorPrimary"/>
             </FrameLayout>
 
-
             <FrameLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
                 android:layout_weight="1">
-                <ImageView android:layout_width="40dp"
-                    android:padding="10dp"
-                    android:layout_height="20dp"
+                <ImageView android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/SongOptionsIcons"
                     android:src="@drawable/next"
-                    android:scaleType="centerCrop"
-                    android:id="@+id/nextClick"
-                    android:layout_gravity="center">
+                    android:id="@+id/nextClick">
                 </ImageView>
             </FrameLayout>
 
@@ -155,22 +148,17 @@
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
                 android:layout_weight="1">
-                <ImageView android:layout_width="40dp"
-                    android:padding="10dp"
-                    android:layout_height="20dp"
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/SongOptionsIcons"
                     android:src="@drawable/plus"
-                    android:scaleType="centerCrop"
-                    android:id="@+id/agregarOffline"
-                    android:layout_gravity="center">
+                    android:id="@+id/agregarOffline">
                 </ImageView>
             </FrameLayout>
-
 
         </LinearLayout>
 
     </LinearLayout>
-
-
-
 
 </FrameLayout>
