@@ -106,7 +106,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Cancion"
+                tools:text="Cancion"
                 android:textStyle="bold"
                 android:textSize="@dimen/maxSizeSongName"
                 android:layout_centerVertical="true"
@@ -117,6 +117,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=" - "
+                android:visibility="invisible"
                 android:textStyle="bold"
                 android:textSize="@dimen/maxSizeSongName"
                 android:layout_centerHorizontal="true"
@@ -126,7 +127,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Artista"
+                tools:text="Artista"
                 android:textColor="@color/colorGrayWhite"
                 android:layout_toEndOf="@id/separatorCurrentPlayingID"
                 android:layout_centerVertical="true"

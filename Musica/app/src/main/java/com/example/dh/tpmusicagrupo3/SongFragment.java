@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-import static com.example.dh.tpmusicagrupo3.HomeFragment.mp;
 
 public class SongFragment extends Fragment {
 
@@ -37,6 +36,7 @@ public class SongFragment extends Fragment {
                              Bundle savedInstanceState) {
         Bundle bundle = getArguments();
         cancion = (Cancion) bundle.getSerializable(cancionKey);
+
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_song, container, false);
         descripcionCancionNombre = view.findViewById(R.id.descripcionCancionNombre);
@@ -64,26 +64,15 @@ public class SongFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getActivity(), "Retroceder", Toast.LENGTH_SHORT).show();
-                currentPosition = 0;
-                mp.pause();
-                mp.seekTo(currentPosition);
-                mp.start();
+                MediaPlayerController.retroceder();
             }
         });
         pauseplayClick = view.findViewById(R.id.pauseplayClick);
+
         pauseplayClick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(mp.isPlaying()){
-                    Toast.makeText(getActivity(), "Pausa", Toast.LENGTH_SHORT).show();
-                    mp.pause();
-                    currentPosition = mp.getCurrentPosition();
-                }
-                else {
-                    Toast.makeText(getActivity(), "Play", Toast.LENGTH_SHORT).show();
-                    mp.seekTo(currentPosition);
-                    mp.start();
-                }
+                MediaPlayerController.playPause(pauseplayClick);
             }
         });
 
@@ -103,5 +92,16 @@ public class SongFragment extends Fragment {
         });
 
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(MediaPlayerController.isPlaying()){
+            pauseplayClick.setImageResource(R.drawable.stop);
+        }
+        else {
+            pauseplayClick.setImageResource(R.drawable.play);
+        }
     }
 }

@@ -29,9 +29,11 @@ import java.util.List;
 public class HomeFragment extends Fragment implements NotificadorCancionCelda {
 
     private NotificadorActivity notificadorActivity;
-    private Cancion cancion;
+    private Cancion cancionActual;
     private List<Cancion> canciones;
-    public static MediaPlayer mp;
+    private ImageView playBtn;
+    private TextView cancionPlaying;
+    private TextView artistaPlaying;
 
     public HomeFragment() {
         // Required empty public constructo
@@ -63,6 +65,9 @@ public class HomeFragment extends Fragment implements NotificadorCancionCelda {
 
         RelativeLayout queue = view.findViewById(R.id.relativeQueue);
 
+        cancionPlaying = view.findViewById(R.id.cancionCurrentPlayingID);
+        artistaPlaying = view.findViewById(R.id.artistCurrentPlayingID);
+
         RecyclerView rvPopular = view.findViewById(R.id.recyclerPopularAhora);
         RecyclerView rvAgregado = view.findViewById(R.id.recyclerAgregadoRecientemente);
 
@@ -82,7 +87,9 @@ public class HomeFragment extends Fragment implements NotificadorCancionCelda {
 
         queue.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
-                Toast.makeText(getActivity(), "Ver Cancion", Toast.LENGTH_SHORT).show();// Play canción
+                if (cancionActual != null){
+                    notificadorActivity.recibirCancion(cancionActual);
+                }
             }
         });
 
@@ -124,11 +131,11 @@ public class HomeFragment extends Fragment implements NotificadorCancionCelda {
         });
 
         /* Botón Play */
-        ImageView playBtn = view.findViewById(R.id.playBtn);
+        playBtn = view.findViewById(R.id.playBtn);
         playBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(), "Play", Toast.LENGTH_SHORT).show();
+                MediaPlayerController.playPause(playBtn);
             }
         });
 
@@ -138,7 +145,9 @@ public class HomeFragment extends Fragment implements NotificadorCancionCelda {
         upBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(), "Ver Cancion", Toast.LENGTH_SHORT).show();
+                if (cancionActual != null){
+                    notificadorActivity.recibirCancion(cancionActual);
+                }
             }
         });
         
@@ -147,12 +156,24 @@ public class HomeFragment extends Fragment implements NotificadorCancionCelda {
 
     @Override
     public void notificarCancionClickeada(Cancion cancionClickeada) {
-        if(mp != null){
-            mp.release();
-        }
-        mp = MediaPlayer.create(getActivity(), cancionClickeada.getCancionID());
-        mp.start();
+        MediaPlayerController.create(getActivity(), cancionClickeada.getCancionID());
+        cancionActual = cancionClickeada;
         notificadorActivity.recibirCancion(cancionClickeada);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(cancionActual != null){
+            cancionPlaying.setText(cancionActual.getNombreCancion());
+            artistaPlaying.setText(cancionActual.getNombreArtista());
+        }
+        if(MediaPlayerController.isPlaying()){
+            playBtn.setImageResource(R.drawable.stop);
+        }
+        else {
+            playBtn.setImageResource(R.drawable.play);
+        }
     }
 
     public interface NotificadorActivity{

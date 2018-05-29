@@ -2,8 +2,8 @@ package com.example.dh.tpmusicagrupo3;
 
 import android.content.Context;
 import android.media.MediaPlayer;
-
-import static com.example.dh.tpmusicagrupo3.HomeFragment.mp;
+import android.support.design.widget.FloatingActionButton;
+import android.widget.ImageView;
 
 /**
  * Created by DH on 29/5/2018.
@@ -13,7 +13,18 @@ public class MediaPlayerController {
 
     //TODO: Hacer que esta clase sea la contenedora del MediaPlayer, y no el HomeFragment.
 
+
+    private static MediaPlayer mp;
+
     private static int currentPosition = 0;
+
+    public static boolean exists(){
+        return mp != null;
+    }
+
+    public static boolean isPlaying(){
+        return exists() && mp.isPlaying();
+    }
 
     public static void retroceder(){
         currentPosition = 0;
@@ -22,25 +33,42 @@ public class MediaPlayerController {
     }
 
     private static void clear(){
-        if(mp != null)
+        if(exists())
             mp.release();
     }
 
-    public static void pause(){
+    private static void pause(){
         mp.pause();
         currentPosition = mp.getCurrentPosition();
     }
 
-    public static void play(){
+    private static void play(){
         goToPosition(currentPosition);
         mp.start();
     }
 
-    public static void playPause(){
-        if(mp.isPlaying())
+    public static void playPause(ImageView img){
+        if(!exists()) return;
+        if(mp.isPlaying()){
+            img.setImageResource(R.drawable.play);
             pause();
-        else
+        }
+        else{
+            img.setImageResource(R.drawable.stop);
             play();
+        }
+    }
+
+    public static void playPause(FloatingActionButton btn){
+        if(!exists()) return;
+        if(mp.isPlaying()){
+            btn.setImageResource(R.drawable.play);
+            pause();
+        }
+        else{
+            btn.setImageResource(R.drawable.stop);
+            play();
+        }
     }
 
     public static void create(Context context, int cancionID){
@@ -51,6 +79,7 @@ public class MediaPlayerController {
     }
 
     public static void goToPosition(int posicion){
+        if(!exists()) return;
         mp.seekTo(posicion);
     }
 }
