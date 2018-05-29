@@ -20,6 +20,8 @@ import android.widget.Toast;
 
 import com.example.dh.tpmusicagrupo3.AdapterCancionArtistaPortada.NotificadorCancionCelda;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,6 +35,7 @@ public class HomeFragment extends Fragment implements NotificadorCancionCelda {
     private List<Cancion> canciones;
     private ImageView playBtn;
     private TextView cancionPlaying;
+    private TextView separatorPlaying;
     private TextView artistaPlaying;
 
     public HomeFragment() {
@@ -67,6 +70,7 @@ public class HomeFragment extends Fragment implements NotificadorCancionCelda {
 
         cancionPlaying = view.findViewById(R.id.cancionCurrentPlayingID);
         artistaPlaying = view.findViewById(R.id.artistCurrentPlayingID);
+        separatorPlaying = view.findViewById(R.id.separatorCurrentPlayingID);
 
         RecyclerView rvPopular = view.findViewById(R.id.recyclerPopularAhora);
         RecyclerView rvAgregado = view.findViewById(R.id.recyclerAgregadoRecientemente);
@@ -166,6 +170,7 @@ public class HomeFragment extends Fragment implements NotificadorCancionCelda {
         super.onResume();
         if(cancionActual != null){
             cancionPlaying.setText(cancionActual.getNombreCancion());
+            separatorPlaying.setText(" - ");
             artistaPlaying.setText(cancionActual.getNombreArtista());
         }
         if(MediaPlayerController.isPlaying()){
