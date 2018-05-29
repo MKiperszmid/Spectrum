@@ -50,12 +50,12 @@ public class HomeFragment extends Fragment implements NotificadorCancionCelda {
 
     private void LoadCanciones(){
         canciones = new ArrayList<>();
-        canciones.add(new Cancion("La Nube", "La Vela Puerca", R.drawable.lavelapuercalanube, R.raw.thisisamerica));
+        canciones.add(new Cancion("La Nube", "La Vela Puerca", R.drawable.lavelapuercalanube, R.raw.lanube));
         canciones.add(new Cancion("This is America", "Childish Gambino", R.drawable.childishgambinothisisamerica, R.raw.thisisamerica));
-        canciones.add(new Cancion("X", "Nicky Jam - J Balvin", R.drawable.nickyjamjbalvinx, R.raw.thisisamerica));
-        canciones.add(new Cancion("Dimelo", "Paulo Londra", R.drawable.paulolondradimelo, R.raw.thisisamerica));
-        canciones.add(new Cancion("Me Niego", "Reik ft Osuna y Wisin", R.drawable.reikftozunawisinmeniego, R.raw.thisisamerica));
-        canciones.add(new Cancion("Bella", "Wolfine", R.drawable.wolfinebella, R.raw.thisisamerica));
+        canciones.add(new Cancion("X", "Nicky Jam - J Balvin", R.drawable.nickyjamjbalvinx, R.raw.x));
+        canciones.add(new Cancion("Dimelo", "Paulo Londra", R.drawable.paulolondradimelo, R.raw.dimelo));
+        canciones.add(new Cancion("Me Niego", "Reik ft Osuna y Wisin", R.drawable.reikftozunawisinmeniego, R.raw.meniego));
+        canciones.add(new Cancion("Bella", "Wolfine", R.drawable.wolfinebella, R.raw.bella));
     }
 
     @Override
