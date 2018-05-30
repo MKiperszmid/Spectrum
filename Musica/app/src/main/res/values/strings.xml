@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Inicio</string>
+    <string name="app_name">Spectrum</string>
     <string name="home">Inicio</string>
     <string name="nowTrending">Popular ahora</string>
     <string name="recentlyAdded">Agregado recientemente</string>
