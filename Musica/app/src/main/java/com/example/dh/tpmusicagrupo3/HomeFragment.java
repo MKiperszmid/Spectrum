@@ -1,5 +1,8 @@
 package com.example.dh.tpmusicagrupo3;
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -15,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import android.widget.RelativeLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,6 +41,19 @@ public class HomeFragment extends Fragment implements NotificadorCancionCelda {
     private TextView cancionPlaying;
     private TextView separatorPlaying;
     private TextView artistaPlaying;
+
+
+    // Iconos de bottom bar
+    private ImageView homeBtnIcon;
+    private ImageView explorarBtnIcon;
+    private ImageView buscarBtnIcon;
+    private ImageView perfilBtnIcon;
+
+    private TextView homeBtnTxt;
+    private TextView explorarBtnTxt;
+    private TextView buscarBtnTxt;
+    private TextView perfilBtnTxt;
+
 
     public HomeFragment() {
         // Required empty public constructo
@@ -97,13 +114,25 @@ public class HomeFragment extends Fragment implements NotificadorCancionCelda {
             }
         });
 
+
+        homeBtnIcon = view.findViewById(R.id.homeIconID);
+        explorarBtnIcon = view.findViewById(R.id.exploreIconID);
+        buscarBtnIcon = view.findViewById(R.id.searchIconID);
+        perfilBtnIcon = view.findViewById(R.id.profileIconID);
+        homeBtnTxt = view.findViewById(R.id.homeTxtID);
+        explorarBtnTxt = view.findViewById(R.id.explorarTxtID);
+        buscarBtnTxt = view.findViewById(R.id.buscarTxtID);
+        perfilBtnTxt = view.findViewById(R.id.perfilTxtID);
+
         /* Bottom bar */
 
+        /* Botón Home */
         LinearLayout homeBtn = view.findViewById(R.id.homeBtn);
         homeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getActivity(), "Home", Toast.LENGTH_SHORT).show();
+                cambiarIcono("home");
             }
         });
 
@@ -113,6 +142,7 @@ public class HomeFragment extends Fragment implements NotificadorCancionCelda {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getActivity(), "Explorar", Toast.LENGTH_SHORT).show();
+                cambiarIcono("explorar");
             }
         });
 
@@ -122,6 +152,7 @@ public class HomeFragment extends Fragment implements NotificadorCancionCelda {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getActivity(), "Buscar", Toast.LENGTH_SHORT).show();
+                cambiarIcono("buscar");
             }
         });
 
@@ -131,6 +162,7 @@ public class HomeFragment extends Fragment implements NotificadorCancionCelda {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getActivity(), "Perfil", Toast.LENGTH_SHORT).show();
+                cambiarIcono("perfil");
             }
         });
 
@@ -184,4 +216,40 @@ public class HomeFragment extends Fragment implements NotificadorCancionCelda {
     public interface NotificadorActivity{
         void recibirCancion(Cancion cancion);
     }
+
+
+    private void cambiarIcono(String seccionNombre) {
+
+        // Reset, pongo todos los iconos en gris
+        homeBtnIcon.setImageResource(R.drawable.home);
+        explorarBtnIcon.setImageResource(R.drawable.explorar);
+        buscarBtnIcon.setImageResource(R.drawable.buscar);
+        perfilBtnIcon.setImageResource(R.drawable.perfil);
+        homeBtnTxt.setTextColor(getResources().getColor(R.color.colorGraySemiWhite));
+        explorarBtnTxt.setTextColor(getResources().getColor(R.color.colorGraySemiWhite));
+        buscarBtnTxt.setTextColor(getResources().getColor(R.color.colorGraySemiWhite));
+        perfilBtnTxt.setTextColor(getResources().getColor(R.color.colorGraySemiWhite));
+
+        // Dependiendo cual toco le cambio icono y color de texto
+        switch(seccionNombre){
+            case "home":
+                homeBtnIcon.setImageResource(R.drawable.homeactivo);
+                homeBtnTxt.setTextColor(getResources().getColor(R.color.colorAccent));
+            break;
+            case "explorar":
+                explorarBtnIcon.setImageResource(R.drawable.exploraractivo);
+                explorarBtnTxt.setTextColor(getResources().getColor(R.color.colorAccent));
+            break;
+            case "buscar":
+                buscarBtnIcon.setImageResource(R.drawable.buscaractivo);
+                buscarBtnTxt.setTextColor(getResources().getColor(R.color.colorAccent));
+            break;
+            case "perfil":
+                perfilBtnIcon.setImageResource(R.drawable.perfilactivo);
+                perfilBtnTxt.setTextColor(getResources().getColor(R.color.colorAccent));
+            break;
+        }
+
+    }
+
 }

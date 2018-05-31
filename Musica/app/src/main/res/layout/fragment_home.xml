@@ -177,6 +177,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:textColor="@color/colorAccent"
+                    android:id="@+id/homeTxtID"
                     android:textSize="@dimen/maxSizeNavBarItem"
                     android:text="Inicio"/>
             </LinearLayout>
@@ -201,6 +202,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:textSize="@dimen/maxSizeNavBarItem"
+                    android:id="@+id/explorarTxtID"
                     android:textColor="@color/colorGraySemiWhite"
                     android:text="Explorar"/>
             </LinearLayout>
@@ -224,6 +226,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
+                    android:id="@+id/buscarTxtID"
                     android:textColor="@color/colorGraySemiWhite"
                     android:textSize="@dimen/maxSizeNavBarItem"
                     android:text="Buscar"/>
@@ -249,6 +252,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/colorGraySemiWhite"
                     android:gravity="center"
+                    android:id="@+id/perfilTxtID"
                     android:textSize="@dimen/maxSizeNavBarItem"
                     android:text="Perfil"/>
             </LinearLayout>
