@@ -192,8 +192,10 @@ public class HomeFragment extends Fragment implements NotificadorCancionCelda {
 
     @Override
     public void notificarCancionClickeada(Cancion cancionClickeada) {
-        MediaPlayerController.create(getActivity(), cancionClickeada.getCancionID());
-        cancionActual = cancionClickeada;
+        if(cancionActual != cancionClickeada){
+            MediaPlayerController.create(getActivity(), cancionClickeada.getCancionID());
+            cancionActual = cancionClickeada;
+        }
         notificadorActivity.recibirCancion(cancionClickeada);
     }
 

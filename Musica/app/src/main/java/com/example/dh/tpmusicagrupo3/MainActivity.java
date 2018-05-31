@@ -14,6 +14,7 @@ public class MainActivity extends AppCompatActivity implements NotificadorActivi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        getSupportActionBar().setTitle("Inicio");
         LoadFragment(new HomeFragment(), R.id.homeID);
     }
 
