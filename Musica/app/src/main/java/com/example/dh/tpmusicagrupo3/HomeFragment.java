@@ -29,9 +29,6 @@ import org.w3c.dom.Text;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class HomeFragment extends Fragment implements NotificadorCancionCelda {
 
     private NotificadorActivity notificadorActivity;

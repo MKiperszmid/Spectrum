@@ -12,10 +12,6 @@ import org.w3c.dom.Text;
 
 import java.util.List;
 
-/**
- * Created by DH on 22/5/2018.
- */
-
 public class AdapterCancionArtistaPortada extends RecyclerView.Adapter {
 
     private List<Cancion> canciones;

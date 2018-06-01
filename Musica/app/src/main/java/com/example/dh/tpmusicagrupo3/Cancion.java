@@ -6,10 +6,6 @@ import android.os.Parcelable;
 
 import java.io.Serializable;
 
-/**
- * Created by DH on 21/5/2018.
- */
-
 public class Cancion implements Serializable{
     private String nombreCancion;
     private String nombreArtista; //Reemplazar con clase ARTISTA en un futuro

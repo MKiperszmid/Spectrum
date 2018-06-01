@@ -5,14 +5,7 @@ import android.media.MediaPlayer;
 import android.support.design.widget.FloatingActionButton;
 import android.widget.ImageView;
 
-/**
- * Created by DH on 29/5/2018.
- */
-
 public class MediaPlayerController {
-
-    //TODO: Hacer que esta clase sea la contenedora del MediaPlayer, y no el HomeFragment.
-
 
     private static MediaPlayer mp;
 
@@ -40,6 +33,10 @@ public class MediaPlayerController {
     private static void pause(){
         mp.pause();
         currentPosition = mp.getCurrentPosition();
+    }
+
+    private static void loop(){
+        mp.setLooping(true);
     }
 
     private static void play(){
