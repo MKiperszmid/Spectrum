@@ -1,4 +1,3 @@
-
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -17,64 +16,64 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/nowTrendingID"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_margin="18dp"
-        android:text="@string/nowTrending"
-        android:textSize="@dimen/maxSizeTitleName"
-        android:textStyle="bold"
-        android:textColor="@color/colorWhite"/>
+        <TextView
+            android:id="@+id/nowTrendingID"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="18dp"
+            android:text="@string/nowTrending"
+            android:textSize="@dimen/maxSizeTitleName"
+            android:textStyle="bold"
+            android:textColor="@color/colorWhite"/>
 
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/recyclerPopularAhora"
+            android:layout_below="@id/nowTrendingID"/>
 
-    <android.support.v7.widget.RecyclerView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/recyclerPopularAhora"
-        android:layout_below="@id/nowTrendingID"/>
+        <TextView
+            android:id="@+id/recentlyAddedID"
+            android:layout_width="wrap_content"
+            android:textColor="@color/colorWhite"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="25dp"
+            android:layout_marginBottom="25dp"
+            android:text="@string/recentlyAdded"
+            android:textSize="@dimen/maxSizeTitleName"
+            android:layout_below="@id/recyclerPopularAhora"
+            android:textStyle="bold"/>
 
-    <TextView
-        android:id="@+id/recentlyAddedID"
-        android:layout_width="wrap_content"
-        android:textColor="@color/colorWhite"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="25dp"
-        android:layout_marginBottom="25dp"
-        android:text="@string/recentlyAdded"
-        android:textSize="@dimen/maxSizeTitleName"
-        android:layout_below="@id/recyclerPopularAhora"
-        android:textStyle="bold"/>
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/recyclerAgregadoRecientemente"
+            android:layout_below="@id/recentlyAddedID"/>
 
-    <android.support.v7.widget.RecyclerView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/recyclerAgregadoRecientemente"
-        android:layout_below="@id/recentlyAddedID"/>
+        <TextView
+            android:id="@+id/trendingArgentinaID"
+            android:layout_width="wrap_content"
+            android:textColor="@color/colorWhite"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="25dp"
+            android:layout_marginBottom="25dp"
+            android:text="@string/trendingArgentina"
+            android:textSize="@dimen/maxSizeTitleName"
+            android:layout_below="@id/recyclerAgregadoRecientemente"
+            android:textStyle="bold"/>
 
-    <TextView
-        android:id="@+id/trendingArgentinaID"
-        android:layout_width="wrap_content"
-        android:textColor="@color/colorWhite"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="25dp"
-        android:layout_marginBottom="25dp"
-        android:text="@string/trendingArgentina"
-        android:textSize="@dimen/maxSizeTitleName"
-        android:layout_below="@id/recyclerAgregadoRecientemente"
-        android:textStyle="bold"/>
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/recyclerTrendingArgentina"
+            android:layout_below="@id/trendingArgentinaID"/>
 
-    <android.support.v7.widget.RecyclerView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/recyclerTrendingArgentina"
-        android:layout_below="@id/trendingArgentinaID"/>
         </RelativeLayout>
-</ScrollView>
+    </ScrollView>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -93,57 +92,56 @@
             android:layout_marginBottom="2dp"
             android:background="@color/colorPrimary">
             <ImageView
-                android:layout_width="70dp"
+                android:layout_width="25dp"
                 android:layout_height="@dimen/maxSizeUpPlayingIcon"
                 android:src="@drawable/flecha"
                 android:adjustViewBounds="true"
-                android:paddingRight="20dp"
-                android:paddingLeft="20dp"
+                android:layout_marginLeft="25dp"
                 android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
-                android:id="@+id/upBtn"
-                android:layout_marginStart="15dp" />
-            <TextView
-                android:layout_width="wrap_content"
+                android:id="@+id/upBtn"/>
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:text="Cancion"
-                android:textStyle="bold"
-                android:textSize="@dimen/maxSizeSongName"
-                android:layout_centerVertical="true"
-                android:layout_toStartOf="@id/separatorCurrentPlayingID"
-                android:textColor="@color/colorWhite"
-                android:id="@+id/cancionCurrentPlayingID"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                tools:text=" - "
-                android:textStyle="bold"
-                android:textSize="@dimen/maxSizeSongName"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:textColor="@color/colorWhite"
-                android:id="@+id/separatorCurrentPlayingID"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                tools:text="Artista"
-                android:textColor="@color/colorGrayWhite"
-                android:layout_toEndOf="@id/separatorCurrentPlayingID"
-                android:layout_centerVertical="true"
-                android:textSize="@dimen/maxSizeSongName"
-                android:id="@+id/artistCurrentPlayingID"/>
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_toRightOf="@id/upBtn"
+                android:padding="10dp"
+                android:layout_toLeftOf="@id/playBtn">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="Cancion"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/maxSizeSongName"
+                    android:textColor="@color/colorWhite"
+                    android:id="@+id/cancionCurrentPlayingID"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text=" - "
+                    android:textStyle="bold"
+                    android:textSize="@dimen/maxSizeSongName"
+                    android:textColor="@color/colorWhite"
+                    android:id="@+id/separatorCurrentPlayingID"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="Artista"
+                    android:textColor="@color/colorGrayWhite"
+                    android:textSize="@dimen/maxSizeSongName"
+                    android:id="@+id/artistCurrentPlayingID"/>
+            </LinearLayout>
             <ImageView
-                android:layout_width="70dp"
+                android:layout_width="30dp"
                 android:layout_height="wrap_content"
                 android:src="@drawable/play"
                 android:adjustViewBounds="true"
                 android:maxWidth="@dimen/maxSizeCurrentPlayingPlay"
-                android:paddingLeft="20dp"
-                android:paddingRight="15dp"
                 android:maxHeight="@dimen/maxSizeCurrentPlayingPlay"
+                android:layout_marginRight="25dp"
                 android:layout_centerVertical="true"
                 android:layout_alignParentEnd="true"
-                android:layout_marginEnd="10dp"
                 android:id="@+id/playBtn"/>
         </RelativeLayout>
 
@@ -151,7 +149,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_alignParentBottom="true"
             android:id="@+id/navBarID"
             android:background="@color/colorPrimary"
             android:paddingTop="5dp"
