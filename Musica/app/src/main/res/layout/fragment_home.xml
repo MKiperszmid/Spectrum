@@ -76,182 +76,200 @@
     </ScrollView>
 
     <LinearLayout
+        android:id="@+id/music_tool_contoller"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:id="@+id/music_tool_contoller"
+        android:layout_alignParentBottom="true"
         android:background="@color/colorBlack"
-        android:layout_alignParentBottom="true">
+        android:orientation="vertical">
 
         <RelativeLayout
+            android:id="@+id/relativeQueue"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="15dp"
-            android:paddingTop="15dp"
-            android:id="@+id/relativeQueue"
             android:layout_marginBottom="2dp"
-            android:background="@color/colorPrimary">
+            android:background="@color/colorPrimary"
+            android:paddingBottom="15dp"
+            android:paddingTop="15dp">
+
             <ImageView
+                android:id="@+id/upBtn"
                 android:layout_width="25dp"
                 android:layout_height="@dimen/maxSizeUpPlayingIcon"
-                android:src="@drawable/flecha"
-                android:adjustViewBounds="true"
-                android:layout_marginLeft="25dp"
                 android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
-                android:id="@+id/upBtn"/>
+                android:layout_marginLeft="25dp"
+                android:adjustViewBounds="true"
+                android:src="@drawable/flecha" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center"
+                android:layout_toLeftOf="@id/playBtn"
                 android:layout_toRightOf="@id/upBtn"
-                android:padding="10dp"
-                android:layout_toLeftOf="@id/playBtn">
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
                 <TextView
+                    android:id="@+id/cancionCurrentPlayingID"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    tools:text="Cancion"
-                    android:textStyle="bold"
-                    android:textSize="@dimen/maxSizeSongName"
                     android:textColor="@color/colorWhite"
-                    android:id="@+id/cancionCurrentPlayingID"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    tools:text=" - "
-                    android:textStyle="bold"
                     android:textSize="@dimen/maxSizeSongName"
-                    android:textColor="@color/colorWhite"
-                    android:id="@+id/separatorCurrentPlayingID"/>
+                    android:textStyle="bold"
+                    tools:text="Cancion" />
+
                 <TextView
+                    android:id="@+id/separatorCurrentPlayingID"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    tools:text="Artista"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/maxSizeSongName"
+                    android:textStyle="bold"
+                    tools:text=" - " />
+
+                <TextView
+                    android:id="@+id/artistCurrentPlayingID"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:textColor="@color/colorGrayWhite"
                     android:textSize="@dimen/maxSizeSongName"
-                    android:id="@+id/artistCurrentPlayingID"/>
+                    tools:text="Artista" />
             </LinearLayout>
+
             <ImageView
+                android:id="@+id/playBtn"
                 android:layout_width="30dp"
                 android:layout_height="wrap_content"
-                android:src="@drawable/play"
-                android:adjustViewBounds="true"
-                android:maxWidth="@dimen/maxSizeCurrentPlayingPlay"
-                android:maxHeight="@dimen/maxSizeCurrentPlayingPlay"
-                android:layout_marginRight="25dp"
-                android:layout_centerVertical="true"
                 android:layout_alignParentEnd="true"
-                android:id="@+id/playBtn"/>
+                android:layout_centerVertical="true"
+                android:layout_marginRight="25dp"
+                android:adjustViewBounds="true"
+                android:maxHeight="@dimen/maxSizeCurrentPlayingPlay"
+                android:maxWidth="@dimen/maxSizeCurrentPlayingPlay"
+                android:src="@drawable/play" />
         </RelativeLayout>
 
         <LinearLayout
+            android:id="@+id/navBarID"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:id="@+id/navBarID"
             android:background="@color/colorPrimary"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp">
+            android:orientation="horizontal"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp">
+
             <LinearLayout
+                android:id="@+id/homeBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
                 android:layout_weight="1"
-                android:id="@+id/homeBtn">
+                android:orientation="vertical">
+
                 <ImageView
+                    android:id="@+id/homeIconID"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/homeactivo"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="5dp"
                     android:adjustViewBounds="true"
                     android:maxHeight="@dimen/maxSizeNavBarIcon"
                     android:maxWidth="@dimen/maxSizeNavBarIcon"
-                    android:id="@+id/homeIconID"
-                    android:layout_gravity="center"
-                    android:layout_marginBottom="5dp"/>
+                    android:src="@drawable/homeactivo" />
+
                 <TextView
+                    android:id="@+id/homeTxtID"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
+                    android:text="Inicio"
                     android:textColor="@color/colorAccent"
-                    android:id="@+id/homeTxtID"
-                    android:textSize="@dimen/maxSizeNavBarItem"
-                    android:text="Inicio"/>
+                    android:textSize="@dimen/maxSizeNavBarItem" />
             </LinearLayout>
+
             <LinearLayout
+                android:id="@+id/explorarBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
                 android:layout_weight="1"
-                android:id="@+id/explorarBtn">
+                android:orientation="vertical">
+
                 <ImageView
+                    android:id="@+id/exploreIconID"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/explorar"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="5dp"
                     android:adjustViewBounds="true"
                     android:maxHeight="60dp"
                     android:maxWidth="@dimen/maxSizeNavBarIcon"
-                    android:id="@+id/exploreIconID"
-                    android:layout_gravity="center"
-                    android:layout_marginBottom="5dp"/>
+                    android:src="@drawable/explorar" />
+
                 <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:textSize="@dimen/maxSizeNavBarItem"
                     android:id="@+id/explorarTxtID"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Explorar"
                     android:textColor="@color/colorGraySemiWhite"
-                    android:text="Explorar"/>
+                    android:textSize="@dimen/maxSizeNavBarItem" />
             </LinearLayout>
+
             <LinearLayout
+                android:id="@+id/buscarBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
                 android:layout_weight="1"
-                android:id="@+id/buscarBtn">
+                android:orientation="vertical">
+
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/buscar"
-                    android:adjustViewBounds="true"
-                    android:maxHeight="@dimen/maxSizeNavBarIcon"
-                    android:maxWidth="@dimen/maxSizeNavBarIcon"
                     android:id="@+id/searchIconID"
-                    android:layout_gravity="center"
-                    android:layout_marginBottom="5dp"/>
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:id="@+id/buscarTxtID"
-                    android:textColor="@color/colorGraySemiWhite"
-                    android:textSize="@dimen/maxSizeNavBarItem"
-                    android:text="Buscar"/>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:id="@+id/perfilBtn">
-                <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/perfil"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="5dp"
                     android:adjustViewBounds="true"
                     android:maxHeight="@dimen/maxSizeNavBarIcon"
                     android:maxWidth="@dimen/maxSizeNavBarIcon"
-                    android:id="@+id/profileIconID"
-                    android:layout_gravity="center"
-                    android:layout_marginBottom="5dp"/>
+                    android:src="@drawable/buscar" />
+
                 <TextView
+                    android:id="@+id/buscarTxtID"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/colorGraySemiWhite"
                     android:gravity="center"
+                    android:text="Buscar"
+                    android:textColor="@color/colorGraySemiWhite"
+                    android:textSize="@dimen/maxSizeNavBarItem" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/perfilBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/profileIconID"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="5dp"
+                    android:adjustViewBounds="true"
+                    android:maxHeight="@dimen/maxSizeNavBarIcon"
+                    android:maxWidth="@dimen/maxSizeNavBarIcon"
+                    android:src="@drawable/perfil" />
+
+                <TextView
                     android:id="@+id/perfilTxtID"
-                    android:textSize="@dimen/maxSizeNavBarItem"
-                    android:text="Perfil"/>
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Perfil"
+                    android:textColor="@color/colorGraySemiWhite"
+                    android:textSize="@dimen/maxSizeNavBarItem" />
             </LinearLayout>
         </LinearLayout>
 
