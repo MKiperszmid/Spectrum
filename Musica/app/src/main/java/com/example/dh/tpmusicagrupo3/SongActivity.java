@@ -1,14 +1,11 @@
 package com.example.dh.tpmusicagrupo3;
 
-import android.content.Intent;
-import android.media.MediaPlayer;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,12 +13,12 @@ import java.util.List;
 public class SongActivity extends AppCompatActivity {
 
     private List<SongFragment> fragments;
+    private List<Cancion> canciones;
     public static Integer index;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getSupportActionBar().hide();
-        //getSupportActionBar().setTitle("TITULO"); Sirve para cambiar el Titulo.
         setContentView(R.layout.activity_song);
         fragments = new ArrayList<>();
 
@@ -33,8 +30,8 @@ public class SongActivity extends AppCompatActivity {
         LoadFragment(songFragment, R.id.songID);*/
 
         CargarFragments();
-        ViewPager pager = findViewById(R.id.songactivityViewPager);
-        AdapterSongPager adapter = new AdapterSongPager(getSupportFragmentManager(), fragments);
+        final ViewPager pager = findViewById(R.id.songactivityViewPager);
+        final AdapterSongPager adapter = new AdapterSongPager(getSupportFragmentManager(), fragments);
         pager.setAdapter(adapter);
         pager.setCurrentItem(index);
         pager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -47,7 +44,12 @@ public class SongActivity extends AppCompatActivity {
             public void onPageSelected(int position) {
                 MediaPlayerController.create(getApplicationContext(), fragments.get(position).getCancion().getCancionID());
 
-            }
+                if(position >= adapter.getCount()  - 1)
+                    pager.setCurrentItem(1, false);
+                else if(position <= 0)
+                    pager.setCurrentItem(fragments.size() - 2, false);
+                HomeFragment.cancionActual = canciones.get(position);
+        }
 
             @Override
             public void onPageScrollStateChanged(int state) {
@@ -59,7 +61,7 @@ public class SongActivity extends AppCompatActivity {
 
     private void CargarFragments() {
 
-        List<Cancion> canciones = HomeFragment.getCanciones();
+        canciones = HomeFragment.getCancionesFragment();
 
         for(Cancion cancion : canciones){
             fragments.add(SongFragment.dameFragment(cancion));

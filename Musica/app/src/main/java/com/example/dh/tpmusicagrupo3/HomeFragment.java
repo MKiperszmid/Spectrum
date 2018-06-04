@@ -32,8 +32,9 @@ import java.util.List;
 public class HomeFragment extends Fragment implements NotificadorCancionCelda {
 
     private NotificadorActivity notificadorActivity;
-    private Cancion cancionActual;
+    public static Cancion cancionActual;
     private static List<Cancion> canciones;
+    private static List<Cancion> cancionesFragment;
     private ImageView playBtn;
     private TextView cancionPlaying;
     private TextView separatorPlaying;
@@ -62,23 +63,31 @@ public class HomeFragment extends Fragment implements NotificadorCancionCelda {
         this.notificadorActivity = (NotificadorActivity) context;
     }
 
-    public static List<Cancion> getCanciones(){
-        return canciones;
+    public static List<Cancion> getCancionesFragment(){
+        return cancionesFragment;
     }
 
-    public static void setCancion(Cancion c){
-        canciones.clear();
-        canciones.add(c);
+    private void LoadCancionesFragment(){
+        cancionesFragment = new ArrayList<>();
+        cancionesFragment.add(new Cancion(0, "Bella", "Wolfine", R.drawable.wolfinebella, R.raw.bella));
+        cancionesFragment.add(new Cancion(1, "La Nube", "La Vela Puerca", R.drawable.lavelapuercalanube, R.raw.lanube));
+        cancionesFragment.add(new Cancion(2, "This is America", "Childish Gambino", R.drawable.childishgambinothisisamerica, R.raw.thisisamerica));
+        cancionesFragment.add(new Cancion(3, "X", "Nicky Jam - J Balvin", R.drawable.nickyjamjbalvinx, R.raw.x));
+        cancionesFragment.add(new Cancion(4, "Dimelo", "Paulo Londra", R.drawable.paulolondradimelo, R.raw.dimelo));
+        cancionesFragment.add(new Cancion(5, "Me Niego", "Reik ft Osuna y Wisin", R.drawable.reikftozunawisinmeniego, R.raw.meniego));
+        cancionesFragment.add(new Cancion(6, "Bella", "Wolfine", R.drawable.wolfinebella, R.raw.bella));
+        cancionesFragment.add(new Cancion(7, "La Nube", "La Vela Puerca", R.drawable.lavelapuercalanube, R.raw.lanube));
+
     }
 
     private void LoadCanciones(){
         canciones = new ArrayList<>();
-        canciones.add(new Cancion(0, "La Nube", "La Vela Puerca", R.drawable.lavelapuercalanube, R.raw.lanube));
-        canciones.add(new Cancion(1, "This is America", "Childish Gambino", R.drawable.childishgambinothisisamerica, R.raw.thisisamerica));
-        canciones.add(new Cancion(2, "X", "Nicky Jam - J Balvin", R.drawable.nickyjamjbalvinx, R.raw.x));
-        canciones.add(new Cancion(3, "Dimelo", "Paulo Londra", R.drawable.paulolondradimelo, R.raw.dimelo));
-        canciones.add(new Cancion(4, "Me Niego", "Reik ft Osuna y Wisin", R.drawable.reikftozunawisinmeniego, R.raw.meniego));
-        canciones.add(new Cancion(5, "Bella", "Wolfine", R.drawable.wolfinebella, R.raw.bella));
+        canciones.add(new Cancion(1, "La Nube", "La Vela Puerca", R.drawable.lavelapuercalanube, R.raw.lanube));
+        canciones.add(new Cancion(2, "This is America", "Childish Gambino", R.drawable.childishgambinothisisamerica, R.raw.thisisamerica));
+        canciones.add(new Cancion(3, "X", "Nicky Jam - J Balvin", R.drawable.nickyjamjbalvinx, R.raw.x));
+        canciones.add(new Cancion(4, "Dimelo", "Paulo Londra", R.drawable.paulolondradimelo, R.raw.dimelo));
+        canciones.add(new Cancion(5, "Me Niego", "Reik ft Osuna y Wisin", R.drawable.reikftozunawisinmeniego, R.raw.meniego));
+        canciones.add(new Cancion(6, "Bella", "Wolfine", R.drawable.wolfinebella, R.raw.bella));
     }
 
     @Override
@@ -88,6 +97,8 @@ public class HomeFragment extends Fragment implements NotificadorCancionCelda {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
         LoadCanciones();
+
+        LoadCancionesFragment();
 
         RelativeLayout queue = view.findViewById(R.id.relativeQueue);
 
