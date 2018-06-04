@@ -1,7 +1,10 @@
 package com.example.dh.tpmusicagrupo3;
 
 import android.content.Context;
+import android.content.res.AssetFileDescriptor;
+import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.support.design.widget.FloatingActionButton;
 import android.widget.ImageView;
 

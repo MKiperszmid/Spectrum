@@ -26,8 +26,23 @@ public class SongFragment extends Fragment {
     private FloatingActionButton pauseplayClick;
     private Cancion cancion;
     private int currentPosition;
+
+    public static final String CANCIONKEY = "cancion";
+
     public SongFragment() {
         // Required empty public constructor
+    }
+
+    public Cancion getCancion(){
+        return this.cancion;
+    }
+
+    public static SongFragment dameFragment(Cancion cancion){
+        SongFragment fragment = new SongFragment();
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(CANCIONKEY, cancion);
+        fragment.setArguments(bundle);
+        return fragment;
     }
 
 
@@ -35,7 +50,7 @@ public class SongFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         Bundle bundle = getArguments();
-        cancion = (Cancion) bundle.getSerializable(cancionKey);
+        cancion = (Cancion) bundle.getSerializable(CANCIONKEY);
 
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_song, container, false);

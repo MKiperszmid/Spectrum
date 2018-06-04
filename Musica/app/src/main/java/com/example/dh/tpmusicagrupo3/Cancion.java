@@ -11,12 +11,18 @@ public class Cancion implements Serializable{
     private String nombreArtista; //Reemplazar con clase ARTISTA en un futuro
     private int imagenPortada;
     private int cancionID;
+    private int id;
 
-    public Cancion(String nombreCancion, String nombreArtista, int imagen, int cancionID){
+    public Cancion(int id, String nombreCancion, String nombreArtista, int imagen, int cancionID){
         this.nombreCancion = nombreCancion;
         this.nombreArtista = nombreArtista;
         this.imagenPortada = imagen;
         this.cancionID = cancionID;
+        this.id = id;
+    }
+
+    public int getId(){
+        return this.id;
     }
 
     public String getNombreCancion() {
