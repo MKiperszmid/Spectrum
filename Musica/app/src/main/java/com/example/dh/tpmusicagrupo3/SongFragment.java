@@ -64,7 +64,7 @@ public class SongFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getActivity(), "Retroceder", Toast.LENGTH_SHORT).show();
-                MediaPlayerController.retroceder();
+                MediaPlayerController.retroceder(pauseplayClick);
             }
         });
         pauseplayClick = view.findViewById(R.id.pauseplayClick);

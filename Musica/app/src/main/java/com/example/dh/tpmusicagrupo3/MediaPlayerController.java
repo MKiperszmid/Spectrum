@@ -19,9 +19,10 @@ public class MediaPlayerController {
         return exists() && mp.isPlaying();
     }
 
-    public static void retroceder(){
+    public static void retroceder(FloatingActionButton btn){
         currentPosition = 0;
         mp.pause();
+        btn.setImageResource(R.drawable.stop);
         play();
     }
 
