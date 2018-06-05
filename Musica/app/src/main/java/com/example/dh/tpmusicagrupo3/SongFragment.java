@@ -16,16 +16,8 @@ import android.widget.Toast;
 public class SongFragment extends Fragment {
 
     public static final String cancionKey = "CANCION";
-    private TextView descripcionCancionNombre;
-    private TextView descripcionCancionArtista;
-    private ImageView descripcionCancionPortada;
-    private ImageView heartClick;
-    private ImageView backClick;
-    private ImageView nextClick;
-    private ImageView agregarOffline;
     private FloatingActionButton pauseplayClick;
     private Cancion cancion;
-    private int currentPosition;
 
     public static final String CANCIONKEY = "cancion";
 
@@ -53,11 +45,11 @@ public class SongFragment extends Fragment {
 
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_song, container, false);
-        descripcionCancionNombre = view.findViewById(R.id.descripcionCancionNombre);
+        TextView descripcionCancionNombre = view.findViewById(R.id.descripcionCancionNombre);
         descripcionCancionNombre.setText(cancion.getNombreCancion());
-        descripcionCancionArtista = view.findViewById(R.id.descripcionCancionArtista);
+        TextView descripcionCancionArtista = view.findViewById(R.id.descripcionCancionArtista);
         descripcionCancionArtista.setText(cancion.getNombreArtista());
-        descripcionCancionPortada = view.findViewById(R.id.descripcionCancionPortada);
+        ImageView descripcionCancionPortada = view.findViewById(R.id.descripcionCancionPortada);
         descripcionCancionPortada.setImageResource(cancion.getImagenPortada());
 
         descripcionCancionArtista.setOnClickListener(new View.OnClickListener() {
@@ -66,14 +58,14 @@ public class SongFragment extends Fragment {
                 Toast.makeText(getActivity(), "Mostrar perfil de " + cancion.getNombreArtista(), Toast.LENGTH_SHORT).show();
             }
         });
-        heartClick = view.findViewById(R.id.heartClick);
+        ImageView heartClick = view.findViewById(R.id.heartClick);
         heartClick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getActivity(), "Me Gusta", Toast.LENGTH_SHORT).show();
             }
         });
-        backClick = view.findViewById(R.id.backClick);
+        ImageView backClick = view.findViewById(R.id.backClick);
         backClick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -90,14 +82,14 @@ public class SongFragment extends Fragment {
             }
         });
 
-        nextClick = view.findViewById(R.id.nextClick);
+        ImageView nextClick = view.findViewById(R.id.nextClick);
         nextClick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getActivity(), "Adelantar", Toast.LENGTH_SHORT).show();
             }
         });
-        agregarOffline = view.findViewById(R.id.agregarOffline);
+        ImageView agregarOffline = view.findViewById(R.id.agregarOffline);
         agregarOffline.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

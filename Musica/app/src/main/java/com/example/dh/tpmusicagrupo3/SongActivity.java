@@ -43,12 +43,13 @@ public class SongActivity extends AppCompatActivity {
             @Override
             public void onPageSelected(int position) {
                 MediaPlayerController.create(getApplicationContext(), fragments.get(position).getCancion().getCancionID());
-
-                if(position >= adapter.getCount()  - 1)
+                if(position >= adapter.getCount()  - 1) {
                     pager.setCurrentItem(1, false);
-                else if(position <= 0)
+                } else if(position <= 0) {
                     pager.setCurrentItem(fragments.size() - 2, false);
+                }
                 HomeFragment.cancionActual = canciones.get(position);
+                index = position;
         }
 
             @Override

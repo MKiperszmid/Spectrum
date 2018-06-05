@@ -56,4 +56,18 @@ public class Cancion implements Serializable{
     public int getCancionID(){
         return this.cancionID;
     }
+
+    @Override
+    public String toString(){
+        return nombreCancion + " - " + nombreArtista;
+    }
+
+    @Override
+    public boolean equals(Object o){
+        if(! (o instanceof Cancion))
+            return false;
+        return this.nombreCancion.equals(((Cancion) o).getNombreCancion())
+                && this.nombreArtista.equals(((Cancion) o).getNombreArtista())
+                && this.id == ((Cancion) o).getId();
+    }
 }
