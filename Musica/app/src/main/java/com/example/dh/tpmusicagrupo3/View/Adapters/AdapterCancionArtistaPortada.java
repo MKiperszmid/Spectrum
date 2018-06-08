@@ -1,4 +1,4 @@
-package com.example.dh.tpmusicagrupo3;
+package com.example.dh.tpmusicagrupo3.View.Adapters;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -8,7 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
+import com.example.dh.tpmusicagrupo3.Model.POJO.Cancion;
+import com.example.dh.tpmusicagrupo3.R;
 
 import java.util.List;
 

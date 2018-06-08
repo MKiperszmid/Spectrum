@@ -1,4 +1,4 @@
-package com.example.dh.tpmusicagrupo3;
+package com.example.dh.tpmusicagrupo3.View.Activities;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -6,9 +6,12 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import com.example.dh.tpmusicagrupo3.HomeFragment.NotificadorActivity;
+import com.example.dh.tpmusicagrupo3.Model.POJO.Cancion;
+import com.example.dh.tpmusicagrupo3.R;
+import com.example.dh.tpmusicagrupo3.View.Fragments.HomeFragment;
+import com.example.dh.tpmusicagrupo3.View.Fragments.SongFragment;
 
-public class MainActivity extends AppCompatActivity implements NotificadorActivity {
+public class MainActivity extends AppCompatActivity implements HomeFragment.NotificadorActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

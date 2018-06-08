@@ -1,17 +1,18 @@
-package com.example.dh.tpmusicagrupo3;
+package com.example.dh.tpmusicagrupo3.View.Fragments;
 
-import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.dh.tpmusicagrupo3.Model.POJO.Cancion;
+import com.example.dh.tpmusicagrupo3.Controller.MediaPlayerController;
+import com.example.dh.tpmusicagrupo3.R;
 
 public class SongFragment extends Fragment {
 

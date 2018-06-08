@@ -1,4 +1,4 @@
-package com.example.dh.tpmusicagrupo3;
+package com.example.dh.tpmusicagrupo3.Controller;
 
 import android.content.Context;
 import android.content.res.AssetFileDescriptor;
@@ -7,6 +7,8 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.support.design.widget.FloatingActionButton;
 import android.widget.ImageView;
+
+import com.example.dh.tpmusicagrupo3.R;
 
 public class MediaPlayerController {
 

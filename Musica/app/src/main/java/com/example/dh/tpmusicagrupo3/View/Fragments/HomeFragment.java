@@ -1,14 +1,7 @@
-package com.example.dh.tpmusicagrupo3;
-import android.annotation.SuppressLint;
+package com.example.dh.tpmusicagrupo3.View.Fragments;
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.drawable.GradientDrawable;
-import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -18,18 +11,20 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import android.widget.RelativeLayout;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.dh.tpmusicagrupo3.AdapterCancionArtistaPortada.NotificadorCancionCelda;
-
-import org.w3c.dom.Text;
+import com.example.dh.tpmusicagrupo3.Controller.CancionController;
+import com.example.dh.tpmusicagrupo3.Model.POJO.Cancion;
+import com.example.dh.tpmusicagrupo3.Controller.MediaPlayerController;
+import com.example.dh.tpmusicagrupo3.R;
+import com.example.dh.tpmusicagrupo3.View.Activities.SongActivity;
+import com.example.dh.tpmusicagrupo3.View.Adapters.AdapterCancionArtistaPortada;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeFragment extends Fragment implements NotificadorCancionCelda {
+public class HomeFragment extends Fragment implements AdapterCancionArtistaPortada.NotificadorCancionCelda {
 
     private NotificadorActivity notificadorActivity;
     public static Cancion cancionActual;
@@ -39,7 +34,6 @@ public class HomeFragment extends Fragment implements NotificadorCancionCelda {
     private TextView cancionPlaying;
     private TextView separatorPlaying;
     private TextView artistaPlaying;
-
 
     // Iconos de bottom bar
     private ImageView homeBtnIcon;
@@ -75,13 +69,8 @@ public class HomeFragment extends Fragment implements NotificadorCancionCelda {
     }
 
     private void LoadCanciones(){
-        canciones = new ArrayList<>();
-        canciones.add(new Cancion(1, "La Nube", "La Vela Puerca", R.drawable.lavelapuercalanube, R.raw.lanube));
-        canciones.add(new Cancion(2, "This is America", "Childish Gambino", R.drawable.childishgambinothisisamerica, R.raw.thisisamerica));
-        canciones.add(new Cancion(3, "X", "Nicky Jam - J Balvin", R.drawable.nickyjamjbalvinx, R.raw.x));
-        canciones.add(new Cancion(4, "Dimelo", "Paulo Londra", R.drawable.paulolondradimelo, R.raw.dimelo));
-        canciones.add(new Cancion(5, "Me Niego", "Reik ft Osuna y Wisin", R.drawable.reikftozunawisinmeniego, R.raw.meniego));
-        canciones.add(new Cancion(6, "Bella", "Wolfine", R.drawable.wolfinebella, R.raw.bella));
+        CancionController controller = new CancionController();
+       canciones = controller.GetCanciones();
     }
 
     @Override
@@ -114,7 +103,6 @@ public class HomeFragment extends Fragment implements NotificadorCancionCelda {
         rvArgentina.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
         rvArgentina.setAdapter(adapterCancionArtistaPortada);
 
-
         /* Feed */
 
         queue.setOnClickListener(new View.OnClickListener(){
@@ -124,7 +112,6 @@ public class HomeFragment extends Fragment implements NotificadorCancionCelda {
                 }
             }
         });
-
 
         homeBtnIcon = view.findViewById(R.id.homeIconID);
         explorarBtnIcon = view.findViewById(R.id.exploreIconID);
@@ -231,39 +218,41 @@ public class HomeFragment extends Fragment implements NotificadorCancionCelda {
         void recibirCancion(Cancion cancion);
     }
 
+    private void cambiarColor(TextView textview, int color){
+        textview.setTextColor(getResources().getColor(color));
+    }
+
+    private void cambiarIcono(ImageView imageView, int icono){
+        imageView.setImageResource(icono);
+    }
+
+    private void cambiarTodo(TextView textView, int color, ImageView imageView, int icono){
+        cambiarColor(textView, color);
+        cambiarIcono(imageView, icono);
+    }
 
     private void cambiarIcono(String seccionNombre) {
 
         // Reset, pongo todos los iconos en gris
-        homeBtnIcon.setImageResource(R.drawable.home);
-        explorarBtnIcon.setImageResource(R.drawable.explorar);
-        buscarBtnIcon.setImageResource(R.drawable.buscar);
-        perfilBtnIcon.setImageResource(R.drawable.perfil);
-        homeBtnTxt.setTextColor(getResources().getColor(R.color.colorGraySemiWhite));
-        explorarBtnTxt.setTextColor(getResources().getColor(R.color.colorGraySemiWhite));
-        buscarBtnTxt.setTextColor(getResources().getColor(R.color.colorGraySemiWhite));
-        perfilBtnTxt.setTextColor(getResources().getColor(R.color.colorGraySemiWhite));
+        cambiarTodo(homeBtnTxt, R.color.colorGraySemiWhite, homeBtnIcon, R.drawable.home);
+        cambiarTodo(explorarBtnTxt, R.color.colorGraySemiWhite, explorarBtnIcon, R.drawable.explorar);
+        cambiarTodo(buscarBtnTxt, R.color.colorGraySemiWhite, buscarBtnIcon, R.drawable.buscar);
+        cambiarTodo(perfilBtnTxt, R.color.colorGraySemiWhite, perfilBtnIcon, R.drawable.perfil);
 
         // Dependiendo cual toco le cambio icono y color de texto
         switch(seccionNombre){
             case "home":
-                homeBtnIcon.setImageResource(R.drawable.homeactivo);
-                homeBtnTxt.setTextColor(getResources().getColor(R.color.colorAccent));
+                cambiarTodo(homeBtnTxt, R.color.colorAccent, homeBtnIcon, R.drawable.homeactivo);
             break;
             case "explorar":
-                explorarBtnIcon.setImageResource(R.drawable.exploraractivo);
-                explorarBtnTxt.setTextColor(getResources().getColor(R.color.colorAccent));
+                cambiarTodo(explorarBtnTxt, R.color.colorAccent, explorarBtnIcon, R.drawable.exploraractivo);
             break;
             case "buscar":
-                buscarBtnIcon.setImageResource(R.drawable.buscaractivo);
-                buscarBtnTxt.setTextColor(getResources().getColor(R.color.colorAccent));
+                cambiarTodo(buscarBtnTxt, R.color.colorAccent, buscarBtnIcon, R.drawable.buscaractivo);
             break;
             case "perfil":
-                perfilBtnIcon.setImageResource(R.drawable.perfilactivo);
-                perfilBtnTxt.setTextColor(getResources().getColor(R.color.colorAccent));
+                cambiarTodo(perfilBtnTxt, R.color.colorAccent, perfilBtnIcon, R.drawable.perfilactivo);
             break;
         }
-
     }
-
 }

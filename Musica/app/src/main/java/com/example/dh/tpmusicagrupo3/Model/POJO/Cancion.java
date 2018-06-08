@@ -1,8 +1,4 @@
-package com.example.dh.tpmusicagrupo3;
-
-import android.media.Image;
-import android.os.Parcel;
-import android.os.Parcelable;
+package com.example.dh.tpmusicagrupo3.Model.POJO;
 
 import java.io.Serializable;
 
