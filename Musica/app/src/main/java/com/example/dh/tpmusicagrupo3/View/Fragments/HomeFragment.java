@@ -92,6 +92,8 @@ public class HomeFragment extends Fragment implements AdapterCancionArtistaPorta
         RecyclerView rvPopular = view.findViewById(R.id.recyclerPopularAhora);
         RecyclerView rvAgregado = view.findViewById(R.id.recyclerAgregadoRecientemente);
 
+        //ToDo: Cambiar estos para que cada uno tenga su distinto adapter (cada uno con distintas canciones)
+
         rvPopular.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
         AdapterCancionArtistaPortada adapterCancionArtistaPortada = new AdapterCancionArtistaPortada(canciones, this);
         rvPopular.setAdapter(adapterCancionArtistaPortada);
@@ -202,9 +204,9 @@ public class HomeFragment extends Fragment implements AdapterCancionArtistaPorta
     public void onResume() {
         super.onResume();
         if(cancionActual != null){
-            cancionPlaying.setText(cancionActual.getNombreCancion());
+            cancionPlaying.setText(cancionActual.getTitle());
             separatorPlaying.setText(" - ");
-            artistaPlaying.setText(cancionActual.getNombreArtista());
+            artistaPlaying.setText(cancionActual.getArtist().getName());
         }
         if(MediaPlayerController.isPlaying()){
             playBtn.setImageResource(R.drawable.stop);

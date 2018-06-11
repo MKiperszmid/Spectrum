@@ -67,8 +67,8 @@ public class AdapterCancionArtistaPortada extends RecyclerView.Adapter {
         }
 
         public void bindCancion(Cancion cancion){
-            tvCancion.setText(cancion.getNombreCancion());
-            tvArtista.setText(cancion.getNombreArtista());
+            tvCancion.setText(cancion.getTitle());
+            tvArtista.setText(cancion.getArtist().getName());
             ivPortada.setImageResource(cancion.getImagenPortada());
         }
     }

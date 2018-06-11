@@ -3,67 +3,67 @@ package com.example.dh.tpmusicagrupo3.Model.POJO;
 import java.io.Serializable;
 
 public class Cancion implements Serializable{
-    private String nombreCancion;
-    private String nombreArtista; //Reemplazar con clase ARTISTA en un futuro
-    private int imagenPortada;
-    private int cancionID;
-    private int id;
+    private String title;
+    private Artista artist;
+    private Integer imagenPortada;
+    private Integer cancionID;
+    private Integer id;
 
-    public Cancion(int id, String nombreCancion, String nombreArtista, int imagen, int cancionID){
-        this.nombreCancion = nombreCancion;
-        this.nombreArtista = nombreArtista;
+    public Cancion(Integer id, String title, Artista artist, Integer imagen, Integer cancionID){
+        this.title = title;
+        this.artist = artist;
         this.imagenPortada = imagen;
         this.cancionID = cancionID;
         this.id = id;
     }
 
-    public int getId(){
+    public Integer getId(){
         return this.id;
     }
 
-    public String getNombreCancion() {
-        return nombreCancion;
+    public String getTitle() {
+        return title;
     }
 
-    public void setNombreCancion(String nombreCancion) {
-        this.nombreCancion = nombreCancion;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public String getNombreArtista() {
-        return nombreArtista;
+    public Artista getArtist() {
+        return artist;
     }
 
-    public void setNombreArtista(String nombreArtista) {
-        this.nombreArtista = nombreArtista;
+    public void setArtist(Artista artist) {
+        this.artist = artist;
     }
 
     public int getImagenPortada() {
         return imagenPortada;
     }
 
-    public void setImagenPortada(int imagenPortada) {
+    public void setImagenPortada(Integer imagenPortada) {
         this.imagenPortada = imagenPortada;
     }
 
-    public void setCancionID(int cancionID){
+    public void setCancionID(Integer cancionID){
         this.cancionID = cancionID;
     }
 
-    public int getCancionID(){
+    public Integer getCancionID(){
         return this.cancionID;
     }
 
     @Override
     public String toString(){
-        return nombreCancion + " - " + nombreArtista;
+        return title + " - " + artist;
     }
 
     @Override
     public boolean equals(Object o){
         if(! (o instanceof Cancion))
             return false;
-        return this.nombreCancion.equals(((Cancion) o).getNombreCancion())
-                && this.nombreArtista.equals(((Cancion) o).getNombreArtista())
+        return this.title.equals(((Cancion) o).getTitle())
+                && this.artist.equals(((Cancion) o).getArtist())
                 && this.id == ((Cancion) o).getId();
     }
 }

@@ -47,16 +47,16 @@ public class SongFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_song, container, false);
         TextView descripcionCancionNombre = view.findViewById(R.id.descripcionCancionNombre);
-        descripcionCancionNombre.setText(cancion.getNombreCancion());
+        descripcionCancionNombre.setText(cancion.getTitle());
         TextView descripcionCancionArtista = view.findViewById(R.id.descripcionCancionArtista);
-        descripcionCancionArtista.setText(cancion.getNombreArtista());
+        descripcionCancionArtista.setText(cancion.getArtist().getName());
         ImageView descripcionCancionPortada = view.findViewById(R.id.descripcionCancionPortada);
         descripcionCancionPortada.setImageResource(cancion.getImagenPortada());
 
         descripcionCancionArtista.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getActivity(), "Mostrar perfil de " + cancion.getNombreArtista(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Mostrar perfil de " + cancion.getArtist(), Toast.LENGTH_SHORT).show();
             }
         });
         ImageView heartClick = view.findViewById(R.id.heartClick);
