@@ -2,11 +2,13 @@ package com.example.dh.tpmusicagrupo3.Model.POJO;
 
 import com.example.dh.tpmusicagrupo3.Model.POJO.Containers.TrackContainer;
 
+import java.io.Serializable;
+
 /**
  * Created by DH on 15/6/2018.
  */
 
-public class Playlist {
+public class Playlist implements Serializable {
     private Long id;
     private String title;
     private String description;

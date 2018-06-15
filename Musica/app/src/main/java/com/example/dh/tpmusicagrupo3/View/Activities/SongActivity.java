@@ -7,8 +7,8 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import com.example.dh.tpmusicagrupo3.Model.POJO.Cancion;
 import com.example.dh.tpmusicagrupo3.Controller.MediaPlayerController;
+import com.example.dh.tpmusicagrupo3.Model.POJO.Track;
 import com.example.dh.tpmusicagrupo3.R;
 import com.example.dh.tpmusicagrupo3.View.Adapters.AdapterSongPager;
 import com.example.dh.tpmusicagrupo3.View.Fragments.HomeFragment;
@@ -20,7 +20,7 @@ import java.util.List;
 public class SongActivity extends AppCompatActivity {
 
     private List<SongFragment> fragments;
-    private List<Cancion> canciones;
+    private List<Track> canciones;
     public static Integer index;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +28,7 @@ public class SongActivity extends AppCompatActivity {
         getSupportActionBar().hide();
         setContentView(R.layout.activity_song);
         fragments = new ArrayList<>();
+        index = getIntent().getExtras().getInt(SongFragment.CANCIONPOS) + 1;
 
         /*Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
@@ -47,9 +48,10 @@ public class SongActivity extends AppCompatActivity {
 
             }
 
+            //TODO: Mostrar codigo a Nico.
             @Override
             public void onPageSelected(int position) {
-                MediaPlayerController.create(getApplicationContext(), fragments.get(position).getCancion().getCancionID());
+                MediaPlayerController.create(fragments.get(position).getCancion().getPreview());
                 if(position >= adapter.getCount()  - 1) {
                     pager.setCurrentItem(1, false);
                 } else if(position <= 0) {
@@ -64,22 +66,14 @@ public class SongActivity extends AppCompatActivity {
 
             }
         });
-
     }
 
     private void CargarFragments() {
 
         canciones = HomeFragment.getCancionesFragment();
 
-        for(Cancion cancion : canciones){
+        for(Track cancion : canciones){
             fragments.add(SongFragment.dameFragment(cancion));
         }
-    }
-
-    public void LoadFragment(Fragment fragment, int id){
-        FragmentManager manager = getSupportFragmentManager();
-        FragmentTransaction transaction = manager.beginTransaction();
-        transaction.replace(id, fragment);
-        transaction.commit();
     }
 }

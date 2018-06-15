@@ -10,6 +10,8 @@ import android.widget.ImageView;
 
 import com.example.dh.tpmusicagrupo3.R;
 
+import java.io.IOException;
+
 public class MediaPlayerController {
 
     private static MediaPlayer mp;
@@ -74,11 +76,18 @@ public class MediaPlayerController {
         }
     }
 
-    public static void create(Context context, int cancionID){
+    public static void create(String preview){
         clear();
-        mp = MediaPlayer.create(context, cancionID);
-        currentPosition = 0;
-        mp.start();
+        mp = new MediaPlayer();
+        try {
+            mp.setDataSource(preview);
+            mp.prepare();
+            currentPosition = 0;
+            mp.start();
+        }
+        catch (IOException e){
+
+        }
     }
 
     public static void goToPosition(int posicion){

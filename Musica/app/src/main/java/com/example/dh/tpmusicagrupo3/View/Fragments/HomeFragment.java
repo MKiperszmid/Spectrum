@@ -14,13 +14,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.dh.tpmusicagrupo3.Controller.CancionController;
 import com.example.dh.tpmusicagrupo3.Controller.MusicController;
 import com.example.dh.tpmusicagrupo3.Controller.TrackListener;
-import com.example.dh.tpmusicagrupo3.Model.POJO.Cancion;
 import com.example.dh.tpmusicagrupo3.Controller.MediaPlayerController;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Chart;
-import com.example.dh.tpmusicagrupo3.Model.POJO.Containers.TrackContainer;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Track;
 import com.example.dh.tpmusicagrupo3.R;
 import com.example.dh.tpmusicagrupo3.View.Activities.SongActivity;
@@ -32,11 +29,9 @@ import java.util.List;
 public class HomeFragment extends Fragment implements AdapterCancionArtistaPortada.NotificadorCancionCelda {
 
     private NotificadorActivity notificadorActivity;
-    public static Cancion cancionActual;
+    public static Track cancionActual;
     private static List<Track> tracks;
     private static List<Track> tracksFragment;
-    private static List<Cancion> canciones;
-    private static List<Cancion> cancionesFragment;
     private ImageView playBtn;
     private TextView cancionPlaying;
     private TextView separatorPlaying;
@@ -52,6 +47,10 @@ public class HomeFragment extends Fragment implements AdapterCancionArtistaPorta
     private TextView explorarBtnTxt;
     private TextView buscarBtnTxt;
     private TextView perfilBtnTxt;
+    private AdapterCancionArtistaPortada adapterCancionArtistaPortada;
+    private RecyclerView rvPopular;
+    private RecyclerView rvAgregado;
+    private RecyclerView rvArgentina;
 
 
     public HomeFragment() {
@@ -64,20 +63,18 @@ public class HomeFragment extends Fragment implements AdapterCancionArtistaPorta
         this.notificadorActivity = (NotificadorActivity) context;
     }
 
-    public static List<Cancion> getCancionesFragment(){
-        return cancionesFragment;
+    public static List<Track> getCancionesFragment(){
+        return tracksFragment;
     }
 
     private void LoadCancionesFragment(){
-        cancionesFragment = new ArrayList<>();
-        cancionesFragment.add(canciones.get(canciones.size() - 1));
-        cancionesFragment.addAll(canciones);
-        cancionesFragment.add(canciones.get(0));
+        tracksFragment = new ArrayList<>();
+        tracksFragment.add(tracks.get(tracks.size() - 1));
+        tracksFragment.addAll(tracks);
+        tracksFragment.add(tracks.get(0));
     }
 
     private void LoadCanciones(){
-        CancionController controller = new CancionController();
-       canciones = controller.GetCanciones();
 
         MusicController musicController = new MusicController();
 
@@ -90,24 +87,21 @@ public class HomeFragment extends Fragment implements AdapterCancionArtistaPorta
                     return;
                 }
                 tracks = track.getTracks().getData();
+                LoadCancionesFragment();
+                Toast.makeText(getActivity(), "CARGO", Toast.LENGTH_SHORT).show();
+                setAdapter();
             }
         });
-/*
-        musicController.getChartTracks(new TrackListener<TrackContainer>() {
-            @Override
-            public void finish(TrackContainer track) {
-                if(track != null){
-                    tracks = track.getData();
-                    Toast.makeText(getActivity(), track.getData().get(0).getTitle(), Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-
-        */
-
-
     }
 
+
+    private void setAdapter(){
+        adapterCancionArtistaPortada = new AdapterCancionArtistaPortada(tracks, this);
+        rvPopular.setAdapter(adapterCancionArtistaPortada);
+        rvAgregado.setAdapter(adapterCancionArtistaPortada);
+        rvArgentina.setAdapter(adapterCancionArtistaPortada);
+
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -116,50 +110,33 @@ public class HomeFragment extends Fragment implements AdapterCancionArtistaPorta
 
         LoadCanciones();
 
-        LoadCancionesFragment();
-
         RelativeLayout queue = view.findViewById(R.id.relativeQueue);
 
         cancionPlaying = view.findViewById(R.id.cancionCurrentPlayingID);
         artistaPlaying = view.findViewById(R.id.artistCurrentPlayingID);
         separatorPlaying = view.findViewById(R.id.separatorCurrentPlayingID);
 
-        RecyclerView rvPopular = view.findViewById(R.id.recyclerPopularAhora);
-        RecyclerView rvAgregado = view.findViewById(R.id.recyclerAgregadoRecientemente);
+        rvPopular = view.findViewById(R.id.recyclerPopularAhora);
+        rvAgregado = view.findViewById(R.id.recyclerAgregadoRecientemente);
 
-        /*
-        musicController.getTrack(new TrackListener<Track>() {
-            @Override
-            public void finish(Track track) {
-                if(track == null){
-                    //No hay internet, o no se pudo conectar a la API
-                    Toast.makeText(getActivity(), "Error al conectar con la API", Toast.LENGTH_SHORT).show();
-                }
-                else {
-                    Toast.makeText(getActivity(), track.getTitle(), Toast.LENGTH_LONG).show();
-                }
-            }
-        }, "917717");
-*/
         //ToDo: Cambiar estos para que cada uno tenga su distinto adapter (cada uno con distintas canciones)
 
         rvPopular.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
-        AdapterCancionArtistaPortada adapterCancionArtistaPortada = new AdapterCancionArtistaPortada(canciones, this);
-        rvPopular.setAdapter(adapterCancionArtistaPortada);
+
 
         rvAgregado.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
-        rvAgregado.setAdapter(adapterCancionArtistaPortada);
 
-        RecyclerView rvArgentina = view.findViewById(R.id.recyclerTrendingArgentina);
+
+        rvArgentina = view.findViewById(R.id.recyclerTrendingArgentina);
         rvArgentina.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
-        rvArgentina.setAdapter(adapterCancionArtistaPortada);
+
 
         /* Feed */
 
         queue.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
                 if (cancionActual != null){
-                    notificadorActivity.recibirCancion(cancionActual);
+                    notificadorActivity.recibirCancion(cancionActual, tracks.indexOf(cancionActual));
                 }
             }
         });
@@ -231,7 +208,7 @@ public class HomeFragment extends Fragment implements AdapterCancionArtistaPorta
             @Override
             public void onClick(View v) {
                 if (cancionActual != null){
-                    notificadorActivity.recibirCancion(cancionActual);
+                    notificadorActivity.recibirCancion(cancionActual, tracks.indexOf(cancionActual));
                 }
             }
         });
@@ -240,13 +217,13 @@ public class HomeFragment extends Fragment implements AdapterCancionArtistaPorta
     }
 
     @Override
-    public void notificarCancionClickeada(Cancion cancionClickeada) {
+    public void notificarCancionClickeada(Track cancionClickeada) {
         if(cancionActual != cancionClickeada){
-            MediaPlayerController.create(getActivity(), cancionClickeada.getCancionID());
+            MediaPlayerController.create(cancionClickeada.getPreview());
             cancionActual = cancionClickeada;
             SongActivity.index = cancionClickeada.getId();
         }
-        notificadorActivity.recibirCancion(cancionClickeada);
+        notificadorActivity.recibirCancion(cancionClickeada, tracks.indexOf(cancionClickeada));
     }
 
     @Override
@@ -266,7 +243,7 @@ public class HomeFragment extends Fragment implements AdapterCancionArtistaPorta
     }
 
     public interface NotificadorActivity{
-        void recibirCancion(Cancion cancion);
+        void recibirCancion(Track cancion, int position);
     }
 
     private void cambiarColor(TextView textview, int color){

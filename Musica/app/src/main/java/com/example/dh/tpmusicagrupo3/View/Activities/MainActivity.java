@@ -6,7 +6,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import com.example.dh.tpmusicagrupo3.Model.POJO.Cancion;
+import com.example.dh.tpmusicagrupo3.Model.POJO.Track;
 import com.example.dh.tpmusicagrupo3.R;
 import com.example.dh.tpmusicagrupo3.View.Fragments.HomeFragment;
 import com.example.dh.tpmusicagrupo3.View.Fragments.SongFragment;
@@ -29,9 +29,10 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Noti
     }
 
     @Override
-    public void recibirCancion(Cancion cancion) {
+    public void recibirCancion(Track cancion, int position) {
         Intent intent = new Intent(this, SongActivity.class);
         Bundle bundle = new Bundle();
+        bundle.putInt(SongFragment.CANCIONPOS, position);
         bundle.putSerializable(SongFragment.cancionKey, cancion);
         intent.putExtras(bundle);
         startActivity(intent);

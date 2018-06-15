@@ -8,17 +8,18 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.dh.tpmusicagrupo3.Model.POJO.Cancion;
+import com.example.dh.tpmusicagrupo3.Controller.DownloadImageTask;
+import com.example.dh.tpmusicagrupo3.Model.POJO.Track;
 import com.example.dh.tpmusicagrupo3.R;
 
 import java.util.List;
 
 public class AdapterCancionArtistaPortada extends RecyclerView.Adapter {
 
-    private List<Cancion> canciones;
+    private List<Track> canciones;
     private NotificadorCancionCelda notificadorCancionCelda;
 
-    public AdapterCancionArtistaPortada(List<Cancion> canciones, NotificadorCancionCelda notificadorCancionCelda){
+    public AdapterCancionArtistaPortada(List<Track> canciones, NotificadorCancionCelda notificadorCancionCelda){
         this.canciones = canciones;
         this.notificadorCancionCelda = notificadorCancionCelda;
     }
@@ -34,7 +35,7 @@ public class AdapterCancionArtistaPortada extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        Cancion cancion = canciones.get(position);
+        Track cancion = canciones.get(position);
         CancionViewHolder cvh = (CancionViewHolder) holder;
         cvh.bindCancion(cancion);
     }
@@ -66,13 +67,14 @@ public class AdapterCancionArtistaPortada extends RecyclerView.Adapter {
             });
         }
 
-        public void bindCancion(Cancion cancion){
+        public void bindCancion(Track cancion){
             tvCancion.setText(cancion.getTitle());
             tvArtista.setText(cancion.getArtist().getName());
-            ivPortada.setImageResource(cancion.getImagenPortada());
+            new DownloadImageTask(ivPortada).execute(cancion.getArtist().getPicture_big());
+            //ivPortada.setImageResource(cancion.getImagenPortada());
         }
     }
     public interface NotificadorCancionCelda{
-        void notificarCancionClickeada(Cancion cancionClickeada);
+        void notificarCancionClickeada(Track cancionClickeada);
     }
 }

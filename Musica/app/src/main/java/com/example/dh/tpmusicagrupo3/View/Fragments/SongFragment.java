@@ -10,15 +10,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.dh.tpmusicagrupo3.Model.POJO.Cancion;
+import com.example.dh.tpmusicagrupo3.Controller.DownloadImageTask;
 import com.example.dh.tpmusicagrupo3.Controller.MediaPlayerController;
+import com.example.dh.tpmusicagrupo3.Model.POJO.Track;
 import com.example.dh.tpmusicagrupo3.R;
 
 public class SongFragment extends Fragment {
 
     public static final String cancionKey = "CANCION";
+    public static String CANCIONPOS = "POSITION";
     private FloatingActionButton pauseplayClick;
-    private Cancion cancion;
+    private Track cancion;
 
     public static final String CANCIONKEY = "cancion";
 
@@ -26,11 +28,11 @@ public class SongFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public Cancion getCancion(){
+    public Track getCancion(){
         return this.cancion;
     }
 
-    public static SongFragment dameFragment(Cancion cancion){
+    public static SongFragment dameFragment(Track cancion){
         SongFragment fragment = new SongFragment();
         Bundle bundle = new Bundle();
         bundle.putSerializable(CANCIONKEY, cancion);
@@ -42,7 +44,7 @@ public class SongFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         Bundle bundle = getArguments();
-        cancion = (Cancion) bundle.getSerializable(CANCIONKEY);
+        cancion = (Track) bundle.getSerializable(CANCIONKEY);
 
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_song, container, false);
@@ -51,7 +53,8 @@ public class SongFragment extends Fragment {
         TextView descripcionCancionArtista = view.findViewById(R.id.descripcionCancionArtista);
         descripcionCancionArtista.setText(cancion.getArtist().getName());
         ImageView descripcionCancionPortada = view.findViewById(R.id.descripcionCancionPortada);
-        descripcionCancionPortada.setImageResource(cancion.getImagenPortada());
+        new DownloadImageTask(descripcionCancionPortada).execute(cancion.getArtist().getPicture_big());
+        //descripcionCancionPortada.setImageResource(cancion.getArtist().getPicture_big());
 
         descripcionCancionArtista.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,3 +115,5 @@ public class SongFragment extends Fragment {
         }
     }
 }
+
+

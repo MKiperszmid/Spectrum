@@ -5,6 +5,7 @@ import com.example.dh.tpmusicagrupo3.Model.POJO.Containers.ArtistContainer;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Containers.PlaylistContainer;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Containers.TrackContainer;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +13,7 @@ import java.util.List;
  * Created by DH on 15/6/2018.
  */
 
-public class Chart {
+public class Chart implements Serializable {
     private TrackContainer tracks;
     private AlbumContainer albums;
     private ArtistContainer artists;

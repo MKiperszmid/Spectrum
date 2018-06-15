@@ -69,5 +69,10 @@ public class Track implements Serializable {
         this.album = album;
     }
 
-
+    @Override
+    public boolean equals(Object obj) {
+        if(!(obj instanceof Track)) return false;
+        Track track = (Track) obj;
+        return track.getId().equals(this.id) && track.getTitle().equals(this.title) && track.getArtist().getName().equals(this.artist.getName());
+    }
 }
