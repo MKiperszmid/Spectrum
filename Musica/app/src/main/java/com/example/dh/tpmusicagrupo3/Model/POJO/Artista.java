@@ -6,7 +6,7 @@ import java.io.Serializable;
  * Created by DH on 11/6/2018.
  */
 
-public class Artista implements Serializable{
+public class Artista implements Serializable {
 
     private Integer id;
     private String name;

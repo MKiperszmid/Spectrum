@@ -15,8 +15,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.dh.tpmusicagrupo3.Controller.CancionController;
+import com.example.dh.tpmusicagrupo3.Controller.MusicController;
+import com.example.dh.tpmusicagrupo3.Controller.TrackListener;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Cancion;
 import com.example.dh.tpmusicagrupo3.Controller.MediaPlayerController;
+import com.example.dh.tpmusicagrupo3.Model.POJO.Chart;
+import com.example.dh.tpmusicagrupo3.Model.POJO.Containers.TrackContainer;
+import com.example.dh.tpmusicagrupo3.Model.POJO.Track;
 import com.example.dh.tpmusicagrupo3.R;
 import com.example.dh.tpmusicagrupo3.View.Activities.SongActivity;
 import com.example.dh.tpmusicagrupo3.View.Adapters.AdapterCancionArtistaPortada;
@@ -28,6 +33,8 @@ public class HomeFragment extends Fragment implements AdapterCancionArtistaPorta
 
     private NotificadorActivity notificadorActivity;
     public static Cancion cancionActual;
+    private static List<Track> tracks;
+    private static List<Track> tracksFragment;
     private static List<Cancion> canciones;
     private static List<Cancion> cancionesFragment;
     private ImageView playBtn;
@@ -71,6 +78,34 @@ public class HomeFragment extends Fragment implements AdapterCancionArtistaPorta
     private void LoadCanciones(){
         CancionController controller = new CancionController();
        canciones = controller.GetCanciones();
+
+        MusicController musicController = new MusicController();
+
+        musicController.getChart(new TrackListener<Chart>() {
+            @Override
+            public void finish(Chart track) {
+                if(track == null){
+                    Toast.makeText(getActivity(), "Error al conectar con Chart.", Toast.LENGTH_SHORT).show();
+                    //MOSTRAR OFFLINE
+                    return;
+                }
+                tracks = track.getTracks().getData();
+            }
+        });
+/*
+        musicController.getChartTracks(new TrackListener<TrackContainer>() {
+            @Override
+            public void finish(TrackContainer track) {
+                if(track != null){
+                    tracks = track.getData();
+                    Toast.makeText(getActivity(), track.getData().get(0).getTitle(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        */
+
+
     }
 
     @Override
@@ -92,6 +127,20 @@ public class HomeFragment extends Fragment implements AdapterCancionArtistaPorta
         RecyclerView rvPopular = view.findViewById(R.id.recyclerPopularAhora);
         RecyclerView rvAgregado = view.findViewById(R.id.recyclerAgregadoRecientemente);
 
+        /*
+        musicController.getTrack(new TrackListener<Track>() {
+            @Override
+            public void finish(Track track) {
+                if(track == null){
+                    //No hay internet, o no se pudo conectar a la API
+                    Toast.makeText(getActivity(), "Error al conectar con la API", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    Toast.makeText(getActivity(), track.getTitle(), Toast.LENGTH_LONG).show();
+                }
+            }
+        }, "917717");
+*/
         //ToDo: Cambiar estos para que cada uno tenga su distinto adapter (cada uno con distintas canciones)
 
         rvPopular.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));

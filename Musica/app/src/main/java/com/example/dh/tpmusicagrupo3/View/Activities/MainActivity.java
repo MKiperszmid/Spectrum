@@ -18,7 +18,6 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Noti
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         getSupportActionBar().setTitle("Inicio");
-        String pname = getPackageName();
         LoadFragment(new HomeFragment(), R.id.homeID);
     }
 
