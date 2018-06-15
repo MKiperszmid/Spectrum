@@ -8,9 +8,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.dh.tpmusicagrupo3.Controller.DownloadImageTask;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Track;
 import com.example.dh.tpmusicagrupo3.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -70,8 +70,8 @@ public class AdapterCancionArtistaPortada extends RecyclerView.Adapter {
         public void bindCancion(Track cancion){
             tvCancion.setText(cancion.getTitle());
             tvArtista.setText(cancion.getArtist().getName());
-            new DownloadImageTask(ivPortada).execute(cancion.getArtist().getPicture_big());
-            //ivPortada.setImageResource(cancion.getImagenPortada());
+            Picasso.get().load(cancion.getArtist().getPicture_big()).into(ivPortada);
+            //new DownloadImageTask(ivPortada).execute(cancion.getArtist().getPicture_big());
         }
     }
     public interface NotificadorCancionCelda{

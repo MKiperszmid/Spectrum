@@ -59,7 +59,7 @@ public class SongActivity extends AppCompatActivity {
                 }
                 HomeFragment.cancionActual = canciones.get(position);
                 index = position;
-        }
+            }
 
             @Override
             public void onPageScrollStateChanged(int state) {

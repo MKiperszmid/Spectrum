@@ -10,10 +10,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.dh.tpmusicagrupo3.Controller.DownloadImageTask;
 import com.example.dh.tpmusicagrupo3.Controller.MediaPlayerController;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Track;
 import com.example.dh.tpmusicagrupo3.R;
+import com.squareup.picasso.Picasso;
 
 public class SongFragment extends Fragment {
 
@@ -53,8 +53,8 @@ public class SongFragment extends Fragment {
         TextView descripcionCancionArtista = view.findViewById(R.id.descripcionCancionArtista);
         descripcionCancionArtista.setText(cancion.getArtist().getName());
         ImageView descripcionCancionPortada = view.findViewById(R.id.descripcionCancionPortada);
-        new DownloadImageTask(descripcionCancionPortada).execute(cancion.getArtist().getPicture_big());
-        //descripcionCancionPortada.setImageResource(cancion.getArtist().getPicture_big());
+        //new DownloadImageTask(descripcionCancionPortada).execute(cancion.getArtist().getPicture_big());
+        Picasso.get().load(cancion.getArtist().getPicture_big()).into(descripcionCancionPortada);
 
         descripcionCancionArtista.setOnClickListener(new View.OnClickListener() {
             @Override

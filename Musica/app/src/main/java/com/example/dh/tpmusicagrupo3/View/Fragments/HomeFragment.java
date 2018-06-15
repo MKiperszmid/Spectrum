@@ -94,7 +94,6 @@ public class HomeFragment extends Fragment implements AdapterCancionArtistaPorta
         });
     }
 
-
     private void setAdapter(){
         adapterCancionArtistaPortada = new AdapterCancionArtistaPortada(tracks, this);
         rvPopular.setAdapter(adapterCancionArtistaPortada);
