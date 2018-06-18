@@ -13,10 +13,28 @@ public class MusicController {
     private RetrofitConnector connector = new RetrofitConnector();
 
     public void getChart(final TrackListener<Chart> listener){
-
         connector.getChart(new TrackListener<Chart>() {
             @Override
             public void finish(Chart track) {
+                listener.finish(track);
+            }
+        });
+    }
+
+    public void getTracksRadio(final TrackListener<TrackContainer> listener, String id){
+        //31061
+        connector.getTracksRadio(new TrackListener<TrackContainer>() {
+            @Override
+            public void finish(TrackContainer track) {
+                listener.finish(track);
+            }
+        }, id);
+    }
+
+    public void getTopArgentina(final TrackListener<TrackContainer> listener){
+        connector.getTopArgentina(new TrackListener<TrackContainer>() {
+            @Override
+            public void finish(TrackContainer track) {
                 listener.finish(track);
             }
         });

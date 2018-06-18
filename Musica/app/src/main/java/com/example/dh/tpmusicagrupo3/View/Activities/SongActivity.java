@@ -52,12 +52,12 @@ public class SongActivity extends AppCompatActivity implements SongFragment.Noti
             //TODO: Mostrar codigo a Nico.
             @Override
             public void onPageSelected(int position) {
-                MediaPlayerController.create(fragments.get(position).getCancion().getPreview());
                 if(position >= adapter.getCount()  - 1) {
                     pager.setCurrentItem(1, false);
                 } else if(position <= 0) {
                     pager.setCurrentItem(fragments.size() - 2, false);
                 }
+                MediaPlayerController.create(fragments.get(position).getCancion().getPreview());
                 HomeFragment.cancionActual = canciones.get(position);
                 index = position;
             }

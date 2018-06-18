@@ -13,16 +13,15 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.dh.tpmusicagrupo3.Controller.MusicController;
 import com.example.dh.tpmusicagrupo3.Controller.TrackListener;
 import com.example.dh.tpmusicagrupo3.Controller.MediaPlayerController;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Chart;
+import com.example.dh.tpmusicagrupo3.Model.POJO.Containers.TrackContainer;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Track;
 import com.example.dh.tpmusicagrupo3.R;
 import com.example.dh.tpmusicagrupo3.View.Activities.SongActivity;
 import com.example.dh.tpmusicagrupo3.View.Adapters.AdapterCancionArtistaPortada;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -67,11 +66,12 @@ public class HomeFragment extends Fragment implements AdapterCancionArtistaPorta
         return tracksFragment;
     }
 
-    private void LoadCancionesFragment(){
+    public static void LoadCancionesFragment(List<Track> newTracks){
         tracksFragment = new ArrayList<>();
-        tracksFragment.add(tracks.get(tracks.size() - 1));
-        tracksFragment.addAll(tracks);
-        tracksFragment.add(tracks.get(0));
+        tracksFragment.add(newTracks.get(newTracks.size() - 1));
+        tracksFragment.addAll(newTracks);
+        tracksFragment.add(newTracks.get(0));
+        tracks = newTracks;
     }
 
     private void LoadCanciones(){
@@ -87,20 +87,48 @@ public class HomeFragment extends Fragment implements AdapterCancionArtistaPorta
                     return;
                 }
                 tracks = track.getTracks().getData();
-                LoadCancionesFragment();
+
                 Toast.makeText(getActivity(), "CARGO", Toast.LENGTH_SHORT).show();
-                setAdapter();
+                setAdapter(tracks, rvPopular);
+            }
+        });
+
+        musicController.getTracksRadio(new TrackListener<TrackContainer>() {
+            @Override
+            public void finish(TrackContainer track) {
+                if(track == null){
+                    Toast.makeText(getActivity(), "Error al conectar con Radio.", Toast.LENGTH_SHORT).show();
+                    //MOSTRAR OFFLINE
+                    return;
+                }
+                tracks = track.getData();
+
+                Toast.makeText(getActivity(), "CARGO", Toast.LENGTH_SHORT).show();
+                setAdapter(tracks, rvAgregado);
+            }
+        }, "31061");
+
+        musicController.getTopArgentina(new TrackListener<TrackContainer>() {
+            @Override
+            public void finish(TrackContainer track) {
+                if(track == null){
+                    Toast.makeText(getActivity(), "Error al conectar con TOP Argentina.", Toast.LENGTH_SHORT).show();
+                    //MOSTRAR OFFLINE
+                    return;
+                }
+                tracks = track.getData();
+
+                Toast.makeText(getActivity(), "CARGO", Toast.LENGTH_SHORT).show();
+                setAdapter(tracks, rvArgentina);
             }
         });
     }
 
-    private void setAdapter(){
+    private void setAdapter(List<Track> tracks, RecyclerView recyclerView){
         adapterCancionArtistaPortada = new AdapterCancionArtistaPortada(tracks, this);
-        rvPopular.setAdapter(adapterCancionArtistaPortada);
-        rvAgregado.setAdapter(adapterCancionArtistaPortada);
-        rvArgentina.setAdapter(adapterCancionArtistaPortada);
-
+        recyclerView.setAdapter(adapterCancionArtistaPortada);
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -117,16 +145,10 @@ public class HomeFragment extends Fragment implements AdapterCancionArtistaPorta
 
         rvPopular = view.findViewById(R.id.recyclerPopularAhora);
         rvAgregado = view.findViewById(R.id.recyclerAgregadoRecientemente);
-
-        //ToDo: Cambiar estos para que cada uno tenga su distinto adapter (cada uno con distintas canciones)
+        rvArgentina = view.findViewById(R.id.recyclerTrendingArgentina);
 
         rvPopular.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
-
-
         rvAgregado.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
-
-
-        rvArgentina = view.findViewById(R.id.recyclerTrendingArgentina);
         rvArgentina.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
 
 

@@ -20,6 +20,12 @@ public interface DeezerService {
     @GET("chart/0/tracks")
     Call<TrackContainer> getTracksChart();
 
+    @GET("playlist/1279119721/tracks")
+    Call<TrackContainer> getTracksArgentina();
+
+    @GET("radio/{id}/tracks")
+    Call<TrackContainer> getTracksRadio(@Path("id") String id);
+
     @GET("track/{id}")
     Call<Track> getTrack(@Path("id") String id);
 }

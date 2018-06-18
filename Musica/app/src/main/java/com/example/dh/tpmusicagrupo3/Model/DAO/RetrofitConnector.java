@@ -42,6 +42,36 @@ public class RetrofitConnector {
         });
     }
 
+    public void getTopArgentina(final TrackListener<TrackContainer> listener){
+        Call<TrackContainer> trackCall = service.getTracksArgentina();
+        trackCall.enqueue(new Callback<TrackContainer>() {
+            @Override
+            public void onResponse(Call<TrackContainer> call, Response<TrackContainer> response) {
+                listener.finish(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<TrackContainer> call, Throwable t) {
+                listener.finish(null);
+            }
+        });
+    }
+
+    public void getTracksRadio(final TrackListener<TrackContainer> listener, String id){
+        Call<TrackContainer> trackListenerCall = service.getTracksRadio(id);
+        trackListenerCall.enqueue(new Callback<TrackContainer>() {
+            @Override
+            public void onResponse(Call<TrackContainer> call, Response<TrackContainer> response) {
+                listener.finish(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<TrackContainer> call, Throwable t) {
+                listener.finish(null);
+            }
+        });
+    }
+
     public void getChartTracks(final TrackListener<TrackContainer> listener){
         Call<TrackContainer> tracks = service.getTracksChart();
         tracks.enqueue(new Callback<TrackContainer>() {

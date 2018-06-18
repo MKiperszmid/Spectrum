@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.example.dh.tpmusicagrupo3.Model.POJO.Track;
 import com.example.dh.tpmusicagrupo3.R;
+import com.example.dh.tpmusicagrupo3.View.Fragments.HomeFragment;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -62,6 +63,7 @@ public class AdapterCancionArtistaPortada extends RecyclerView.Adapter {
                 @Override
                 public void onClick(View view) {
                     int pos = getAdapterPosition();
+                    HomeFragment.LoadCancionesFragment(canciones);
                     notificadorCancionCelda.notificarCancionClickeada(canciones.get(pos));
                 }
             });
