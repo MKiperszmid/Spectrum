@@ -42,8 +42,8 @@ public class RetrofitConnector {
         });
     }
 
-    public void getTopArgentina(final TrackListener<TrackContainer> listener){
-        Call<TrackContainer> trackCall = service.getTracksArgentina();
+    public void getTracksPlaylist(final TrackListener<TrackContainer> listener, String id){
+        Call<TrackContainer> trackCall = service.getTracksPlaylist(id);
         trackCall.enqueue(new Callback<TrackContainer>() {
             @Override
             public void onResponse(Call<TrackContainer> call, Response<TrackContainer> response) {

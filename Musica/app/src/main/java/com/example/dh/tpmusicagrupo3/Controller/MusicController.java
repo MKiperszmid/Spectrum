@@ -48,8 +48,8 @@ public class MusicController {
         }, id);
     }
 
-    public void getTopArgentina(final TrackListener<TrackContainer> listener){
-        connector.getTopArgentina(new TrackListener<TrackContainer>() {
+    public void getTracksPlaylist(final TrackListener<TrackContainer> listener, String id){
+        connector.getTracksPlaylist(new TrackListener<TrackContainer>() {
             @Override
             public void finish(TrackContainer track) {
                 if(track != null)
@@ -61,7 +61,39 @@ public class MusicController {
                     //OFFLINE
                 }
             }
-        });
+        }, id);
+    }
+
+    public void getTopArgentina(final TrackListener<TrackContainer> listener){
+        getTracksPlaylist(new TrackListener<TrackContainer>() {
+            @Override
+            public void finish(TrackContainer track) {
+                if(track != null)
+                {
+                    listener.finish(track);
+                }
+                else {
+                    listener.finish(new TrackContainer());
+                    //OFFLINE
+                }
+            }
+        }, "1279119721");
+    }
+
+    public void getTopUsa(final TrackListener<TrackContainer> listener){
+        getTracksPlaylist(new TrackListener<TrackContainer>() {
+            @Override
+            public void finish(TrackContainer track) {
+                if(track != null)
+                {
+                    listener.finish(track);
+                }
+                else {
+                    listener.finish(new TrackContainer());
+                    //OFFLINE
+                }
+            }
+        }, "2097558104");
     }
 
     public void getTrack(final TrackListener<Track> listener, String id){

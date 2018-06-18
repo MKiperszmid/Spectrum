@@ -8,7 +8,7 @@ import java.io.Serializable;
 
 public class Track implements Serializable {
     private Integer id;
-    private String title;
+    private String title_short;
     private Integer duration;
     private String preview;
     private Artist artist;
@@ -16,7 +16,7 @@ public class Track implements Serializable {
 
     public Track(Integer id, String title, Integer duration, String preview) {
         this.id = id;
-        this.title = title;
+        this.title_short = title;
         this.duration = duration;
         this.preview = preview;
     }
@@ -29,12 +29,12 @@ public class Track implements Serializable {
         this.id = id;
     }
 
-    public String getTitle() {
-        return title;
+    public String getTitle_short() {
+        return title_short;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setTitle_short(String title_short) {
+        this.title_short = title_short;
     }
 
     public Integer getDuration() {
@@ -73,6 +73,11 @@ public class Track implements Serializable {
     public boolean equals(Object obj) {
         if(!(obj instanceof Track)) return false;
         Track track = (Track) obj;
-        return track.getId().equals(this.id) && track.getTitle().equals(this.title) && track.getArtist().getName().equals(this.artist.getName());
+        return track.getId().equals(this.id) && track.getTitle_short().equals(this.title_short) && track.getArtist().getName().equals(this.artist.getName());
+    }
+
+    @Override
+    public String toString() {
+        return title_short;
     }
 }

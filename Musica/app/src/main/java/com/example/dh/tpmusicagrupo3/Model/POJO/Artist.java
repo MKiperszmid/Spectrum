@@ -50,4 +50,9 @@ public class Artist implements Serializable {
     public void setTracklist(String tracklist) {
         this.tracklist = tracklist;
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }

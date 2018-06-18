@@ -50,7 +50,8 @@ public class HomeFragment extends Fragment implements AdapterCancionArtistaPorta
     private RecyclerView rvPopular;
     private RecyclerView rvAgregado;
     private RecyclerView rvArgentina;
-
+    private RecyclerView rvUsa;
+    private RelativeLayout queue;
 
     public HomeFragment() {
         // Required empty public constructo
@@ -81,8 +82,6 @@ public class HomeFragment extends Fragment implements AdapterCancionArtistaPorta
             @Override
             public void finish(Chart track) {
                 tracks = track.getTracks().getData();
-
-                Toast.makeText(getActivity(), "CARGO", Toast.LENGTH_SHORT).show();
                 setAdapter(tracks, rvPopular);
             }
         });
@@ -91,8 +90,6 @@ public class HomeFragment extends Fragment implements AdapterCancionArtistaPorta
             @Override
             public void finish(TrackContainer track) {
                 tracks = track.getData();
-
-                Toast.makeText(getActivity(), "CARGO", Toast.LENGTH_SHORT).show();
                 setAdapter(tracks, rvAgregado);
             }
         }, "31061");
@@ -101,9 +98,15 @@ public class HomeFragment extends Fragment implements AdapterCancionArtistaPorta
             @Override
             public void finish(TrackContainer track) {
                 tracks = track.getData();
-
-                Toast.makeText(getActivity(), "CARGO", Toast.LENGTH_SHORT).show();
                 setAdapter(tracks, rvArgentina);
+            }
+        });
+
+        musicController.getTopUsa(new TrackListener<TrackContainer>() {
+            @Override
+            public void finish(TrackContainer track) {
+                tracks = track.getData();
+                setAdapter(tracks, rvUsa);
             }
         });
     }
@@ -121,7 +124,7 @@ public class HomeFragment extends Fragment implements AdapterCancionArtistaPorta
 
         LoadCanciones();
 
-        RelativeLayout queue = view.findViewById(R.id.relativeQueue);
+        queue = view.findViewById(R.id.relativeQueue);
 
         cancionPlaying = view.findViewById(R.id.cancionCurrentPlayingID);
         artistaPlaying = view.findViewById(R.id.artistCurrentPlayingID);
@@ -130,11 +133,12 @@ public class HomeFragment extends Fragment implements AdapterCancionArtistaPorta
         rvPopular = view.findViewById(R.id.recyclerPopularAhora);
         rvAgregado = view.findViewById(R.id.recyclerAgregadoRecientemente);
         rvArgentina = view.findViewById(R.id.recyclerTrendingArgentina);
+        rvUsa = view.findViewById(R.id.recyclerTrendingUsa);
 
         rvPopular.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
         rvAgregado.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
         rvArgentina.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
-
+        rvUsa.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
 
         /* Feed */
 
@@ -224,6 +228,7 @@ public class HomeFragment extends Fragment implements AdapterCancionArtistaPorta
     @Override
     public void notificarCancionClickeada(Track cancionClickeada) {
         if(cancionActual != cancionClickeada){
+            queue.setVisibility(View.VISIBLE);
             MediaPlayerController.create(cancionClickeada.getPreview());
             cancionActual = cancionClickeada;
             SongActivity.index = cancionClickeada.getId();
@@ -235,7 +240,7 @@ public class HomeFragment extends Fragment implements AdapterCancionArtistaPorta
     public void onResume() {
         super.onResume();
         if(cancionActual != null){
-            cancionPlaying.setText(cancionActual.getTitle());
+            cancionPlaying.setText(cancionActual.getTitle_short());
             separatorPlaying.setText(" - ");
             artistaPlaying.setText(cancionActual.getArtist().getName());
         }

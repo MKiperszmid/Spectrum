@@ -7,13 +7,10 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.example.dh.tpmusicagrupo3.Controller.GlideApp;
 import com.example.dh.tpmusicagrupo3.Controller.GlideController;
 import com.example.dh.tpmusicagrupo3.Controller.MediaPlayerController;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Track;
@@ -60,11 +57,11 @@ public class SongFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_song, container, false);
         TextView descripcionCancionNombre = view.findViewById(R.id.descripcionCancionNombre);
-        descripcionCancionNombre.setText(cancion.getTitle());
+        descripcionCancionNombre.setText(cancion.getTitle_short());
         TextView descripcionCancionArtista = view.findViewById(R.id.descripcionCancionArtista);
         descripcionCancionArtista.setText(cancion.getArtist().getName());
         ImageView descripcionCancionPortada = view.findViewById(R.id.descripcionCancionPortada);
-        
+
         GlideController.loadImage(view, cancion.getArtist().getPicture_big(), descripcionCancionPortada);
 
         descripcionCancionArtista.setOnClickListener(new View.OnClickListener() {

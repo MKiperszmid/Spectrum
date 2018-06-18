@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.dh.tpmusicagrupo3.Controller.GlideApp;
 import com.example.dh.tpmusicagrupo3.Controller.GlideController;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Track;
 import com.example.dh.tpmusicagrupo3.R;
@@ -71,7 +70,7 @@ public class AdapterCancionArtistaPortada extends RecyclerView.Adapter {
         }
 
         public void bindCancion(Track cancion){
-            tvCancion.setText(cancion.getTitle());
+            tvCancion.setText(cancion.getTitle_short());
             tvArtista.setText(cancion.getArtist().getName());
 
             GlideController.loadImage(itemView, cancion.getArtist().getPicture_big(), ivPortada);

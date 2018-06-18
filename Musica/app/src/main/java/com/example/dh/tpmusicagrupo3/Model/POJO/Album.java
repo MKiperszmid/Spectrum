@@ -74,4 +74,9 @@ public class Album implements Serializable {
     public void setTracks(TrackContainer tracks) {
         this.tracks = tracks;
     }
+
+    @Override
+    public String toString() {
+        return title;
+    }
 }

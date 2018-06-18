@@ -80,4 +80,9 @@ public class Playlist implements Serializable {
     public void setPicture_big(String picture_big) {
         this.picture_big = picture_big;
     }
+
+    @Override
+    public String toString() {
+        return title;
+    }
 }

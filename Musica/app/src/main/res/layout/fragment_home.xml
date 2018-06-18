@@ -72,6 +72,25 @@
             android:id="@+id/recyclerTrendingArgentina"
             android:layout_below="@id/trendingArgentinaID"/>
 
+            <TextView
+                android:id="@+id/trendingUSA"
+                android:layout_width="wrap_content"
+                android:textColor="@color/colorWhite"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="25dp"
+                android:layout_marginBottom="25dp"
+                android:text="@string/trending_usa"
+                android:textSize="@dimen/maxSizeTitleName"
+                android:layout_below="@id/recyclerTrendingArgentina"
+                android:textStyle="bold"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/recyclerTrendingUsa"
+                android:layout_below="@id/trendingUSA"/>
+
         </RelativeLayout>
     </ScrollView>
 
@@ -86,6 +105,7 @@
         <RelativeLayout
             android:id="@+id/relativeQueue"
             android:layout_width="match_parent"
+            android:visibility="gone"
             android:layout_height="wrap_content"
             android:layout_marginBottom="2dp"
             android:background="@color/colorPrimary"
