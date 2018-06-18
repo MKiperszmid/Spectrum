@@ -17,11 +17,12 @@ import com.example.dh.tpmusicagrupo3.View.Fragments.SongFragment;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SongActivity extends AppCompatActivity {
+public class SongActivity extends AppCompatActivity implements SongFragment.NotificadorCambioCancion {
 
     private List<SongFragment> fragments;
     private List<Track> canciones;
     public static Integer index;
+    private ViewPager pager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,7 +39,7 @@ public class SongActivity extends AppCompatActivity {
         LoadFragment(songFragment, R.id.songID);*/
 
         CargarFragments();
-        final ViewPager pager = findViewById(R.id.songactivityViewPager);
+        pager = findViewById(R.id.songactivityViewPager);
         final AdapterSongPager adapter = new AdapterSongPager(getSupportFragmentManager(), fragments);
         pager.setAdapter(adapter);
         pager.setCurrentItem(index);
@@ -75,5 +76,15 @@ public class SongActivity extends AppCompatActivity {
         for(Track cancion : canciones){
             fragments.add(SongFragment.dameFragment(cancion));
         }
+    }
+
+    @Override
+    public void retroceder() {
+        pager.setCurrentItem(pager.getCurrentItem() - 1);
+    }
+
+    @Override
+    public void adelantar() {
+        pager.setCurrentItem(pager.getCurrentItem() + 1);
     }
 }

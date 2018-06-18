@@ -1,11 +1,13 @@
 package com.example.dh.tpmusicagrupo3.View.Fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,11 +23,18 @@ public class SongFragment extends Fragment {
     public static String CANCIONPOS = "POSITION";
     private FloatingActionButton pauseplayClick;
     private Track cancion;
+    private NotificadorCambioCancion notificadorCambioCancion;
 
     public static final String CANCIONKEY = "cancion";
 
     public SongFragment() {
         // Required empty public constructor
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        this.notificadorCambioCancion = (NotificadorCambioCancion) context;
     }
 
     public Track getCancion(){
@@ -69,12 +78,14 @@ public class SongFragment extends Fragment {
                 Toast.makeText(getActivity(), "Me Gusta", Toast.LENGTH_SHORT).show();
             }
         });
+
         ImageView backClick = view.findViewById(R.id.backClick);
         backClick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getActivity(), "Retroceder", Toast.LENGTH_SHORT).show();
                 MediaPlayerController.retroceder(pauseplayClick);
+                notificadorCambioCancion.retroceder();
             }
         });
         pauseplayClick = view.findViewById(R.id.pauseplayClick);
@@ -91,6 +102,7 @@ public class SongFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getActivity(), "Adelantar", Toast.LENGTH_SHORT).show();
+                notificadorCambioCancion.adelantar();
             }
         });
         ImageView agregarOffline = view.findViewById(R.id.agregarOffline);
@@ -102,6 +114,11 @@ public class SongFragment extends Fragment {
         });
 
         return view;
+    }
+
+    public interface NotificadorCambioCancion{
+        public void retroceder();
+        public void adelantar();
     }
 
     @Override
