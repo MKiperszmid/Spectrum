@@ -12,11 +12,21 @@ import com.example.dh.tpmusicagrupo3.Model.POJO.Containers.TrackContainer;
 public class MusicController {
     private RetrofitConnector connector = new RetrofitConnector();
 
+
+    //IF track == null , devolver una lista descargada.
+
     public void getChart(final TrackListener<Chart> listener){
         connector.getChart(new TrackListener<Chart>() {
             @Override
             public void finish(Chart track) {
-                listener.finish(track);
+                if(track != null)
+                {
+                    listener.finish(track);
+                }
+                else {
+                    listener.finish(new Chart());
+                    //OFFLINE
+                }
             }
         });
     }
@@ -26,7 +36,14 @@ public class MusicController {
         connector.getTracksRadio(new TrackListener<TrackContainer>() {
             @Override
             public void finish(TrackContainer track) {
-                listener.finish(track);
+                if(track != null)
+                {
+                    listener.finish(track);
+                }
+                else {
+                    listener.finish(new TrackContainer());
+                    //OFFLINE
+                }
             }
         }, id);
     }
@@ -35,7 +52,14 @@ public class MusicController {
         connector.getTopArgentina(new TrackListener<TrackContainer>() {
             @Override
             public void finish(TrackContainer track) {
-                listener.finish(track);
+                if(track != null)
+                {
+                    listener.finish(track);
+                }
+                else {
+                    listener.finish(new TrackContainer());
+                    //OFFLINE
+                }
             }
         });
     }

@@ -75,17 +75,11 @@ public class HomeFragment extends Fragment implements AdapterCancionArtistaPorta
     }
 
     private void LoadCanciones(){
-
         MusicController musicController = new MusicController();
-
+        tracks = new ArrayList<>();
         musicController.getChart(new TrackListener<Chart>() {
             @Override
             public void finish(Chart track) {
-                if(track == null){
-                    Toast.makeText(getActivity(), "Error al conectar con Chart.", Toast.LENGTH_SHORT).show();
-                    //MOSTRAR OFFLINE
-                    return;
-                }
                 tracks = track.getTracks().getData();
 
                 Toast.makeText(getActivity(), "CARGO", Toast.LENGTH_SHORT).show();
@@ -96,11 +90,6 @@ public class HomeFragment extends Fragment implements AdapterCancionArtistaPorta
         musicController.getTracksRadio(new TrackListener<TrackContainer>() {
             @Override
             public void finish(TrackContainer track) {
-                if(track == null){
-                    Toast.makeText(getActivity(), "Error al conectar con Radio.", Toast.LENGTH_SHORT).show();
-                    //MOSTRAR OFFLINE
-                    return;
-                }
                 tracks = track.getData();
 
                 Toast.makeText(getActivity(), "CARGO", Toast.LENGTH_SHORT).show();
@@ -111,11 +100,6 @@ public class HomeFragment extends Fragment implements AdapterCancionArtistaPorta
         musicController.getTopArgentina(new TrackListener<TrackContainer>() {
             @Override
             public void finish(TrackContainer track) {
-                if(track == null){
-                    Toast.makeText(getActivity(), "Error al conectar con TOP Argentina.", Toast.LENGTH_SHORT).show();
-                    //MOSTRAR OFFLINE
-                    return;
-                }
                 tracks = track.getData();
 
                 Toast.makeText(getActivity(), "CARGO", Toast.LENGTH_SHORT).show();
