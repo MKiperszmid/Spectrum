@@ -73,13 +73,4 @@ public class MusicController {
             }
         }, id);
     }
-
-    public void getChartTracks(final TrackListener<TrackContainer> listener){
-        connector.getChartTracks(new TrackListener<TrackContainer>() {
-            @Override
-            public void finish(TrackContainer track) {
-                listener.finish(track);
-            }
-        });
-    }
 }

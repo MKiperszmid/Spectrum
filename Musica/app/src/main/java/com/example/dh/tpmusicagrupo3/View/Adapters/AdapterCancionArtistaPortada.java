@@ -8,10 +8,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.dh.tpmusicagrupo3.Controller.GlideApp;
+import com.example.dh.tpmusicagrupo3.Controller.GlideController;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Track;
 import com.example.dh.tpmusicagrupo3.R;
 import com.example.dh.tpmusicagrupo3.View.Fragments.HomeFragment;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -72,7 +73,9 @@ public class AdapterCancionArtistaPortada extends RecyclerView.Adapter {
         public void bindCancion(Track cancion){
             tvCancion.setText(cancion.getTitle());
             tvArtista.setText(cancion.getArtist().getName());
-            Picasso.get().load(cancion.getArtist().getPicture_big()).into(ivPortada);
+
+            GlideController.loadImage(itemView, cancion.getArtist().getPicture_big(), ivPortada);
+            //Picasso.get().load(cancion.getArtist().getPicture_big()).into(ivPortada);
             //new DownloadImageTask(ivPortada).execute(cancion.getArtist().getPicture_big());
         }
     }
