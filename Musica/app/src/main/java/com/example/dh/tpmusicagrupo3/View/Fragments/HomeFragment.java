@@ -31,27 +31,12 @@ public class HomeFragment extends Fragment implements AdapterCancionArtistaPorta
     public static Track cancionActual;
     private static List<Track> tracks;
     private static List<Track> tracksFragment;
-    private ImageView playBtn;
-    private TextView cancionPlaying;
-    private TextView separatorPlaying;
-    private TextView artistaPlaying;
 
-    // Iconos de bottom bar
-    private ImageView homeBtnIcon;
-    private ImageView explorarBtnIcon;
-    private ImageView buscarBtnIcon;
-    private ImageView perfilBtnIcon;
-
-    private TextView homeBtnTxt;
-    private TextView explorarBtnTxt;
-    private TextView buscarBtnTxt;
-    private TextView perfilBtnTxt;
     private AdapterCancionArtistaPortada adapterCancionArtistaPortada;
     private RecyclerView rvPopular;
     private RecyclerView rvAgregado;
     private RecyclerView rvArgentina;
     private RecyclerView rvUsa;
-    private RelativeLayout queue;
 
     public HomeFragment() {
         // Required empty public constructo
@@ -124,11 +109,7 @@ public class HomeFragment extends Fragment implements AdapterCancionArtistaPorta
 
         LoadCanciones();
 
-        queue = view.findViewById(R.id.relativeQueue);
-
-        cancionPlaying = view.findViewById(R.id.cancionCurrentPlayingID);
-        artistaPlaying = view.findViewById(R.id.artistCurrentPlayingID);
-        separatorPlaying = view.findViewById(R.id.separatorCurrentPlayingID);
+        /* Feed */
 
         rvPopular = view.findViewById(R.id.recyclerPopularAhora);
         rvAgregado = view.findViewById(R.id.recyclerAgregadoRecientemente);
@@ -140,157 +121,25 @@ public class HomeFragment extends Fragment implements AdapterCancionArtistaPorta
         rvArgentina.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
         rvUsa.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
 
-        /* Feed */
-
-        queue.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v) {
-                if (cancionActual != null){
-                    notificadorActivity.recibirCancion(cancionActual, tracks.indexOf(cancionActual));
-                }
-            }
-        });
-
-        homeBtnIcon = view.findViewById(R.id.homeIconID);
-        explorarBtnIcon = view.findViewById(R.id.exploreIconID);
-        buscarBtnIcon = view.findViewById(R.id.searchIconID);
-        perfilBtnIcon = view.findViewById(R.id.profileIconID);
-        homeBtnTxt = view.findViewById(R.id.homeTxtID);
-        explorarBtnTxt = view.findViewById(R.id.explorarTxtID);
-        buscarBtnTxt = view.findViewById(R.id.buscarTxtID);
-        perfilBtnTxt = view.findViewById(R.id.perfilTxtID);
-
-        /* Bottom bar */
-
-        /* Botón Home */
-        LinearLayout homeBtn = view.findViewById(R.id.homeBtn);
-        homeBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(getActivity(), "Home", Toast.LENGTH_SHORT).show();
-                cambiarIcono("home");
-            }
-        });
-
-        /* Botón Explorar */
-        LinearLayout explorarBtn = view.findViewById(R.id.explorarBtn);
-        explorarBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getActivity(), "Explorar", Toast.LENGTH_SHORT).show();
-                cambiarIcono("explorar");
-            }
-        });
-
-        /* Botón Buscar */
-        LinearLayout buscarBtn = view.findViewById(R.id.buscarBtn);
-        buscarBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getActivity(), "Buscar", Toast.LENGTH_SHORT).show();
-                cambiarIcono("buscar");
-            }
-        });
-
-        /* Botón Perfil */
-        LinearLayout perfilBtn = view.findViewById(R.id.perfilBtn);
-        perfilBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getActivity(), "Perfil", Toast.LENGTH_SHORT).show();
-                cambiarIcono("perfil");
-            }
-        });
-
-        /* Botón Play */
-        playBtn = view.findViewById(R.id.playBtn);
-        playBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MediaPlayerController.playPause(playBtn);
-            }
-        });
-
-
-        /* Botón UP (Ver Canción) */
-        ImageView upBtn = view.findViewById(R.id.upBtn);
-        upBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (cancionActual != null){
-                    notificadorActivity.recibirCancion(cancionActual, tracks.indexOf(cancionActual));
-                }
-            }
-        });
-        
         return view;
     }
 
     @Override
     public void notificarCancionClickeada(Track cancionClickeada) {
+
         if(cancionActual != cancionClickeada){
-            queue.setVisibility(View.VISIBLE);
             MediaPlayerController.create(cancionClickeada);
             cancionActual = cancionClickeada;
             SongActivity.index = cancionClickeada.getId();
         }
+
         notificadorActivity.recibirCancion(cancionClickeada, tracks.indexOf(cancionClickeada));
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        if(cancionActual != null){
-            cancionPlaying.setText(cancionActual.getTitle_short());
-            separatorPlaying.setText(" - ");
-            artistaPlaying.setText(cancionActual.getArtist().getName());
-        }
-        if(MediaPlayerController.isPlaying()){
-            playBtn.setImageResource(R.drawable.stop);
-        }
-        else {
-            playBtn.setImageResource(R.drawable.play);
-        }
-    }
 
     public interface NotificadorActivity{
         void recibirCancion(Track cancion, int position);
     }
 
-    private void cambiarColor(TextView textview, int color){
-        textview.setTextColor(getResources().getColor(color));
-    }
 
-    private void cambiarIcono(ImageView imageView, int icono){
-        imageView.setImageResource(icono);
-    }
-
-    private void cambiarTodo(TextView textView, int color, ImageView imageView, int icono){
-        cambiarColor(textView, color);
-        cambiarIcono(imageView, icono);
-    }
-
-    private void cambiarIcono(String seccionNombre) {
-
-        // Reset, pongo todos los iconos en gris
-        cambiarTodo(homeBtnTxt, R.color.colorGraySemiWhite, homeBtnIcon, R.drawable.home);
-        cambiarTodo(explorarBtnTxt, R.color.colorGraySemiWhite, explorarBtnIcon, R.drawable.explorar);
-        cambiarTodo(buscarBtnTxt, R.color.colorGraySemiWhite, buscarBtnIcon, R.drawable.buscar);
-        cambiarTodo(perfilBtnTxt, R.color.colorGraySemiWhite, perfilBtnIcon, R.drawable.perfil);
-
-        // Dependiendo cual toco le cambio icono y color de texto
-        switch(seccionNombre){
-            case "home":
-                cambiarTodo(homeBtnTxt, R.color.colorAccent, homeBtnIcon, R.drawable.homeactivo);
-            break;
-            case "explorar":
-                cambiarTodo(explorarBtnTxt, R.color.colorAccent, explorarBtnIcon, R.drawable.exploraractivo);
-            break;
-            case "buscar":
-                cambiarTodo(buscarBtnTxt, R.color.colorAccent, buscarBtnIcon, R.drawable.buscaractivo);
-            break;
-            case "perfil":
-                cambiarTodo(perfilBtnTxt, R.color.colorAccent, perfilBtnIcon, R.drawable.perfilactivo);
-            break;
-        }
-    }
 }

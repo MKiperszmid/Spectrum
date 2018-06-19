@@ -94,6 +94,7 @@
         </RelativeLayout>
     </ScrollView>
 
+    <!--
     <LinearLayout
         android:id="@+id/music_tool_contoller"
         android:layout_width="match_parent"
@@ -294,6 +295,7 @@
         </LinearLayout>
 
     </LinearLayout>
+    -->
 
 </RelativeLayout>
 

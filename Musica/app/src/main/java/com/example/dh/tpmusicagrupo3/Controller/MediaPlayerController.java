@@ -16,6 +16,8 @@ import java.io.IOException;
 public class MediaPlayerController {
 
     private static MediaPlayer mp;
+    public static Track currentPlaying;
+
 
     private static Track currentlyPlaying;
 
@@ -86,6 +88,7 @@ public class MediaPlayerController {
             mp.setDataSource(track.getPreview());
             mp.prepare();
             currentPosition = 0;
+            currentPlaying = track;
             mp.start();
             currentlyPlaying = track;
         }
@@ -93,6 +96,7 @@ public class MediaPlayerController {
 
         }
     }
+
 
     public static void goToPosition(int posicion){
         if(!exists()) return;
