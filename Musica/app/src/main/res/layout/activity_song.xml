@@ -5,12 +5,10 @@
     android:layout_height="match_parent"
     tools:context="com.example.dh.tpmusicagrupo3.View.Activities.SongActivity">
 
-
     <android.support.v4.view.ViewPager
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/songactivityViewPager"/>
-
 
     <FrameLayout
         android:layout_width="match_parent"

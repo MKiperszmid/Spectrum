@@ -229,7 +229,7 @@ public class HomeFragment extends Fragment implements AdapterCancionArtistaPorta
     public void notificarCancionClickeada(Track cancionClickeada) {
         if(cancionActual != cancionClickeada){
             queue.setVisibility(View.VISIBLE);
-            MediaPlayerController.create(cancionClickeada.getPreview());
+            MediaPlayerController.create(cancionClickeada);
             cancionActual = cancionClickeada;
             SongActivity.index = cancionClickeada.getId();
         }

@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.support.design.widget.FloatingActionButton;
 import android.widget.ImageView;
 
+import com.example.dh.tpmusicagrupo3.Model.POJO.Track;
 import com.example.dh.tpmusicagrupo3.R;
 
 import java.io.IOException;
@@ -15,6 +16,8 @@ import java.io.IOException;
 public class MediaPlayerController {
 
     private static MediaPlayer mp;
+
+    private static Track currentlyPlaying;
 
     private static int currentPosition = 0;
 
@@ -76,14 +79,15 @@ public class MediaPlayerController {
         }
     }
 
-    public static void create(String preview){
+    public static void create(Track track){
         clear();
         mp = new MediaPlayer();
         try {
-            mp.setDataSource(preview);
+            mp.setDataSource(track.getPreview());
             mp.prepare();
             currentPosition = 0;
             mp.start();
+            currentlyPlaying = track;
         }
         catch (IOException e){
 

@@ -9,7 +9,7 @@
         android:roundIcon="@drawable/icon_spectrum"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".View.Activities.MainActivity">
+        <activity android:name=".View.Activities.MainActivity" android:theme="@style/MainTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

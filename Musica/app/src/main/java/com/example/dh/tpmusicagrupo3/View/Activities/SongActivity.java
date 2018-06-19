@@ -57,7 +57,7 @@ public class SongActivity extends AppCompatActivity implements SongFragment.Noti
                 } else if(position <= 0) {
                     pager.setCurrentItem(fragments.size() - 2, false);
                 }
-                MediaPlayerController.create(fragments.get(position).getCancion().getPreview());
+                MediaPlayerController.create(fragments.get(position).getCancion());
                 HomeFragment.cancionActual = canciones.get(position);
                 index = position;
             }
