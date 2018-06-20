@@ -36,16 +36,18 @@
                 android:id="@+id/cancionCurrentPlayingID"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat"
+                android:text="Artista raro"
                 android:textColor="@color/colorWhite"
                 android:textSize="@dimen/maxSizeSongName"
                 android:textStyle="bold"
-                android:text="Artista raro"
                 tools:text="Cancion" />
 
             <TextView
                 android:id="@+id/separatorCurrentPlayingID"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat"
                 android:textColor="@color/colorWhite"
                 android:textSize="@dimen/maxSizeSongName"
                 android:textStyle="bold"
@@ -55,6 +57,7 @@
                 android:id="@+id/artistCurrentPlayingID"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat"
                 android:textColor="@color/colorGrayWhite"
                 android:textSize="@dimen/maxSizeSongName"
                 tools:text="Artista" />

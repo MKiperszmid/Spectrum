@@ -80,7 +80,7 @@ public class BarbottomFragment extends Fragment{
             @Override
             public void onClick(View view) {
                 notificadorActivityBarBottom.recibirSeccion(new HomeFragment());
-                Toast.makeText(getActivity(), "Home", Toast.LENGTH_SHORT).show();
+               // Toast.makeText(getActivity(), "Home", Toast.LENGTH_SHORT).show();
                 cambiarIcono("home");
             }
         });
@@ -91,7 +91,7 @@ public class BarbottomFragment extends Fragment{
             @Override
             public void onClick(View v) {
                 notificadorActivityBarBottom.recibirSeccion(new ExplorarFragment());
-                Toast.makeText(getActivity(), "Explorar", Toast.LENGTH_SHORT).show();
+                // Toast.makeText(getActivity(), "Explorar", Toast.LENGTH_SHORT).show();
                 cambiarIcono("explorar");
             }
         });
@@ -102,7 +102,7 @@ public class BarbottomFragment extends Fragment{
             @Override
             public void onClick(View v) {
                 notificadorActivityBarBottom.recibirSeccion(new BuscarFragment());
-                Toast.makeText(getActivity(), "Buscar", Toast.LENGTH_SHORT).show();
+                // Toast.makeText(getActivity(), "Buscar", Toast.LENGTH_SHORT).show();
                 cambiarIcono("buscar");
             }
         });
@@ -113,7 +113,7 @@ public class BarbottomFragment extends Fragment{
             @Override
             public void onClick(View v) {
                 notificadorActivityBarBottom.recibirSeccion(new PerfilFragment());
-                Toast.makeText(getActivity(), "Perfil", Toast.LENGTH_SHORT).show();
+               // Toast.makeText(getActivity(), "Perfil", Toast.LENGTH_SHORT).show();
                 cambiarIcono("perfil");
             }
         });

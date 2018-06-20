@@ -14,17 +14,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/nowTrendingID"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_margin="18dp"
-            android:text="@string/nowTrending"
-            android:textSize="@dimen/maxSizeTitleName"
-            android:textStyle="bold"
-            android:textColor="@color/colorWhite"/>
+            <TextView
+                android:id="@+id/nowTrendingID"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="18dp"
+                android:fontFamily="@font/montserrat"
+                android:text="@string/nowTrending"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/maxSizeTitleName"
+                android:textStyle="bold" />
 
         <android.support.v7.widget.RecyclerView
             android:layout_width="wrap_content"
@@ -32,18 +33,19 @@
             android:id="@+id/recyclerPopularAhora"
             android:layout_below="@id/nowTrendingID"/>
 
-        <TextView
-            android:id="@+id/recentlyAddedID"
-            android:layout_width="wrap_content"
-            android:textColor="@color/colorWhite"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="25dp"
-            android:layout_marginBottom="25dp"
-            android:text="@string/recentlyAdded"
-            android:textSize="@dimen/maxSizeTitleName"
-            android:layout_below="@id/recyclerPopularAhora"
-            android:textStyle="bold"/>
+            <TextView
+                android:id="@+id/recentlyAddedID"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/recyclerPopularAhora"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="25dp"
+                android:layout_marginTop="25dp"
+                android:fontFamily="@font/montserrat"
+                android:text="@string/recentlyAdded"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/maxSizeTitleName"
+                android:textStyle="bold" />
 
         <android.support.v7.widget.RecyclerView
             android:layout_width="wrap_content"
@@ -58,6 +60,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="25dp"
+            android:fontFamily="@font/montserrat"
             android:layout_marginBottom="25dp"
             android:text="@string/trendingArgentina"
             android:textSize="@dimen/maxSizeTitleName"
@@ -77,6 +80,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="25dp"
+                android:fontFamily="@font/montserrat"
                 android:layout_marginBottom="25dp"
                 android:text="@string/trending_usa"
                 android:textSize="@dimen/maxSizeTitleName"

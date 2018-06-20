@@ -26,24 +26,28 @@
             android:layout_height="wrap_content"
             android:id="@+id/infoCancionContenedor"
             android:orientation="vertical">
+
             <TextView
+                android:id="@+id/descripcionCancionNombre"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="15dp"
+                android:fontFamily="@font/montserrat"
                 android:text="Canción sonando"
                 android:textColor="@color/colorWhite"
-                android:textSize="@dimen/maxSizeSongNamePlaying"
-                android:id="@+id/descripcionCancionNombre"
-                android:layout_gravity="center"
-                android:layout_marginBottom="15dp"/>
+                android:textSize="@dimen/maxSizeSongNamePlaying" />
+
             <TextView
+                android:id="@+id/descripcionCancionArtista"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:alpha="0.75"
+                android:fontFamily="@font/montserrat"
                 android:text="Artista"
                 android:textColor="@color/colorWhite"
-                android:alpha="0.75"
-                android:textSize="@dimen/maxSizeArtistNamePlaying"
-                android:id="@+id/descripcionCancionArtista"
-                android:layout_gravity="center"/>
+                android:textSize="@dimen/maxSizeArtistNamePlaying" />
         </LinearLayout>
 
         <LinearLayout

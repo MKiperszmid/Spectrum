@@ -22,10 +22,11 @@
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
                 android:layout_margin="18dp"
+                android:fontFamily="@font/montserrat"
                 android:text="@string/playlistFeatured"
+                android:textColor="@color/colorWhite"
                 android:textSize="@dimen/maxSizeTitleName"
-                android:textStyle="bold"
-                android:textColor="@color/colorWhite"/>
+                android:textStyle="bold" />
 
             <android.support.v7.widget.RecyclerView
                 android:layout_width="wrap_content"
@@ -36,15 +37,16 @@
             <TextView
                 android:id="@+id/artistChartID"
                 android:layout_width="wrap_content"
-                android:textColor="@color/colorWhite"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="25dp"
-                android:layout_marginBottom="25dp"
-                android:text="@string/artistChart"
-                android:textSize="@dimen/maxSizeTitleName"
                 android:layout_below="@id/recyclerPlaylistDestacada"
-                android:textStyle="bold"/>
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="25dp"
+                android:layout_marginTop="25dp"
+                android:fontFamily="@font/montserrat"
+                android:text="@string/artistChart"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/maxSizeTitleName"
+                android:textStyle="bold" />
 
 
             <android.support.v7.widget.RecyclerView
