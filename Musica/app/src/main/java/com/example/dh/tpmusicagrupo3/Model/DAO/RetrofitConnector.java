@@ -2,6 +2,7 @@ package com.example.dh.tpmusicagrupo3.Model.DAO;
 
 import com.example.dh.tpmusicagrupo3.Controller.TrackListener;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Chart;
+import com.example.dh.tpmusicagrupo3.Model.POJO.Containers.ArtistContainer;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Track;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Containers.TrackContainer;
 
@@ -57,6 +58,7 @@ public class RetrofitConnector {
         });
     }
 
+
     public void getTracksRadio(final TrackListener<TrackContainer> listener, String id){
         Call<TrackContainer> trackListenerCall = service.getTracksRadio(id);
         trackListenerCall.enqueue(new Callback<TrackContainer>() {
@@ -86,4 +88,22 @@ public class RetrofitConnector {
             }
         });
     }
+
+
+    public void getArtistsChart(final TrackListener<ArtistContainer> listener){
+        Call<ArtistContainer> artistChartCall = service.getArtistsChart();
+        artistChartCall.enqueue(new Callback<ArtistContainer>() {
+            @Override
+            public void onResponse(Call<ArtistContainer> call, Response<ArtistContainer> response) {
+                listener.finish(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<ArtistContainer> call, Throwable t) {
+                listener.finish(null);
+            }
+        });
+    }
+
+
 }

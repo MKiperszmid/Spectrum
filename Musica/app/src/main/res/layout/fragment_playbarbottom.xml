@@ -10,7 +10,8 @@
         android:id="@+id/relativeQueue"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorPrimary">
+        android:background="@color/colorPrimary"
+        android:layout_marginBottom="1dp">
 
         <ImageView
             android:id="@+id/upBtn"
@@ -24,7 +25,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_toLeftOf="@id/playBtn"
             android:layout_toRightOf="@id/upBtn"
             android:gravity="center"

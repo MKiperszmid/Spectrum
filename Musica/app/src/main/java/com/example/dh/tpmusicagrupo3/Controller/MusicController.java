@@ -2,6 +2,7 @@ package com.example.dh.tpmusicagrupo3.Controller;
 
 import com.example.dh.tpmusicagrupo3.Model.DAO.RetrofitConnector;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Chart;
+import com.example.dh.tpmusicagrupo3.Model.POJO.Containers.ArtistContainer;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Track;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Containers.TrackContainer;
 
@@ -104,5 +105,23 @@ public class MusicController {
                 listener.finish(track);
             }
         }, id);
+    }
+
+
+
+    public void getArtistsChart(final TrackListener<ArtistContainer> listener){
+        connector.getArtistsChart(new TrackListener<ArtistContainer>() {
+            @Override
+            public void finish(ArtistContainer track) {
+                if(track != null)
+                {
+                    listener.finish(track);
+                }
+                else {
+                    listener.finish(new ArtistContainer());
+                    //OFFLINE
+                }
+            }
+        });
     }
 }

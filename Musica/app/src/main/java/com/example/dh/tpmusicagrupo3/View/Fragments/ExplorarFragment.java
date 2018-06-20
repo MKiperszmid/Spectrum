@@ -12,9 +12,12 @@ import android.view.ViewGroup;
 
 import com.example.dh.tpmusicagrupo3.Controller.MusicController;
 import com.example.dh.tpmusicagrupo3.Controller.TrackListener;
+import com.example.dh.tpmusicagrupo3.Model.POJO.Artist;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Chart;
+import com.example.dh.tpmusicagrupo3.Model.POJO.Containers.ArtistContainer;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Track;
 import com.example.dh.tpmusicagrupo3.R;
+import com.example.dh.tpmusicagrupo3.View.Adapters.AdapterArtistaPortada;
 import com.example.dh.tpmusicagrupo3.View.Adapters.AdapterCancionArtistaPortada;
 
 import java.util.ArrayList;
@@ -31,6 +34,10 @@ public class ExplorarFragment extends Fragment implements AdapterCancionArtistaP
     private List<Track> tracks;
     private List<Track> tracksFragment;
     private AdapterCancionArtistaPortada adapterCancionArtistaPortada;
+
+    private RecyclerView rvArtistChart;
+    private List<Artist> artists;
+    private AdapterArtistaPortada adapterArtistaPortada;
 
     public ExplorarFragment() {
         // Required empty public constructor
@@ -53,12 +60,16 @@ public class ExplorarFragment extends Fragment implements AdapterCancionArtistaP
         rvPlaylists = view.findViewById(R.id.recyclerPlaylistDestacada);
         rvPlaylists.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
 
+        rvArtistChart = view.findViewById(R.id.recyclerArtistChart);
+        rvArtistChart.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
+
+
         return view;
     }
 
     private void LoadContent() {
         MusicController musicController = new MusicController();
-        tracksFragment = new ArrayList<>();
+        tracksFragment = new ArrayList<>(); // ?
         musicController.getChart(new TrackListener<Chart>() {
             @Override
             public void finish(Chart track) {
@@ -66,11 +77,25 @@ public class ExplorarFragment extends Fragment implements AdapterCancionArtistaP
                 setAdapter(tracks, rvPlaylists);
             }
         });
+
+        musicController.getArtistsChart(new TrackListener<ArtistContainer>() {
+            @Override
+            public void finish(ArtistContainer track) {
+                artists = track.getData();
+                setAdapterArtist(artists, rvArtistChart);
+            }
+        });
+
     }
 
     private void setAdapter(List<Track> tracks, RecyclerView recyclerView){
         adapterCancionArtistaPortada = new AdapterCancionArtistaPortada(tracks, this);
         recyclerView.setAdapter(adapterCancionArtistaPortada);
+    }
+
+    private void setAdapterArtist(List<Artist> artist, RecyclerView recyclerView){
+        adapterArtistaPortada = new AdapterArtistaPortada(artist);
+        recyclerView.setAdapter(adapterArtistaPortada);
     }
 
     @Override

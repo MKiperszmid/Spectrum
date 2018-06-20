@@ -4,6 +4,7 @@
     <string name="nowTrending">Popular ahora</string>
     <string name="recentlyAdded">Agregado recientemente</string>
     <string name="playlistFeatured">Playlist destacadas</string>
+    <string name="artistChart">Artistas populares</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_song">SongActivity</string>

@@ -1,6 +1,7 @@
 package com.example.dh.tpmusicagrupo3.Model.DAO;
 
 import com.example.dh.tpmusicagrupo3.Model.POJO.Chart;
+import com.example.dh.tpmusicagrupo3.Model.POJO.Containers.ArtistContainer;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Track;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Containers.TrackContainer;
 
@@ -25,4 +26,7 @@ public interface DeezerService {
 
     @GET("track/{id}")
     Call<Track> getTrack(@Path("id") String id);
+
+    @GET("chart/0/artists")
+    Call<ArtistContainer> getArtistsChart();
 }
