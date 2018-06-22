@@ -12,6 +12,7 @@ import com.example.dh.tpmusicagrupo3.Model.POJO.Track;
 import com.example.dh.tpmusicagrupo3.R;
 import com.example.dh.tpmusicagrupo3.View.Adapters.AdapterSongPager;
 import com.example.dh.tpmusicagrupo3.View.Fragments.HomeFragment;
+import com.example.dh.tpmusicagrupo3.View.Fragments.PlaybarbottomFragment;
 import com.example.dh.tpmusicagrupo3.View.Fragments.SongFragment;
 
 import java.util.ArrayList;
@@ -60,6 +61,7 @@ public class SongActivity extends AppCompatActivity implements SongFragment.Noti
                 MediaPlayerController.create(fragments.get(position).getCancion());
                 HomeFragment.cancionActual = canciones.get(position);
                 index = position;
+                PlaybarbottomFragment.posicion = position - 1; //TODO: Arreglar esto para que no use STATIC.
             }
 
             @Override

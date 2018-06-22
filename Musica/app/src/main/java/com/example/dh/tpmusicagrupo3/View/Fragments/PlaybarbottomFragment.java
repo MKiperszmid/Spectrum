@@ -31,6 +31,7 @@ public class PlaybarbottomFragment extends Fragment {
 
     private RelativeLayout queue;
     private ExplorarFragment.NotificadorActivity notificadorActivity;
+    public static Integer posicion;
 
     public PlaybarbottomFragment() {
         // Required empty public constructor
@@ -48,26 +49,23 @@ public class PlaybarbottomFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_playbarbottom, container, false);
 
-        Bundle bundle =  getArguments();
-        final Integer posicion = bundle.getInt(CLAVE_CANCION);
+        Bundle bundle = getArguments();
+        posicion = bundle.getInt(CLAVE_CANCION);
 
         cancionPlaying = view.findViewById(R.id.cancionCurrentPlayingID);
-       artistaPlaying = view.findViewById(R.id.artistCurrentPlayingID);
-       separatorPlaying = view.findViewById(R.id.separatorCurrentPlayingID);
+        artistaPlaying = view.findViewById(R.id.artistCurrentPlayingID);
+        separatorPlaying = view.findViewById(R.id.separatorCurrentPlayingID);
         queue = view.findViewById(R.id.relativeQueue);
 
        cancionPlaying.setText(MediaPlayerController.currentPlaying.getTitle_short());
        artistaPlaying.setText(MediaPlayerController.currentPlaying.getArtist().getName());
        separatorPlaying.setText(" - ");
 
-
         queue.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
-
                 if (MediaPlayerController.currentPlaying != null){
                     notificadorActivity.recibirCancion(MediaPlayerController.currentPlaying, posicion);
                 }
-
             }
         });
 
@@ -85,11 +83,9 @@ public class PlaybarbottomFragment extends Fragment {
         upBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 if (MediaPlayerController.currentPlaying != null){
                     notificadorActivity.recibirCancion(MediaPlayerController.currentPlaying, posicion);
                 }
-
             }
         });
 
@@ -99,6 +95,8 @@ public class PlaybarbottomFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        cancionPlaying.setText(MediaPlayerController.currentPlaying.getTitle_short());
+        artistaPlaying.setText(MediaPlayerController.currentPlaying.getArtist().getName());
         if(MediaPlayerController.isPlaying()){
             playBtn.setImageResource(R.drawable.stop);
         }else{
