@@ -8,15 +8,16 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.FrameLayout;
 
+import com.example.dh.tpmusicagrupo3.Model.POJO.Artist;
+import com.example.dh.tpmusicagrupo3.Model.POJO.Playlist;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Track;
 import com.example.dh.tpmusicagrupo3.R;
 import com.example.dh.tpmusicagrupo3.View.Fragments.BarbottomFragment;
-import com.example.dh.tpmusicagrupo3.View.Fragments.ExplorarFragment;
 import com.example.dh.tpmusicagrupo3.View.Fragments.HomeFragment;
 import com.example.dh.tpmusicagrupo3.View.Fragments.PlaybarbottomFragment;
 import com.example.dh.tpmusicagrupo3.View.Fragments.SongFragment;
 
-public class MainActivity extends AppCompatActivity implements HomeFragment.NotificadorActivity, BarbottomFragment.NotificadorActivityBarBottom, ExplorarFragment.NotificadorActivity{
+public class MainActivity extends AppCompatActivity implements HomeFragment.NotificadorActivity, BarbottomFragment.NotificadorActivityBarBottom{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +56,16 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Noti
         bundle.putSerializable(SongFragment.cancionKey, cancion);
         intent.putExtras(bundle);
         startActivity(intent);
+    }
+
+    @Override
+    public void recibirArtista(Artist artist) {
+        //TODO: Crear y Cargar Activity/Fragment basado en los datos del artista
+    }
+
+    @Override
+    public void recibirPlaylist(Playlist playlist) {
+        //TODO: Crear y Cargar Activity/Fragment basado en la lista de canciones
     }
 
 

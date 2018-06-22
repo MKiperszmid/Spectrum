@@ -16,6 +16,7 @@ import com.example.dh.tpmusicagrupo3.Controller.TrackListener;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Artist;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Chart;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Containers.ArtistContainer;
+import com.example.dh.tpmusicagrupo3.Model.POJO.Playlist;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Track;
 import com.example.dh.tpmusicagrupo3.R;
 import com.example.dh.tpmusicagrupo3.View.Adapters.AdapterArtistaPortada;
@@ -30,7 +31,7 @@ import java.util.List;
  */
 public class ExplorarFragment extends Fragment implements AdapterCancionArtistaPortada.NotificadorCancionCelda {
 
-    private NotificadorActivity notificadorActivity;
+    private HomeFragment.NotificadorActivity notificadorActivity;
     private RecyclerView rvPlaylists;
     private List<Track> tracks;
     private List<Track> tracksFragment;
@@ -47,7 +48,7 @@ public class ExplorarFragment extends Fragment implements AdapterCancionArtistaP
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        this.notificadorActivity = (NotificadorActivity) context;
+        this.notificadorActivity = (HomeFragment.NotificadorActivity) context;
     }
 
     @Override
@@ -115,9 +116,4 @@ public class ExplorarFragment extends Fragment implements AdapterCancionArtistaP
         Toast.makeText(getActivity(), "Implementar.", Toast.LENGTH_SHORT).show();
      //   notificadorActivity.recibirCancion(cancionClickeada, tracks.indexOf(cancionClickeada));
     }
-
-    public interface NotificadorActivity{
-        void recibirCancion(Track cancion, int position);
-    }
-
 }

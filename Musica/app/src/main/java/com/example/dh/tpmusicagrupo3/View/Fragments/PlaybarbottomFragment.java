@@ -30,7 +30,7 @@ public class PlaybarbottomFragment extends Fragment {
     private TextView artistaPlaying;
 
     private RelativeLayout queue;
-    private ExplorarFragment.NotificadorActivity notificadorActivity;
+    private HomeFragment.NotificadorActivity notificadorActivity;
     public static Integer posicion;
 
     public PlaybarbottomFragment() {
@@ -40,7 +40,7 @@ public class PlaybarbottomFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        notificadorActivity = (ExplorarFragment.NotificadorActivity) context;
+        notificadorActivity = (HomeFragment.NotificadorActivity) context;
     }
 
     @Override

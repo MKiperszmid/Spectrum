@@ -16,8 +16,10 @@ import android.widget.Toast;
 import com.example.dh.tpmusicagrupo3.Controller.MusicController;
 import com.example.dh.tpmusicagrupo3.Controller.TrackListener;
 import com.example.dh.tpmusicagrupo3.Controller.MediaPlayerController;
+import com.example.dh.tpmusicagrupo3.Model.POJO.Artist;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Chart;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Containers.TrackContainer;
+import com.example.dh.tpmusicagrupo3.Model.POJO.Playlist;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Track;
 import com.example.dh.tpmusicagrupo3.R;
 import com.example.dh.tpmusicagrupo3.View.Activities.SongActivity;
@@ -139,6 +141,8 @@ public class HomeFragment extends Fragment implements AdapterCancionArtistaPorta
 
     public interface NotificadorActivity{
         void recibirCancion(Track cancion, int position);
+        void recibirArtista(Artist artist);
+        void recibirPlaylist(Playlist playlist);
     }
 
 
