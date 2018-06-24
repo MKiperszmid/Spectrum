@@ -63,8 +63,15 @@ public class HomeFragment extends Fragment implements AdapterCancionArtistaPorta
     }
 
     private void LoadCanciones(){
+
+        // Controller de musica
         MusicController musicController = new MusicController();
+
+        // Carga de las diferentes listas
+
         tracks = new ArrayList<>();
+
+        // Populares ahora
         musicController.getChart(new TrackListener<Chart>() {
             @Override
             public void finish(Chart track) {
@@ -73,6 +80,7 @@ public class HomeFragment extends Fragment implements AdapterCancionArtistaPorta
             }
         });
 
+        // Agregado recientemente
         musicController.getTracksRadio(new TrackListener<TrackContainer>() {
             @Override
             public void finish(TrackContainer track) {
@@ -81,6 +89,7 @@ public class HomeFragment extends Fragment implements AdapterCancionArtistaPorta
             }
         }, "31061");
 
+        // Popular en Argentina
         musicController.getTopArgentina(new TrackListener<TrackContainer>() {
             @Override
             public void finish(TrackContainer track) {
@@ -89,6 +98,7 @@ public class HomeFragment extends Fragment implements AdapterCancionArtistaPorta
             }
         });
 
+        // Trending USA
         musicController.getTopUsa(new TrackListener<TrackContainer>() {
             @Override
             public void finish(TrackContainer track) {
@@ -113,11 +123,11 @@ public class HomeFragment extends Fragment implements AdapterCancionArtistaPorta
 
         /* Feed */
 
+        // Declaracion y config de recyclerView's
         rvPopular = view.findViewById(R.id.recyclerPopularAhora);
         rvAgregado = view.findViewById(R.id.recyclerAgregadoRecientemente);
         rvArgentina = view.findViewById(R.id.recyclerTrendingArgentina);
         rvUsa = view.findViewById(R.id.recyclerTrendingUsa);
-
         rvPopular.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
         rvAgregado.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
         rvArgentina.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
@@ -129,17 +139,20 @@ public class HomeFragment extends Fragment implements AdapterCancionArtistaPorta
     @Override
     public void notificarCancionClickeada(Track cancionClickeada) {
 
+        // Llega track desde AdapterCancionArtistaPortada y se ejecuta el Media Player
         if(cancionActual != cancionClickeada){
             MediaPlayerController.create(cancionClickeada);
             cancionActual = cancionClickeada;
             SongActivity.index = cancionClickeada.getId();
         }
 
+        // Se envia a MainActivity la cancion y position
         notificadorActivity.recibirCancion(cancionClickeada, tracks.indexOf(cancionClickeada));
     }
 
 
     public interface NotificadorActivity{
+        // Metodos que implementa MainActivity de HomeFragment
         void recibirCancion(Track cancion, int position);
         void recibirArtista(Artist artist);
         void recibirPlaylist(Playlist playlist);

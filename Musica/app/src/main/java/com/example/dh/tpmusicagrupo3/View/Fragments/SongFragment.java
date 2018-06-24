@@ -56,21 +56,32 @@ public class SongFragment extends Fragment {
 
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_song, container, false);
+
+        // Declaración de elementos visuales y carga de datos/contenido
         TextView descripcionCancionNombre = view.findViewById(R.id.descripcionCancionNombre);
         descripcionCancionNombre.setText(cancion.getTitle_short());
         TextView descripcionCancionArtista = view.findViewById(R.id.descripcionCancionArtista);
         descripcionCancionArtista.setText(cancion.getArtist().getName());
         ImageView descripcionCancionPortada = view.findViewById(R.id.descripcionCancionPortada);
-
         GlideController.loadImage(view, cancion.getArtist().getPicture_big(), descripcionCancionPortada);
 
+        pauseplayClick = view.findViewById(R.id.pauseplayClick);
+        ImageView heartClick = view.findViewById(R.id.heartClick);
+        ImageView backClick = view.findViewById(R.id.backClick);
+        ImageView nextClick = view.findViewById(R.id.nextClick);
+        ImageView agregarOffline = view.findViewById(R.id.agregarOffline);
+
+
+        // Listener de click de elementos
+        // Ver Artista
         descripcionCancionArtista.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getActivity(), "Mostrar perfil de " + cancion.getArtist(), Toast.LENGTH_SHORT).show();
             }
         });
-        ImageView heartClick = view.findViewById(R.id.heartClick);
+
+        // Dar Me Gusta a canción
         heartClick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -78,7 +89,7 @@ public class SongFragment extends Fragment {
             }
         });
 
-        ImageView backClick = view.findViewById(R.id.backClick);
+        // Ir hacia la canción anterior
         backClick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -87,8 +98,8 @@ public class SongFragment extends Fragment {
                 notificadorCambioCancion.retroceder();
             }
         });
-        pauseplayClick = view.findViewById(R.id.pauseplayClick);
 
+        // Pausar canción
         pauseplayClick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -96,7 +107,7 @@ public class SongFragment extends Fragment {
             }
         });
 
-        ImageView nextClick = view.findViewById(R.id.nextClick);
+        // Ir hacia la canción que sigue
         nextClick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -104,7 +115,8 @@ public class SongFragment extends Fragment {
                 notificadorCambioCancion.adelantar();
             }
         });
-        ImageView agregarOffline = view.findViewById(R.id.agregarOffline);
+
+        // Agregar canción a playlist
         agregarOffline.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -116,6 +128,7 @@ public class SongFragment extends Fragment {
     }
 
     public interface NotificadorCambioCancion{
+        // Envia a SongActivity
         public void retroceder();
         public void adelantar();
     }

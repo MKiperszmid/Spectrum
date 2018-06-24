@@ -98,8 +98,23 @@ public class MediaPlayerController {
     }
 
 
+    // Ir a una posicion de la cancion
     public static void goToPosition(int posicion){
         if(!exists()) return;
         mp.seekTo(posicion);
     }
+
+    // Obtener duracion de la cancion en milisegundos
+    public Integer getDuration(){
+        Integer durationMP = mp.getDuration();
+        return durationMP;
+    }
+
+    // Obtener la duracion actual
+    public Integer getCurrentDuration(){
+        Integer currentDurationMP = mp.getCurrentPosition();
+        return currentDurationMP;
+    }
+
+
 }
