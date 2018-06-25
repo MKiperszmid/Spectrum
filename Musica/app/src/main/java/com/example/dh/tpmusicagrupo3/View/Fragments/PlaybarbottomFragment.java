@@ -33,6 +33,8 @@ public class PlaybarbottomFragment extends Fragment {
     private HomeFragment.NotificadorActivity notificadorActivity;
     public static Integer posicion;
 
+    private MediaPlayerController mediaPlayerController;
+
     public PlaybarbottomFragment() {
         // Required empty public constructor
     }
@@ -41,6 +43,7 @@ public class PlaybarbottomFragment extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         notificadorActivity = (HomeFragment.NotificadorActivity) context;
+        mediaPlayerController = MediaPlayerController.getInstance();
     }
 
     @Override
@@ -48,7 +51,6 @@ public class PlaybarbottomFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_playbarbottom, container, false);
-
         Bundle bundle = getArguments();
         posicion = bundle.getInt(CLAVE_CANCION);
 
@@ -57,14 +59,14 @@ public class PlaybarbottomFragment extends Fragment {
         separatorPlaying = view.findViewById(R.id.separatorCurrentPlayingID);
         queue = view.findViewById(R.id.relativeQueue);
 
-       cancionPlaying.setText(MediaPlayerController.currentPlaying.getTitle_short());
-       artistaPlaying.setText(MediaPlayerController.currentPlaying.getArtist().getName());
+       cancionPlaying.setText(mediaPlayerController.getCurrentPlaying().getTitle_short());
+       artistaPlaying.setText(mediaPlayerController.getCurrentPlaying().getArtist().getName());
        separatorPlaying.setText(" - ");
 
         queue.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
-                if (MediaPlayerController.currentPlaying != null){
-                    notificadorActivity.recibirCancion(MediaPlayerController.currentPlaying, posicion);
+                if (mediaPlayerController.getCurrentPlaying() != null){
+                    notificadorActivity.recibirCancion(mediaPlayerController.getCurrentPlaying(), posicion);
                 }
             }
         });
@@ -74,7 +76,7 @@ public class PlaybarbottomFragment extends Fragment {
         playBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MediaPlayerController.playPause(playBtn);
+                mediaPlayerController.playPause(playBtn);
             }
         });
 
@@ -83,8 +85,8 @@ public class PlaybarbottomFragment extends Fragment {
         upBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (MediaPlayerController.currentPlaying != null){
-                    notificadorActivity.recibirCancion(MediaPlayerController.currentPlaying, posicion);
+                if (mediaPlayerController.getCurrentPlaying() != null){
+                    notificadorActivity.recibirCancion(mediaPlayerController.getCurrentPlaying(), posicion);
                 }
             }
         });
@@ -95,12 +97,17 @@ public class PlaybarbottomFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        cancionPlaying.setText(MediaPlayerController.currentPlaying.getTitle_short());
-        artistaPlaying.setText(MediaPlayerController.currentPlaying.getArtist().getName());
-        if(MediaPlayerController.isPlaying()){
-            playBtn.setImageResource(R.drawable.stop);
-        }else{
-            playBtn.setImageResource(R.drawable.play);
+        cancionPlaying.setText(mediaPlayerController.getCurrentPlaying().getTitle_short());
+        artistaPlaying.setText(mediaPlayerController.getCurrentPlaying().getArtist().getName());
+        try{
+            if(mediaPlayerController.isPlaying()){
+                playBtn.setImageResource(R.drawable.stop);
+            }else{
+                playBtn.setImageResource(R.drawable.play);
+            }
+        }
+        catch (IllegalStateException e){
+            e.printStackTrace();
         }
     }
 }

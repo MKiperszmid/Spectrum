@@ -45,6 +45,7 @@ public class HomeFragment extends Fragment implements AdapterCancionArtistaPorta
     private final Integer NUMERO_PARA_NUEVOS_RESULTADOS = 3;
     private ProgressBar progressBar;
     private Boolean isLoading;
+    private MediaPlayerController mediaPlayerController;
 
     private RelativeLayout rlTop10, rlRecentlyAdded, rlTopArg, rlTopUsa;
 
@@ -140,6 +141,7 @@ public class HomeFragment extends Fragment implements AdapterCancionArtistaPorta
 
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
+        mediaPlayerController = MediaPlayerController.getInstance();
         rlTop10 = view.findViewById(R.id.layoutTop10);
         rlRecentlyAdded = view.findViewById(R.id.layoutRecentlyAdded);
         rlTopArg = view.findViewById(R.id.layoutTopArg);
@@ -236,7 +238,7 @@ public class HomeFragment extends Fragment implements AdapterCancionArtistaPorta
 
         // Llega track desde AdapterCancionArtistaPortada y se ejecuta el Media Player
         if(cancionActual != cancionClickeada){
-            MediaPlayerController.create(cancionClickeada);
+            mediaPlayerController.create(cancionClickeada);
             cancionActual = cancionClickeada;
             SongActivity.index = cancionClickeada.getId();
         }

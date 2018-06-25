@@ -24,6 +24,7 @@ public class SongActivity extends AppCompatActivity implements SongFragment.Noti
     private List<Track> canciones;
     public static Integer index;
     private ViewPager pager;
+    private MediaPlayerController mediaPlayerController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +39,7 @@ public class SongActivity extends AppCompatActivity implements SongFragment.Noti
         final AdapterSongPager adapter = new AdapterSongPager(getSupportFragmentManager(), fragments);
         pager.setAdapter(adapter);
         pager.setCurrentItem(index);
+        mediaPlayerController = MediaPlayerController.getInstance();
         pager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -52,7 +54,7 @@ public class SongActivity extends AppCompatActivity implements SongFragment.Noti
                 } else if(position <= 0) {
                     pager.setCurrentItem(fragments.size() - 2, false);
                 }
-                MediaPlayerController.create(fragments.get(position).getCancion());
+                mediaPlayerController.create(fragments.get(position).getCancion());
                 HomeFragment.cancionActual = canciones.get(position);
                 index = position;
                 PlaybarbottomFragment.posicion = position - 1; //TODO: Arreglar esto para que no use STATIC.

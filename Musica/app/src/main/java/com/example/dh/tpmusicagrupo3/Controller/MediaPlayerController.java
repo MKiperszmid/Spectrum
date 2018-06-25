@@ -1,15 +1,12 @@
 package com.example.dh.tpmusicagrupo3.Controller;
 
-import android.content.Context;
-import android.content.res.AssetFileDescriptor;
-import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
-import android.net.Uri;
 import android.support.design.widget.FloatingActionButton;
 import android.widget.ImageView;
 
 import com.example.dh.tpmusicagrupo3.Model.POJO.Track;
 import com.example.dh.tpmusicagrupo3.R;
+import com.example.dh.tpmusicagrupo3.View.Fragments.SongFragment;
 
 import java.io.IOException;
 
@@ -17,10 +14,9 @@ public class MediaPlayerController {
 
     private static MediaPlayer mp;
     private static MediaPlayerController mediaPlayerController;
-    public static Track currentPlaying;
-    public static Boolean isPlaying;
-
-    private static Track currentlyPlaying;
+    private static Track currentPlaying;
+    private static Boolean isPlaying;
+    private static NotificadorEstadoCancion notificadorEstadoCancion;
 
     private static int currentPosition = 0;
 
@@ -30,11 +26,24 @@ public class MediaPlayerController {
         }
         return mediaPlayerController;
     }
-    public static boolean exists(){
+
+    public Track getCurrentPlaying(){
+        return currentPlaying;
+    }
+
+    public static MediaPlayerController getInstance(NotificadorEstadoCancion nec){
+        if(mediaPlayerController == null){
+            mediaPlayerController = new MediaPlayerController();
+        }
+        notificadorEstadoCancion = nec;
+        return mediaPlayerController;
+    }
+
+    private static boolean exists(){
         return mp != null;
     }
 
-    public static boolean isPlaying(){
+    public boolean isPlaying(){
         return exists() && mp.isPlaying();
     }
 
@@ -42,7 +51,7 @@ public class MediaPlayerController {
 
     }
 
-    public static void retroceder(FloatingActionButton btn){
+    public void retroceder(FloatingActionButton btn){
         currentPosition = 0;
         mp.pause();
         btn.setImageResource(R.drawable.stop);
@@ -68,7 +77,7 @@ public class MediaPlayerController {
         mp.start();
     }
 
-    public static void playPause(ImageView img){
+    public void playPause(ImageView img){
         if(!exists()) return;
         if(mp.isPlaying()){
             img.setImageResource(R.drawable.play);
@@ -80,7 +89,7 @@ public class MediaPlayerController {
         }
     }
 
-    public static void playPause(FloatingActionButton btn){
+    public void playPause(FloatingActionButton btn){
         if(!exists()) return;
         if(mp.isPlaying()){
             btn.setImageResource(R.drawable.play);
@@ -92,8 +101,19 @@ public class MediaPlayerController {
         }
     }
 
-    public static void create(Track track){
+    public MediaPlayer getMediaPlayer(){ return mp; }
+
+    public void setIsPlaying(Boolean bool){
+        isPlaying = bool;
+    }
+
+    public void setCurrentPlaying(Track track){
+        currentPlaying = track;
+    }
+
+    public void create(Track track){
         clear();
+        isPlaying = true;
         mp = new MediaPlayer();
         try {
             mp.setDataSource(track.getPreview());
@@ -104,15 +124,14 @@ public class MediaPlayerController {
                 @Override
                 public void onPrepared(MediaPlayer mediaPlayer) {
                     mp.start();
+                    notificadorEstadoCancion.cambiarEstado();
                 }
             });
-            //mp.start();
-            currentlyPlaying = track;
         }
         catch (IOException e){
-
-        }}
-
+            isPlaying = false;
+        }
+    }
 
     // Ir a una posicion de la cancion
     public static void goToPosition(int posicion){
@@ -121,16 +140,18 @@ public class MediaPlayerController {
     }
 
     // Obtener duracion de la cancion en milisegundos
-    public Integer getDuration(){
+    public static Integer getDuration(){
         Integer durationMP = mp.getDuration();
         return durationMP;
     }
 
     // Obtener la duracion actual
-    public Integer getCurrentDuration(){
+    public static Integer getCurrentDuration(){
         Integer currentDurationMP = mp.getCurrentPosition();
         return currentDurationMP;
     }
 
-
+    public interface NotificadorEstadoCancion{
+        public void cambiarEstado();
+    }
 }

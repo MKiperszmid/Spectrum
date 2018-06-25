@@ -126,8 +126,8 @@
                     android:id="@+id/pauseplayClick"
                     android:layout_width="70dp"
                     android:layout_height="70dp"
-                    android:src="@drawable/stop"
                     android:padding="40dp"
+                    android:src="@drawable/stop"
                     android:scaleType="centerInside"
                     android:layout_gravity="center"
                     app:backgroundTint="@color/colorPrimary"/>

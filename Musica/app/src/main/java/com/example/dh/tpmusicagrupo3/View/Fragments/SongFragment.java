@@ -1,6 +1,8 @@
 package com.example.dh.tpmusicagrupo3.View.Fragments;
 
 import android.content.Context;
+import android.media.MediaPlayer;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -16,13 +18,16 @@ import com.example.dh.tpmusicagrupo3.Controller.MediaPlayerController;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Track;
 import com.example.dh.tpmusicagrupo3.R;
 
-public class SongFragment extends Fragment {
+import java.io.IOException;
+
+public class SongFragment extends Fragment implements MediaPlayerController.NotificadorEstadoCancion {
 
     public static final String cancionKey = "CANCION";
     public static String CANCIONPOS = "POSITION";
     private FloatingActionButton pauseplayClick;
     private Track cancion;
     private NotificadorCambioCancion notificadorCambioCancion;
+    private MediaPlayerController mediaPlayerController;
 
     public static final String CANCIONKEY = "cancion";
 
@@ -53,6 +58,7 @@ public class SongFragment extends Fragment {
                              Bundle savedInstanceState) {
         Bundle bundle = getArguments();
         cancion = (Track) bundle.getSerializable(CANCIONKEY);
+        mediaPlayerController = MediaPlayerController.getInstance(this);
 
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_song, container, false);
@@ -94,7 +100,7 @@ public class SongFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getActivity(), "Retroceder", Toast.LENGTH_SHORT).show();
-                MediaPlayerController.retroceder(pauseplayClick);
+                mediaPlayerController.retroceder(pauseplayClick);
                 notificadorCambioCancion.retroceder();
             }
         });
@@ -103,7 +109,7 @@ public class SongFragment extends Fragment {
         pauseplayClick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                MediaPlayerController.playPause(pauseplayClick);
+                mediaPlayerController.playPause(pauseplayClick);
             }
         });
 
@@ -127,6 +133,11 @@ public class SongFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void cambiarEstado() {
+        // TODO: Hacer que el CREATE del MediaPlayerController, sea parte del SongFragment. Y no del MediaPlayerController.
+    }
+
     public interface NotificadorCambioCancion{
         // Envia a SongActivity
         public void retroceder();
@@ -136,7 +147,7 @@ public class SongFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        if(MediaPlayerController.isPlaying()){
+        if(mediaPlayerController.isPlaying()){
             pauseplayClick.setImageResource(R.drawable.stop);
         }
         else {
@@ -144,5 +155,3 @@ public class SongFragment extends Fragment {
         }
     }
 }
-
-
