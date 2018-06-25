@@ -6,6 +6,9 @@ import com.example.dh.tpmusicagrupo3.Model.POJO.Containers.ArtistContainer;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Track;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Containers.TrackContainer;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by DH on 15/6/2018.
  */
@@ -43,7 +46,7 @@ public class MusicController {
         connector.getTracksRadio(new TrackListener<TrackContainer>() {
             @Override
             public void finish(TrackContainer track) {
-                listener.finish(track);
+                listener.finish(validateTracks(track));
             }
         }, id);
     }
@@ -67,7 +70,7 @@ public class MusicController {
                     }
                     offsetArgentina += track.getData().size();
                 }
-                listener.finish(track);
+                listener.finish(validateTracks(track));
             }
         }, "1279119721", offsetArgentina);
     }
@@ -82,7 +85,7 @@ public class MusicController {
                     }
                     offsetUsa += track.getData().size();
                 }
-                listener.finish(track);
+                listener.finish(validateTracks(track));
 
             }
         }, "2097558104", offsetUsa);
@@ -110,7 +113,7 @@ public class MusicController {
         connector.getTracksChart(new TrackListener<TrackContainer>() {
             @Override
             public void finish(TrackContainer track) {
-                listener.finish(track);
+                listener.finish(validateTracks(track));
             }
         });
     }
@@ -118,4 +121,19 @@ public class MusicController {
     public Boolean getHayPaginasArgentina(){ return hayPaginasArgentina; }
 
     public Boolean getHayPaginasUsa(){ return hayPaginasUsa; }
+
+    private TrackContainer validateTracks(TrackContainer trackContainer){
+        if(trackContainer == null)
+            return trackContainer;
+
+        List<Track> trackList = new ArrayList<>();
+        for(Track t : trackContainer.getData()){
+            if(!t.getPreview().equals("")){
+                trackList.add(t);
+            }
+        }
+        TrackContainer validatedTracks = new TrackContainer();
+        validatedTracks.setData(trackList);
+        return validatedTracks;
+    }
 }
