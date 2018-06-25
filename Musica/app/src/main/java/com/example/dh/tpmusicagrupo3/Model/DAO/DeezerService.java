@@ -8,6 +8,7 @@ import com.example.dh.tpmusicagrupo3.Model.POJO.Containers.TrackContainer;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 /**
  * Created by DH on 15/6/2018.
@@ -19,7 +20,7 @@ public interface DeezerService {
     Call<Chart> getChart();
 
     @GET("playlist/{id}/tracks")
-    Call<TrackContainer> getTracksPlaylist(@Path("id") String id);
+    Call<TrackContainer> getTracksPlaylist(@Path("id") String id, @Query("index") Integer index);
 
     @GET("radio/{id}/tracks")
     Call<TrackContainer> getTracksRadio(@Path("id") String id);
@@ -29,4 +30,7 @@ public interface DeezerService {
 
     @GET("chart/0/artists")
     Call<ArtistContainer> getArtistsChart();
+
+    @GET("chart/0/tracks")
+    Call<TrackContainer> getTracksChart();
 }

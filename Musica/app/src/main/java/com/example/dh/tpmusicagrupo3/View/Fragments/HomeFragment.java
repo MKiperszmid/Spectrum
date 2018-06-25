@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -40,6 +41,11 @@ public class HomeFragment extends Fragment implements AdapterCancionArtistaPorta
     private RecyclerView rvArgentina;
     private RecyclerView rvUsa;
 
+    private MusicController musicController;
+    private final Integer NUMERO_PARA_NUEVOS_RESULTADOS = 3;
+    private ProgressBar progressBar;
+    private Boolean isLoading;
+
     public HomeFragment() {
         // Required empty public constructo
     }
@@ -65,17 +71,17 @@ public class HomeFragment extends Fragment implements AdapterCancionArtistaPorta
     private void LoadCanciones(){
 
         // Controller de musica
-        MusicController musicController = new MusicController();
+        musicController = new MusicController();
 
         // Carga de las diferentes listas
 
         tracks = new ArrayList<>();
 
-        // Populares ahora
-        musicController.getChart(new TrackListener<Chart>() {
+        // TOP 10
+        musicController.getTracksChart(new TrackListener<TrackContainer>() {
             @Override
-            public void finish(Chart track) {
-                tracks = track.getTracks().getData();
+            public void finish(TrackContainer track) {
+                tracks = track.getData();
                 setAdapter(tracks, rvPopular);
             }
         });
@@ -90,27 +96,34 @@ public class HomeFragment extends Fragment implements AdapterCancionArtistaPorta
         }, "31061");
 
         // Popular en Argentina
-        musicController.getTopArgentina(new TrackListener<TrackContainer>() {
+
+        rvArgentina.setAdapter(new AdapterCancionArtistaPortada(this));
+        loadNewCancionesArg(rvArgentina);
+        /*musicController.getTopArgentina(new TrackListener<TrackContainer>() {
             @Override
             public void finish(TrackContainer track) {
                 tracks = track.getData();
                 setAdapter(tracks, rvArgentina);
             }
-        });
+        });*/
 
         // Trending USA
+        rvUsa.setAdapter(new AdapterCancionArtistaPortada(this));
+        loadNewCancionesUsa(rvUsa);
+        /*
         musicController.getTopUsa(new TrackListener<TrackContainer>() {
             @Override
             public void finish(TrackContainer track) {
                 tracks = track.getData();
                 setAdapter(tracks, rvUsa);
             }
-        });
+        });*/
     }
 
     private void setAdapter(List<Track> tracks, RecyclerView recyclerView){
         adapterCancionArtistaPortada = new AdapterCancionArtistaPortada(tracks, this);
         recyclerView.setAdapter(adapterCancionArtistaPortada);
+        // TODO: Hacer aca el listener del scroll?
     }
 
     @Override
@@ -119,7 +132,7 @@ public class HomeFragment extends Fragment implements AdapterCancionArtistaPorta
 
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
-        LoadCanciones();
+
 
         /* Feed */
 
@@ -132,8 +145,83 @@ public class HomeFragment extends Fragment implements AdapterCancionArtistaPorta
         rvAgregado.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
         rvArgentina.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
         rvUsa.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
+        progressBar = view.findViewById(R.id.progressBarHome);
+        LoadCanciones();
+        rvArgentina.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                if(!isLoading){
+                    LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+                    int initPos = layoutManager.findLastVisibleItemPosition();
+                    int finalPos = layoutManager.getItemCount();
+
+                    if(finalPos - initPos <= NUMERO_PARA_NUEVOS_RESULTADOS){
+                        loadNewCancionesArg(rvArgentina);
+                    }
+                }
+            }
+        });
+
+        rvUsa.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                if(!isLoading){
+                    LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+                    int initPos = layoutManager.findLastVisibleItemPosition();
+                    int finalPos = layoutManager.getItemCount();
+
+                    if(finalPos - initPos <= NUMERO_PARA_NUEVOS_RESULTADOS){
+                        loadNewCancionesUsa(rvUsa);
+                    }
+                }
+            }
+        });
 
         return view;
+    }
+
+    private void loadNewCancionesArg(final RecyclerView rv) {
+        if(musicController.getHayPaginasArgentina()){
+            isLoading = true;
+            progressBar.setVisibility(View.VISIBLE);
+            progressBar.setIndeterminate(true);
+            musicController.getTopArgentina(new TrackListener<TrackContainer>() {
+                @Override
+                public void finish(TrackContainer track) {
+                    progressBar.setIndeterminate(false);
+                    progressBar.setVisibility(View.INVISIBLE);
+                    isLoading = false;
+                    if(track != null){
+                        try{
+                            ((AdapterCancionArtistaPortada)rv.getAdapter()).addTracks(track.getData());
+                            System.out.println("TEST");
+                        }
+                        catch (ClassCastException e){
+                            System.out.println("ERROR");
+                        }
+                    }
+                }
+            });
+        }
+    }
+
+    private void loadNewCancionesUsa(final RecyclerView rv) {
+        if(musicController.getHayPaginasUsa()){
+            isLoading = true;
+            progressBar.setVisibility(View.VISIBLE);
+            progressBar.setIndeterminate(true);
+            musicController.getTopUsa(new TrackListener<TrackContainer>() {
+                @Override
+                public void finish(TrackContainer track) {
+                    progressBar.setIndeterminate(false);
+                    progressBar.setVisibility(View.INVISIBLE);
+                    isLoading = false;
+                    if(track != null){
+                        ((AdapterCancionArtistaPortada)rv.getAdapter()).addTracks(track.getData());
+                    }
+                }
+            });
+        }
     }
 
     @Override
@@ -150,13 +238,10 @@ public class HomeFragment extends Fragment implements AdapterCancionArtistaPorta
         notificadorActivity.recibirCancion(cancionClickeada, tracks.indexOf(cancionClickeada));
     }
 
-
     public interface NotificadorActivity{
         // Metodos que implementa MainActivity de HomeFragment
         void recibirCancion(Track cancion, int position);
         void recibirArtista(Artist artist);
         void recibirPlaylist(Playlist playlist);
     }
-
-
 }

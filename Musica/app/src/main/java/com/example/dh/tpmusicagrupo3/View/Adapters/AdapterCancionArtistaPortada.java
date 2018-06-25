@@ -13,6 +13,7 @@ import com.example.dh.tpmusicagrupo3.Model.POJO.Track;
 import com.example.dh.tpmusicagrupo3.R;
 import com.example.dh.tpmusicagrupo3.View.Fragments.HomeFragment;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class AdapterCancionArtistaPortada extends RecyclerView.Adapter {
@@ -22,6 +23,10 @@ public class AdapterCancionArtistaPortada extends RecyclerView.Adapter {
 
     public AdapterCancionArtistaPortada(List<Track> canciones, NotificadorCancionCelda notificadorCancionCelda){
         this.canciones = canciones;
+        this.notificadorCancionCelda = notificadorCancionCelda;
+    }
+    public AdapterCancionArtistaPortada(NotificadorCancionCelda notificadorCancionCelda){
+        canciones = new ArrayList<>();
         this.notificadorCancionCelda = notificadorCancionCelda;
     }
 
@@ -46,6 +51,11 @@ public class AdapterCancionArtistaPortada extends RecyclerView.Adapter {
         if(canciones != null)
             return canciones.size();
         return -1;
+    }
+
+    public void addTracks(List<Track> tracks){
+        canciones.addAll(tracks);
+        notifyDataSetChanged();
     }
 
     private class CancionViewHolder extends RecyclerView.ViewHolder{

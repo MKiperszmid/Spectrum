@@ -10,4 +10,5 @@
     <string name="title_activity_song">SongActivity</string>
     <string name="trendingArgentina">Popular en Argentina</string>
     <string name="trending_usa">Trending USA</string>
+    <string name="TOP10">TOP 10</string>
 </resources>

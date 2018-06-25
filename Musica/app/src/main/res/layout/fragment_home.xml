@@ -22,7 +22,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_margin="18dp"
                 android:fontFamily="@font/montserrat"
-                android:text="@string/nowTrending"
+                android:text="@string/TOP10"
                 android:textColor="@color/colorWhite"
                 android:textSize="@dimen/maxSizeTitleName"
                 android:textStyle="bold" />
@@ -92,8 +92,15 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/recyclerTrendingUsa"
                 android:layout_below="@id/trendingUSA"/>
-
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/progressBarHome"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="30dp"
+                android:visibility="invisible"/>
         </RelativeLayout>
+
     </ScrollView>
 
 </RelativeLayout>

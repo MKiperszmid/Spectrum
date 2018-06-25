@@ -16,6 +16,7 @@ import com.example.dh.tpmusicagrupo3.Controller.TrackListener;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Artist;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Chart;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Containers.ArtistContainer;
+import com.example.dh.tpmusicagrupo3.Model.POJO.Containers.TrackContainer;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Playlist;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Track;
 import com.example.dh.tpmusicagrupo3.R;
@@ -72,10 +73,10 @@ public class ExplorarFragment extends Fragment implements AdapterCancionArtistaP
     private void LoadContent() {
         MusicController musicController = new MusicController();
         tracksFragment = new ArrayList<>(); // ?
-        musicController.getChart(new TrackListener<Chart>() {
+        musicController.getTracksChart(new TrackListener<TrackContainer>() {
             @Override
-            public void finish(Chart track) {
-                tracks = track.getTracks().getData();
+            public void finish(TrackContainer track) {
+                tracks = track.getData();
                 setAdapter(tracks, rvPlaylists);
             }
         });
@@ -87,7 +88,6 @@ public class ExplorarFragment extends Fragment implements AdapterCancionArtistaP
                 setAdapterArtist(artists, rvArtistChart);
             }
         });
-
     }
 
     private void setAdapter(List<Track> tracks, RecyclerView recyclerView){

@@ -43,8 +43,8 @@ public class RetrofitConnector {
         });
     }
 
-    public void getTracksPlaylist(final TrackListener<TrackContainer> listener, String id){
-        Call<TrackContainer> trackCall = service.getTracksPlaylist(id);
+    public void getTracksPlaylist(final TrackListener<TrackContainer> listener, String id, Integer index){
+        Call<TrackContainer> trackCall = service.getTracksPlaylist(id, index);
         trackCall.enqueue(new Callback<TrackContainer>() {
             @Override
             public void onResponse(Call<TrackContainer> call, Response<TrackContainer> response) {
@@ -57,7 +57,6 @@ public class RetrofitConnector {
             }
         });
     }
-
 
     public void getTracksRadio(final TrackListener<TrackContainer> listener, String id){
         Call<TrackContainer> trackListenerCall = service.getTracksRadio(id);
@@ -89,7 +88,6 @@ public class RetrofitConnector {
         });
     }
 
-
     public void getArtistsChart(final TrackListener<ArtistContainer> listener){
         Call<ArtistContainer> artistChartCall = service.getArtistsChart();
         artistChartCall.enqueue(new Callback<ArtistContainer>() {
@@ -105,5 +103,18 @@ public class RetrofitConnector {
         });
     }
 
+    public void getTracksChart(final TrackListener<TrackContainer> listener){
+        Call<TrackContainer> trackContainerCall = service.getTracksChart();
+        trackContainerCall.enqueue(new Callback<TrackContainer>() {
+            @Override
+            public void onResponse(Call<TrackContainer> call, Response<TrackContainer> response) {
+                listener.finish(response.body());
+            }
 
+            @Override
+            public void onFailure(Call<TrackContainer> call, Throwable t) {
+                listener.finish(null);
+            }
+        });
+    }
 }
