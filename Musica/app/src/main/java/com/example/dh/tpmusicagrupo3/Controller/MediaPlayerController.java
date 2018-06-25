@@ -140,7 +140,7 @@ public class MediaPlayerController {
     }
 
     // Obtener duracion de la cancion en milisegundos
-    public static Integer getDuration(){
+    public Integer getDuration(){
         Integer durationMP = mp.getDuration();
         return durationMP;
     }

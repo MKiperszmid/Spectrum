@@ -48,38 +48,46 @@
                 android:text="Artista"
                 android:textColor="@color/colorWhite"
                 android:textSize="@dimen/maxSizeArtistNamePlaying" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="00"
+                android:textColor="@color/colorWhite"
+                android:id="@+id/currentDurationSong"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="/"
+                android:textColor="@color/colorWhite"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="00"
+                android:textColor="@color/colorWhite"
+                android:id="@+id/totalDurationSong"/>
+        </LinearLayout>
+
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/playerContainer"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_marginTop="10dp">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="4dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:orientation="horizontal"
-                android:layout_marginTop="20dp"
-                android:id="@+id/barraProgresoContainer">
-
-                <View android:layout_width="250dp"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/rectroundborders"
-                    android:backgroundTint="@color/colorAccent"
-                    android:id="@+id/barraEscuchado">
-                </View>
-
-                <View android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:id="@+id/barraDuracion"
-                    android:background="@drawable/rectroundborders"
-                    android:backgroundTint="@color/colorPrimaryDark">
-                </View>
-
-            </LinearLayout>
+                <SeekBar
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:max="100"
+                    android:progress="50"
+                    android:id="@+id/seekBarSong"/>
 
         </LinearLayout>
 

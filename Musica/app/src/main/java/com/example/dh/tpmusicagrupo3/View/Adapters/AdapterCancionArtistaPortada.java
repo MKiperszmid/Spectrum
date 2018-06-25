@@ -63,6 +63,7 @@ public class AdapterCancionArtistaPortada extends RecyclerView.Adapter {
         private TextView tvCancion, tvArtista;
         private ImageView ivPortada;
 
+
         public CancionViewHolder(View itemView) {
             super(itemView);
             tvCancion = itemView.findViewById(R.id.celdaCancionID);
