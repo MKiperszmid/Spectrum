@@ -72,7 +72,7 @@ public class MediaPlayerController {
         mp.setLooping(true);
     }
 
-    private static void play(){
+    private void play(){
         goToPosition(currentPosition);
         mp.start();
     }
@@ -134,7 +134,7 @@ public class MediaPlayerController {
     }
 
     // Ir a una posicion de la cancion
-    public static void goToPosition(int posicion){
+    public void goToPosition(int posicion){
         if(!exists()) return;
         mp.seekTo(posicion);
     }

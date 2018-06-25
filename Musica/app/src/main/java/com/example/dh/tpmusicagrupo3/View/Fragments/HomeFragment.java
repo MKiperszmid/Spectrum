@@ -42,7 +42,7 @@ public class HomeFragment extends Fragment implements AdapterCancionArtistaPorta
     private RecyclerView rvUsa;
 
     private MusicController musicController;
-    private final Integer NUMERO_PARA_NUEVOS_RESULTADOS = 3;
+    private final Integer NUMERO_PARA_NUEVOS_RESULTADOS = 5;
     private ProgressBar progressBar;
     private Boolean isLoading;
     private MediaPlayerController mediaPlayerController;

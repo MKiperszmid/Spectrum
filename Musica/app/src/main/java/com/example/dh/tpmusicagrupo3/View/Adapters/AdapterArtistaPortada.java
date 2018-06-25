@@ -57,15 +57,11 @@ public class AdapterArtistaPortada extends RecyclerView.Adapter {
             super(itemView);
             portadaArtista = itemView.findViewById(R.id.celdaPortadaArtistaID);
             nombreArtista = itemView.findViewById(R.id.celdaNombreArtistaID);
-
         }
 
         public void bindArtista(Artist artist){
             nombreArtista.setText(artist.getName());
             GlideController.loadImage(itemView, artist.getPicture_big(), portadaArtista);
         }
-
-
     }
-
 }

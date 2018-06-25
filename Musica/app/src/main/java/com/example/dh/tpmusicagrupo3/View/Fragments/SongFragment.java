@@ -78,7 +78,8 @@ public class SongFragment extends Fragment implements MediaPlayerController.Noti
         TextView descripcionCancionArtista = view.findViewById(R.id.descripcionCancionArtista);
         descripcionCancionArtista.setText(cancion.getArtist().getName());
         ImageView descripcionCancionPortada = view.findViewById(R.id.descripcionCancionPortada);
-        GlideController.loadImage(view, cancion.getArtist().getPicture_big(), descripcionCancionPortada);
+        //GlideController.loadImage(view, cancion.getArtist().getPicture_big(), descripcionCancionPortada);
+        GlideController.loadImage(view, cancion.getAlbum().getCover_big(), descripcionCancionPortada);
 
         pauseplayClick = view.findViewById(R.id.pauseplayClick);
         ImageView heartClick = view.findViewById(R.id.heartClick);
@@ -93,7 +94,7 @@ public class SongFragment extends Fragment implements MediaPlayerController.Noti
         MiliSecondsToTimer miliSecondsToTimer = new MiliSecondsToTimer();
         //String duracionCancion = miliSecondsToTimer.milliSecondsToTimer(mediaPlayerController.getDuration());
         String duracionCancion = "0:30"; // TODO: obtener valor de getDuration
-        String currentduracionCancion = miliSecondsToTimer.milliSecondsToTimer(MediaPlayerController.getCurrentDuration());
+        final String currentduracionCancion = miliSecondsToTimer.milliSecondsToTimer(MediaPlayerController.getCurrentDuration());
 
         totalDurationTV.setText(duracionCancion);
         currentDurationTV.setText(currentduracionCancion);
@@ -163,6 +164,7 @@ public class SongFragment extends Fragment implements MediaPlayerController.Noti
     @Override
     public void cambiarEstado() {
         // TODO: Hacer que el CREATE del MediaPlayerController, sea parte del SongFragment. Y no del MediaPlayerController.
+        onResume(); // <-- No funciona no se porque.
     }
 
     public interface NotificadorCambioCancion{
@@ -170,8 +172,6 @@ public class SongFragment extends Fragment implements MediaPlayerController.Noti
         public void retroceder();
         public void adelantar();
     }
-
-
 
     // Cada 1 segundo actualiza el textview de por que segundo va la cancion y la seekbar
     public void actualizarMusicaInfo(){
@@ -187,11 +187,11 @@ public class SongFragment extends Fragment implements MediaPlayerController.Noti
         }, 1000);
     }
 
-
     private void updateSeekBar(int currentDuration){
         MiliSecondsToTimer miliSecondsToTimer = new MiliSecondsToTimer();
-        currentDurationTV.setText("" + miliSecondsToTimer.milliSecondsToTimer((long) currentDuration));
+        currentDurationTV.setText(miliSecondsToTimer.milliSecondsToTimer((long) currentDuration));
         seekBar.setProgress(currentDuration / 1000);
+
     }
 
 

@@ -84,9 +84,8 @@ public class AdapterCancionArtistaPortada extends RecyclerView.Adapter {
             tvCancion.setText(cancion.getTitle_short());
             tvArtista.setText(cancion.getArtist().getName());
 
-            GlideController.loadImage(itemView, cancion.getArtist().getPicture_big(), ivPortada);
-            //Picasso.get().load(cancion.getArtist().getPicture_big()).into(ivPortada);
-            //new DownloadImageTask(ivPortada).execute(cancion.getArtist().getPicture_big());
+            GlideController.loadImage(itemView, cancion.getAlbum().getCover_big(), ivPortada);
+            //GlideController.loadImage(itemView, cancion.getArtist().getPicture_big(), ivPortada);
         }
     }
     public interface NotificadorCancionCelda{
