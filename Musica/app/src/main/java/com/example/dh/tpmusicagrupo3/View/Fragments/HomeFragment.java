@@ -46,6 +46,8 @@ public class HomeFragment extends Fragment implements AdapterCancionArtistaPorta
     private ProgressBar progressBar;
     private Boolean isLoading;
 
+    private RelativeLayout rlTop10, rlRecentlyAdded, rlTopArg, rlTopUsa;
+
     public HomeFragment() {
         // Required empty public constructo
     }
@@ -81,8 +83,11 @@ public class HomeFragment extends Fragment implements AdapterCancionArtistaPorta
         musicController.getTracksChart(new TrackListener<TrackContainer>() {
             @Override
             public void finish(TrackContainer track) {
-                tracks = track.getData();
-                setAdapter(tracks, rvPopular);
+                if(track != null){
+                    tracks = track.getData();
+                    setAdapter(tracks, rvPopular);
+                    rlTop10.setVisibility(View.VISIBLE);
+                }
             }
         });
 
@@ -90,8 +95,11 @@ public class HomeFragment extends Fragment implements AdapterCancionArtistaPorta
         musicController.getTracksRadio(new TrackListener<TrackContainer>() {
             @Override
             public void finish(TrackContainer track) {
-                tracks = track.getData();
-                setAdapter(tracks, rvAgregado);
+                if(track != null){
+                    tracks = track.getData();
+                    setAdapter(tracks, rvAgregado);
+                    rlRecentlyAdded.setVisibility(View.VISIBLE);
+                }
             }
         }, "31061");
 
@@ -132,7 +140,10 @@ public class HomeFragment extends Fragment implements AdapterCancionArtistaPorta
 
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
-
+        rlTop10 = view.findViewById(R.id.layoutTop10);
+        rlRecentlyAdded = view.findViewById(R.id.layoutRecentlyAdded);
+        rlTopArg = view.findViewById(R.id.layoutTopArg);
+        rlTopUsa = view.findViewById(R.id.layoutTopUsa);
 
         /* Feed */
 
@@ -192,13 +203,8 @@ public class HomeFragment extends Fragment implements AdapterCancionArtistaPorta
                     progressBar.setVisibility(View.INVISIBLE);
                     isLoading = false;
                     if(track != null){
-                        try{
-                            ((AdapterCancionArtistaPortada)rv.getAdapter()).addTracks(track.getData());
-                            System.out.println("TEST");
-                        }
-                        catch (ClassCastException e){
-                            System.out.println("ERROR");
-                        }
+                        ((AdapterCancionArtistaPortada)rv.getAdapter()).addTracks(track.getData());
+                        rlTopArg.setVisibility(View.VISIBLE);
                     }
                 }
             });
@@ -218,6 +224,7 @@ public class HomeFragment extends Fragment implements AdapterCancionArtistaPorta
                     isLoading = false;
                     if(track != null){
                         ((AdapterCancionArtistaPortada)rv.getAdapter()).addTracks(track.getData());
+                        rlTopUsa.setVisibility(View.VISIBLE);
                     }
                 }
             });

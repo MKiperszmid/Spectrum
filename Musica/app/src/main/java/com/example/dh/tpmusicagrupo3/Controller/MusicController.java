@@ -34,31 +34,16 @@ public class MusicController {
         connector.getChart(new TrackListener<Chart>() {
             @Override
             public void finish(Chart track) {
-                if(track != null)
-                {
-                    listener.finish(track);
-                }
-                else {
-                    listener.finish(new Chart());
-                    //OFFLINE
-                }
+                listener.finish(track);
             }
         });
     }
 
     public void getTracksRadio(final TrackListener<TrackContainer> listener, String id){
-        //31061
         connector.getTracksRadio(new TrackListener<TrackContainer>() {
             @Override
             public void finish(TrackContainer track) {
-                if(track != null)
-                {
-                    listener.finish(track);
-                }
-                else {
-                    listener.finish(new TrackContainer());
-                    //OFFLINE
-                }
+                listener.finish(track);
             }
         }, id);
     }
@@ -67,14 +52,7 @@ public class MusicController {
         connector.getTracksPlaylist(new TrackListener<TrackContainer>() {
             @Override
             public void finish(TrackContainer track) {
-                if(track != null)
-                {
-                    listener.finish(track);
-                }
-                else {
-                    listener.finish(new TrackContainer());
-                    //OFFLINE
-                }
+                listener.finish(track);
             }
         }, id, index);
     }
@@ -83,14 +61,12 @@ public class MusicController {
         getTracksPlaylist(new TrackListener<TrackContainer>() {
             @Override
             public void finish(TrackContainer track) {
-                if(track == null) {
-                    listener.finish(new TrackContainer());
-                    return;
+                if(track != null){
+                    if(track.getData().size() < limitArgentina){
+                        hayPaginasArgentina = false;
+                    }
+                    offsetArgentina += track.getData().size();
                 }
-                if(track.getData().size() < limitArgentina){
-                    hayPaginasArgentina = false;
-                }
-                offsetArgentina += track.getData().size();
                 listener.finish(track);
             }
         }, "1279119721", offsetArgentina);
@@ -100,15 +76,14 @@ public class MusicController {
         getTracksPlaylist(new TrackListener<TrackContainer>() {
             @Override
             public void finish(TrackContainer track) {
-                if(track == null) {
-                    listener.finish(new TrackContainer());
-                    return;
+                if(track != null){
+                    if(track.getData().size() < limitUsa){
+                        hayPaginasUsa = false;
+                    }
+                    offsetUsa += track.getData().size();
                 }
-                if(track.getData().size() < limitUsa){
-                    hayPaginasUsa = false;
-                }
-                offsetUsa += track.getData().size();
                 listener.finish(track);
+
             }
         }, "2097558104", offsetUsa);
     }
@@ -126,14 +101,7 @@ public class MusicController {
         connector.getArtistsChart(new TrackListener<ArtistContainer>() {
             @Override
             public void finish(ArtistContainer track) {
-                if(track != null)
-                {
-                    listener.finish(track);
-                }
-                else {
-                    listener.finish(new ArtistContainer());
-                    //OFFLINE
-                }
+               listener.finish(track);
             }
         });
     }
@@ -142,12 +110,7 @@ public class MusicController {
         connector.getTracksChart(new TrackListener<TrackContainer>() {
             @Override
             public void finish(TrackContainer track) {
-                if(track != null){
-                    listener.finish(track);
-                }
-                else {
-                    listener.finish(new TrackContainer());
-                }
+                listener.finish(track);
             }
         });
     }

@@ -16,19 +16,30 @@ import java.io.IOException;
 public class MediaPlayerController {
 
     private static MediaPlayer mp;
+    private static MediaPlayerController mediaPlayerController;
     public static Track currentPlaying;
-
+    public static Boolean isPlaying;
 
     private static Track currentlyPlaying;
 
     private static int currentPosition = 0;
 
+    public static MediaPlayerController getInstance(){
+        if(mediaPlayerController == null){
+            mediaPlayerController = new MediaPlayerController();
+        }
+        return mediaPlayerController;
+    }
     public static boolean exists(){
         return mp != null;
     }
 
     public static boolean isPlaying(){
         return exists() && mp.isPlaying();
+    }
+
+    private MediaPlayerController(){
+
     }
 
     public static void retroceder(FloatingActionButton btn){
@@ -86,16 +97,21 @@ public class MediaPlayerController {
         mp = new MediaPlayer();
         try {
             mp.setDataSource(track.getPreview());
-            mp.prepare();
+            mp.prepareAsync();
             currentPosition = 0;
             currentPlaying = track;
-            mp.start();
+            mp.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                @Override
+                public void onPrepared(MediaPlayer mediaPlayer) {
+                    mp.start();
+                }
+            });
+            //mp.start();
             currentlyPlaying = track;
         }
         catch (IOException e){
 
-        }
-    }
+        }}
 
 
     // Ir a una posicion de la cancion
