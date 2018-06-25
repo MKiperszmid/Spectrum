@@ -80,7 +80,6 @@ public class SongFragment extends Fragment implements MediaPlayerController.Noti
         ImageView descripcionCancionPortada = view.findViewById(R.id.descripcionCancionPortada);
         //GlideController.loadImage(view, cancion.getArtist().getPicture_big(), descripcionCancionPortada);
         GlideController.loadImage(view, cancion.getAlbum().getCover_big(), descripcionCancionPortada);
-
         pauseplayClick = view.findViewById(R.id.pauseplayClick);
         ImageView heartClick = view.findViewById(R.id.heartClick);
         ImageView backClick = view.findViewById(R.id.backClick);
@@ -184,14 +183,13 @@ public class SongFragment extends Fragment implements MediaPlayerController.Noti
                 updateSeekBar(currentDuration);
                 handler.postDelayed(this, 1000);
             }
-        }, 1000);
+        }, 0); // si delay 0 para arrancar
     }
 
     private void updateSeekBar(int currentDuration){
         MiliSecondsToTimer miliSecondsToTimer = new MiliSecondsToTimer();
         currentDurationTV.setText(miliSecondsToTimer.milliSecondsToTimer((long) currentDuration));
         seekBar.setProgress(currentDuration / 1000);
-
     }
 
 
