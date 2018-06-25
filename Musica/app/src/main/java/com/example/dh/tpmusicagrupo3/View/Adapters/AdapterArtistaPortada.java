@@ -15,6 +15,8 @@ import com.example.dh.tpmusicagrupo3.R;
 
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class AdapterArtistaPortada extends RecyclerView.Adapter {
 
     private List<Artist> artistas;
@@ -50,7 +52,7 @@ public class AdapterArtistaPortada extends RecyclerView.Adapter {
 
     private class ArtistaViewHolder extends RecyclerView.ViewHolder{
 
-        private ImageView portadaArtista;
+        private CircleImageView portadaArtista;
         private TextView nombreArtista;
 
         public ArtistaViewHolder(View itemView) {
