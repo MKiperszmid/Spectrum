@@ -3,6 +3,7 @@ package com.example.dh.tpmusicagrupo3.Controller;
 import com.example.dh.tpmusicagrupo3.Model.DAO.RetrofitConnector;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Chart;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Containers.ArtistContainer;
+import com.example.dh.tpmusicagrupo3.Model.POJO.Containers.GenreContainer;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Track;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Containers.TrackContainer;
 
@@ -42,6 +43,7 @@ public class MusicController {
         });
     }
 
+    // Agregado recientemente
     public void getTracksRadio(final TrackListener<TrackContainer> listener, String id){
         connector.getTracksRadio(new TrackListener<TrackContainer>() {
             @Override
@@ -51,6 +53,7 @@ public class MusicController {
         }, id);
     }
 
+    // Popular Argentina
     public void getTracksPlaylist(final TrackListener<TrackContainer> listener, String id, Integer index){
         connector.getTracksPlaylist(new TrackListener<TrackContainer>() {
             @Override
@@ -60,6 +63,7 @@ public class MusicController {
         }, id, index);
     }
 
+    // Popular Argentina
     public void getTopArgentina(final TrackListener<TrackContainer> listener){
         getTracksPlaylist(new TrackListener<TrackContainer>() {
             @Override
@@ -75,6 +79,7 @@ public class MusicController {
         }, "1279119721", offsetArgentina);
     }
 
+    // Trending USA
     public void getTopUsa(final TrackListener<TrackContainer> listener){
         getTracksPlaylist(new TrackListener<TrackContainer>() {
             @Override
@@ -91,6 +96,7 @@ public class MusicController {
         }, "2097558104", offsetUsa);
     }
 
+    // ??
     public void getTrack(final TrackListener<Track> listener, String id){
         connector.getTrack(new TrackListener<Track>() {
             @Override
@@ -100,6 +106,7 @@ public class MusicController {
         }, id);
     }
 
+    // Artistas populares
     public void getArtistsChart(final TrackListener<ArtistContainer> listener){
         connector.getArtistsChart(new TrackListener<ArtistContainer>() {
             @Override
@@ -109,6 +116,7 @@ public class MusicController {
         });
     }
 
+    // TOP 10
     public void getTracksChart(final TrackListener<TrackContainer> listener){
         connector.getTracksChart(new TrackListener<TrackContainer>() {
             @Override
@@ -117,6 +125,17 @@ public class MusicController {
             }
         });
     }
+
+    // Generos
+    public void getGenreList(final TrackListener<GenreContainer> listener){
+        connector.getGenreList(new TrackListener<GenreContainer>() {
+            @Override
+            public void finish(GenreContainer track) {
+                listener.finish(track);
+            }
+        });
+    }
+
 
     public Boolean getHayPaginasArgentina(){ return hayPaginasArgentina; }
 
@@ -136,4 +155,6 @@ public class MusicController {
         validatedTracks.setData(trackList);
         return validatedTracks;
     }
+
+
 }

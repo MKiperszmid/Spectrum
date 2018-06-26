@@ -77,7 +77,6 @@ public class HomeFragment extends Fragment implements AdapterCancionArtistaPorta
         musicController = new MusicController();
 
         // Carga de las diferentes listas
-
         tracks = new ArrayList<>();
 
         // TOP 10
@@ -105,7 +104,6 @@ public class HomeFragment extends Fragment implements AdapterCancionArtistaPorta
         }, "31061");
 
         // Popular en Argentina
-
         rvArgentina.setAdapter(new AdapterCancionArtistaPortada(this));
         loadNewCancionesArg(rvArgentina);
         /*musicController.getTopArgentina(new TrackListener<TrackContainer>() {

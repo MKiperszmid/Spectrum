@@ -3,6 +3,7 @@ package com.example.dh.tpmusicagrupo3.Model.DAO;
 import com.example.dh.tpmusicagrupo3.Controller.TrackListener;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Chart;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Containers.ArtistContainer;
+import com.example.dh.tpmusicagrupo3.Model.POJO.Containers.GenreContainer;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Track;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Containers.TrackContainer;
 
@@ -117,4 +118,24 @@ public class RetrofitConnector {
             }
         });
     }
+
+
+    public void getGenreList(final TrackListener<GenreContainer> listener){
+        Call<GenreContainer> genreListCall = service.getGenresList();
+        genreListCall.enqueue(new Callback<GenreContainer>() {
+            @Override
+            public void onResponse(Call<GenreContainer> call, Response<GenreContainer> response) {
+                listener.finish(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<GenreContainer> call, Throwable t) {
+                listener.finish(null);
+            }
+        });
+    }
+
+
+
+
 }

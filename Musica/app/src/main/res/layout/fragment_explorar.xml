@@ -15,6 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+            <!-- Lista de Playlist Destacadas -->
             <TextView
                 android:id="@+id/playlistDestacadasID"
                 android:layout_width="wrap_content"
@@ -27,13 +28,13 @@
                 android:textColor="@color/colorWhite"
                 android:textSize="@dimen/maxSizeTitleName"
                 android:textStyle="bold" />
-
             <android.support.v7.widget.RecyclerView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/recyclerPlaylistDestacada"
                 android:layout_below="@id/playlistDestacadasID"/>
 
+            <!-- Lista de Artistas Populares -->
             <TextView
                 android:id="@+id/artistChartID"
                 android:layout_width="wrap_content"
@@ -48,12 +49,32 @@
                 android:textSize="@dimen/maxSizeTitleName"
                 android:textStyle="bold" />
 
-
             <android.support.v7.widget.RecyclerView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/recyclerArtistChart"
                 android:layout_below="@id/artistChartID"/>
+
+            <!-- Lista de Géneros -->
+            <TextView
+                android:id="@+id/genreChartID"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/recyclerArtistChart"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="25dp"
+                android:layout_marginTop="25dp"
+                android:fontFamily="@font/montserrat"
+                android:text="@string/genreChart"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/maxSizeTitleName"
+                android:textStyle="bold" />
+
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/recyclerGenreList"
+                android:layout_below="@id/genreChartID"/>
 
 
 
