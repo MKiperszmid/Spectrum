@@ -11,6 +11,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridLayout;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.example.dh.tpmusicagrupo3.Controller.MusicController;
@@ -52,6 +54,9 @@ public class ExplorarFragment extends Fragment implements AdapterCancionArtistaP
     private List<Genre> genres;
     private AdapterGeneroItem adapterGeneroItem;
 
+    private RelativeLayout rlPlaylist, rlGenero, rlArtista;
+    private ProgressBar progressBar;
+
     public ExplorarFragment() {
         // Required empty public constructor
     }
@@ -68,7 +73,7 @@ public class ExplorarFragment extends Fragment implements AdapterCancionArtistaP
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_explorar, container, false);
 
-        LoadContent();
+        progressBar = view.findViewById(R.id.explorarProgressbar);
 
         // Playlist Destacadas
         rvPlaylists = view.findViewById(R.id.recyclerPlaylistDestacada);
@@ -80,30 +85,33 @@ public class ExplorarFragment extends Fragment implements AdapterCancionArtistaP
 
         // Generos
         rvGenresList = view.findViewById(R.id.recyclerGenreList);
-        RecyclerView.LayoutManager gridLayoutManagerGenres = new GridLayoutManager(getActivity(), 2);
         rvGenresList.setLayoutManager(new GridLayoutManager(getActivity(), 4, LinearLayoutManager.HORIZONTAL, false));
 
+        rlPlaylist = view.findViewById(R.id.explorarLayoutPlaylist);
+        rlGenero = view.findViewById(R.id.explorarLayoutGeneros);
+        rlArtista = view.findViewById(R.id.explorarLayoutArtistas);
+
+        LoadContent();
         return view;
+    }
+
+    private void progressbarVisible(){
+
     }
 
     private void LoadContent() {
         MusicController musicController = new MusicController();
-
+        progressBar.setVisibility(View.VISIBLE);
+        progressBar.setIndeterminate(true);
         // Playlist Destacadas
         musicController.getPlaylistsChart(new TrackListener<PlaylistContainer>() {
             @Override
             public void finish(PlaylistContainer track) {
-                playlists = track.getData();
-                setAdapter(playlists, rvPlaylists);
-            }
-        });
-
-        // Artistas Destacados
-        musicController.getArtistsChart(new TrackListener<ArtistContainer>() {
-            @Override
-            public void finish(ArtistContainer track) {
-                artists = track.getData();
-                setAdapterArtist(artists, rvArtistChart);
+                if(track != null){
+                    rlPlaylist.setVisibility(View.VISIBLE);
+                    playlists = track.getData();
+                    setAdapter(playlists, rvPlaylists);
+                }
             }
         });
 
@@ -111,8 +119,27 @@ public class ExplorarFragment extends Fragment implements AdapterCancionArtistaP
         musicController.getGenreList(new TrackListener<GenreContainer>() {
             @Override
             public void finish(GenreContainer track) {
-                genres = track.getData();
-                setAdapterGenres(genres, rvGenresList);
+                if(track != null){
+                    rlGenero.setVisibility(View.VISIBLE);
+                    genres = track.getData();
+                    setAdapterGenres(genres, rvGenresList);
+                }
+            }
+        });
+
+        // Artistas Destacados
+        musicController.getArtistsChart(new TrackListener<ArtistContainer>() {
+            @Override
+            public void finish(ArtistContainer track) {
+                if(track != null){
+                    rlArtista.setVisibility(View.VISIBLE);
+                    artists = track.getData();
+                    setAdapterArtist(artists, rvArtistChart);
+                }
+
+                // TODO: Hacer esto v , cuando no haya internet (y tambien dejarlo aca)
+                progressBar.setVisibility(View.INVISIBLE);
+                progressBar.setIndeterminate(false);
             }
         });
     }
