@@ -10,8 +10,8 @@ import java.util.List;
 
 public class AlbumController extends TypeController <Album> {
 
-    public AlbumController(List<Album> albums){
-        this.setData(albums);
+    public AlbumController(List<Album> data) {
+        super(data);
     }
 
     @Override

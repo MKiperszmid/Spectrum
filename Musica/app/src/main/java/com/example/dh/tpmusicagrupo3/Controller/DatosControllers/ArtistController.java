@@ -10,8 +10,8 @@ import java.util.List;
 
 public class ArtistController extends TypeController <Artist> {
 
-    public ArtistController(List<Artist> artists){
-        this.setData(artists);
+    public ArtistController(List<Artist> data) {
+        super(data);
     }
 
     @Override

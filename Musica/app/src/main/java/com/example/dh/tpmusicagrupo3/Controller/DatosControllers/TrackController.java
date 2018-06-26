@@ -10,8 +10,8 @@ import java.util.List;
 
 public class TrackController extends TypeController <Track> {
 
-    public TrackController(List<Track> trackList){
-        this.setData(trackList);
+    public TrackController(List<Track> data) {
+        super(data);
     }
 
     @Override

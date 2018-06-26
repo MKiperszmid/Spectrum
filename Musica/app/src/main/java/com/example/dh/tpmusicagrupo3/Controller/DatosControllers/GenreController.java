@@ -10,8 +10,8 @@ import java.util.List;
 
 public class GenreController extends TypeController <Genre> {
 
-    public GenreController(List<Genre> genres){
-        this.setData(genres);
+    public GenreController(List<Genre> data) {
+        super(data);
     }
 
     @Override

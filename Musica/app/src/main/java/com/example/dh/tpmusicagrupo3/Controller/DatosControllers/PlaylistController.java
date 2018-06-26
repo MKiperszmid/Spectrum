@@ -10,8 +10,8 @@ import java.util.List;
 
 public class PlaylistController extends TypeController <Playlist> {
 
-    public PlaylistController(List<Playlist> playlists){
-        this.setData(playlists);
+    public PlaylistController(List<Playlist> data) {
+        super(data);
     }
 
     @Override

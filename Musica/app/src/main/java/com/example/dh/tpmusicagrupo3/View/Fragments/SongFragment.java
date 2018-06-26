@@ -92,13 +92,14 @@ public class SongFragment extends Fragment implements MediaPlayerController.Noti
 
         MiliSecondsToTimer miliSecondsToTimer = new MiliSecondsToTimer();
         //String duracionCancion = miliSecondsToTimer.milliSecondsToTimer(mediaPlayerController.getDuration());
-        String duracionCancion = "0:30"; // TODO: obtener valor de getDuration
+        Integer duracion = cancion.getDuration();  // TODO: Convertir de segundos a minutos/horas/etc.
+        String duracionCancion = duracion.toString();
         final String currentduracionCancion = miliSecondsToTimer.milliSecondsToTimer(MediaPlayerController.getCurrentDuration());
 
         totalDurationTV.setText(duracionCancion);
         currentDurationTV.setText(currentduracionCancion);
         seekBar = view.findViewById(R.id.seekBarSong);
-        seekBar.setMax(30); // TODO obtener valor de getDuration
+        seekBar.setMax(duracion);
 
 
         // Listener de click de elementos
@@ -163,7 +164,9 @@ public class SongFragment extends Fragment implements MediaPlayerController.Noti
     @Override
     public void cambiarEstado() {
         // TODO: Hacer que el CREATE del MediaPlayerController, sea parte del SongFragment. Y no del MediaPlayerController.
-        onResume(); // <-- No funciona no se porque.
+        // Ya que esto esta siendo cargado antes del resume, causando que pocas veces funcione (casi nunca)
+        mediaPlayerController.setIsPlaying(true);
+        onResume();
     }
 
     public interface NotificadorCambioCancion{
@@ -191,7 +194,6 @@ public class SongFragment extends Fragment implements MediaPlayerController.Noti
         currentDurationTV.setText(miliSecondsToTimer.milliSecondsToTimer((long) currentDuration));
         seekBar.setProgress(currentDuration / 1000);
     }
-
 
     @Override
     public void onResume() {
