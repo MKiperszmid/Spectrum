@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.dh.tpmusicagrupo3.Controller.GlideController;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Artist;
@@ -20,9 +21,11 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class AdapterArtistaPortada extends RecyclerView.Adapter {
 
     private List<Artist> artistas;
+    private NotificadorArtistaCelda notificadorArtistaCelda;
 
-    public AdapterArtistaPortada(List<Artist> artistas) {
+    public AdapterArtistaPortada(List<Artist> artistas, NotificadorArtistaCelda notificadorArtistaCelda) {
         this.artistas = artistas;
+        this.notificadorArtistaCelda = notificadorArtistaCelda;
     }
 
     @NonNull
@@ -55,15 +58,26 @@ public class AdapterArtistaPortada extends RecyclerView.Adapter {
         private CircleImageView portadaArtista;
         private TextView nombreArtista;
 
-        public ArtistaViewHolder(View itemView) {
+        public ArtistaViewHolder(final View itemView) {
             super(itemView);
             portadaArtista = itemView.findViewById(R.id.celdaPortadaArtistaID);
             nombreArtista = itemView.findViewById(R.id.celdaNombreArtistaID);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    notificadorArtistaCelda.notificarArtistaClickeado(artistas.get(getAdapterPosition()));
+                }
+            });
         }
 
         public void bindArtista(Artist artist){
             nombreArtista.setText(artist.getName());
             GlideController.loadImage(itemView, artist.getPicture_big(), portadaArtista);
         }
+    }
+
+    public interface NotificadorArtistaCelda{
+        void notificarArtistaClickeado(Artist artist);
     }
 }

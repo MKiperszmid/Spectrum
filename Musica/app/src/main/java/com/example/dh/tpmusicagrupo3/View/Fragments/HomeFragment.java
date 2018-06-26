@@ -106,25 +106,10 @@ public class HomeFragment extends Fragment implements AdapterCancionArtistaPorta
         // Popular en Argentina
         rvArgentina.setAdapter(new AdapterCancionArtistaPortada(this));
         loadNewCancionesArg(rvArgentina);
-        /*musicController.getTopArgentina(new TrackListener<TrackContainer>() {
-            @Override
-            public void finish(TrackContainer track) {
-                tracks = track.getData();
-                setAdapter(tracks, rvArgentina);
-            }
-        });*/
 
         // Trending USA
         rvUsa.setAdapter(new AdapterCancionArtistaPortada(this));
         loadNewCancionesUsa(rvUsa);
-        /*
-        musicController.getTopUsa(new TrackListener<TrackContainer>() {
-            @Override
-            public void finish(TrackContainer track) {
-                tracks = track.getData();
-                setAdapter(tracks, rvUsa);
-            }
-        });*/
     }
 
     private void setAdapter(List<Track> tracks, RecyclerView recyclerView){

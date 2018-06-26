@@ -39,7 +39,8 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ExplorarFragment extends Fragment implements AdapterCancionArtistaPortada.NotificadorCancionCelda {
+public class ExplorarFragment extends Fragment implements AdapterCancionArtistaPortada.NotificadorCancionCelda,
+        AdapterArtistaPortada.NotificadorArtistaCelda, AdapterGeneroItem.NotificadorGeneroCelda, AdapterPlaylistItem.NotificadorPlaylistCelda {
 
     private HomeFragment.NotificadorActivity notificadorActivity;
     private RecyclerView rvPlaylists;
@@ -146,19 +147,19 @@ public class ExplorarFragment extends Fragment implements AdapterCancionArtistaP
 
     // Adapter Playlist Destacadas
     private void setAdapter(List<Playlist> playlists, RecyclerView recyclerView){
-        adapterPlaylistItem = new AdapterPlaylistItem(playlists);
+        adapterPlaylistItem = new AdapterPlaylistItem(playlists, this);
         recyclerView.setAdapter(adapterPlaylistItem);
     }
 
     // Adapter Artistas Destacados
     private void setAdapterArtist(List<Artist> artist, RecyclerView recyclerView){
-        adapterArtistaPortada = new AdapterArtistaPortada(artist);
+        adapterArtistaPortada = new AdapterArtistaPortada(artist, this);
         recyclerView.setAdapter(adapterArtistaPortada);
     }
 
     // Adapter Generos
     private void setAdapterGenres(List<Genre> genre, RecyclerView recyclerView){
-        adapterGeneroItem = new AdapterGeneroItem(genre);
+        adapterGeneroItem = new AdapterGeneroItem(genre, this);
         recyclerView.setAdapter(adapterGeneroItem);
     }
 
@@ -174,5 +175,23 @@ public class ExplorarFragment extends Fragment implements AdapterCancionArtistaP
         */
         Toast.makeText(getActivity(), "Implementar.", Toast.LENGTH_SHORT).show();
      //   notificadorActivity.recibirCancion(cancionClickeada, tracks.indexOf(cancionClickeada));
+    }
+
+    @Override
+    public void notificarArtistaClickeado(Artist artist) {
+        Toast.makeText(getActivity(), artist.getName(), Toast.LENGTH_SHORT).show();
+        //Ir al MainActivity y despues ir al ArtistFragment
+    }
+
+    @Override
+    public void notificarGeneroClickeado(Genre genre) {
+        Toast.makeText(getActivity(), genre.getName(), Toast.LENGTH_SHORT).show();
+        //Ir al MainActivity y despues ir al GenreFragment
+    }
+
+    @Override
+    public void notificarPlaylistClickeada(Playlist playlist) {
+        Toast.makeText(getActivity(), playlist.getTitle(), Toast.LENGTH_SHORT).show();
+        //Ir al MainActivity y despues ir al PlaylistFragment
     }
 }

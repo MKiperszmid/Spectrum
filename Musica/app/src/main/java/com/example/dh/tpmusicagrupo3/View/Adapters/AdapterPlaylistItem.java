@@ -20,9 +20,11 @@ import java.util.List;
 
 public class AdapterPlaylistItem extends RecyclerView.Adapter {
     private List<Playlist> playlists;
+    private NotificadorPlaylistCelda notificadorPlaylistCelda;
 
-    public AdapterPlaylistItem(List<Playlist> playlists){
+    public AdapterPlaylistItem(List<Playlist> playlists, NotificadorPlaylistCelda notificadorPlaylistCelda){
         this.playlists = playlists;
+        this.notificadorPlaylistCelda = notificadorPlaylistCelda;
     }
 
     @NonNull
@@ -59,6 +61,13 @@ public class AdapterPlaylistItem extends RecyclerView.Adapter {
             celdaplaylistImagen = itemView.findViewById(R.id.celdaplaylistImagen);
             celdaplaylistCanciones = itemView.findViewById(R.id.celdaplaylistCanciones);
             celdaplaylistNombre = itemView.findViewById(R.id.celdaplaylistNombre);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    notificadorPlaylistCelda.notificarPlaylistClickeada(playlists.get(getAdapterPosition()));
+                }
+            });
         }
 
         public void bindPlaylist(Playlist playlist) {
@@ -67,5 +76,9 @@ public class AdapterPlaylistItem extends RecyclerView.Adapter {
             celdaplaylistCanciones.setText(canciones);
             celdaplaylistNombre.setText(playlist.getTitle());
         }
+    }
+
+    public interface NotificadorPlaylistCelda{
+        void notificarPlaylistClickeada(Playlist playlist);
     }
 }

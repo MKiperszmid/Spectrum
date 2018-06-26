@@ -23,9 +23,9 @@ public class AdapterGeneroItem extends RecyclerView.Adapter {
 
     private List<Genre> generos;
     private List<Integer> drawablesGradients;
+    private NotificadorGeneroCelda notificadorGeneroCelda;
 
-
-    public AdapterGeneroItem(List<Genre> generos) {
+    public AdapterGeneroItem(List<Genre> generos, NotificadorGeneroCelda notificadorGeneroCelda) {
         this.generos = generos;
         drawablesGradients = new ArrayList<>();
         drawablesGradients.add(R.drawable.gradientamarillo);
@@ -33,6 +33,7 @@ public class AdapterGeneroItem extends RecyclerView.Adapter {
         drawablesGradients.add(R.drawable.gradientnaranja);
         drawablesGradients.add(R.drawable.gradientrojo);
         drawablesGradients.add(R.drawable.gradientvioleta);
+        this.notificadorGeneroCelda = notificadorGeneroCelda;
     }
 
     @NonNull
@@ -70,6 +71,13 @@ public class AdapterGeneroItem extends RecyclerView.Adapter {
             super(itemView);
             generoNombre = itemView.findViewById(R.id.nombreGeneroCelda);
             genreContainer = itemView.findViewById(R.id.genreContainer);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    notificadorGeneroCelda.notificarGeneroClickeado(generos.get(getAdapterPosition()));
+                }
+            });
         }
 
         public void bindGenero(Genre genre) {
@@ -78,5 +86,9 @@ public class AdapterGeneroItem extends RecyclerView.Adapter {
             int rndgradient = drawablesGradients.get(rndnumber);
             genreContainer.setBackgroundResource(rndgradient);
         }
+    }
+
+    public interface NotificadorGeneroCelda{
+        void notificarGeneroClickeado(Genre genre);
     }
 }
