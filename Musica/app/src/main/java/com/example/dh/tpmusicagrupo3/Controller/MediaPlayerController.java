@@ -4,6 +4,7 @@ import android.media.MediaPlayer;
 import android.support.design.widget.FloatingActionButton;
 import android.widget.ImageView;
 
+import com.example.dh.tpmusicagrupo3.Controller.DatosControllers.ArtistController;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Track;
 import com.example.dh.tpmusicagrupo3.R;
 import com.example.dh.tpmusicagrupo3.View.Fragments.SongFragment;

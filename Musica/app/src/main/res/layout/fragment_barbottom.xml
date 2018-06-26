@@ -4,14 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".View.Fragments.BarbottomFragment">
-
-    <LinearLayout
-        android:id="@+id/music_tool_contoller"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentBottom="true"
-        android:orientation="vertical">
-
         <LinearLayout
             android:id="@+id/navBarID"
             android:gravity="center"
@@ -138,7 +130,4 @@
                     android:textSize="@dimen/maxSizeNavBarItem" />
             </LinearLayout>
         </LinearLayout>
-
-    </LinearLayout>
-
 </FrameLayout>
