@@ -78,8 +78,8 @@ public class SongFragment extends Fragment implements MediaPlayerController.Noti
         TextView descripcionCancionArtista = view.findViewById(R.id.descripcionCancionArtista);
         descripcionCancionArtista.setText(cancion.getArtist().getName());
         ImageView descripcionCancionPortada = view.findViewById(R.id.descripcionCancionPortada);
-        //GlideController.loadImage(view, cancion.getArtist().getPicture_big(), descripcionCancionPortada);
-        GlideController.loadImage(view, cancion.getAlbum().getCover_big(), descripcionCancionPortada);
+
+        GlideController.loadImages(view, cancion.getAlbum().getCover_big(), descripcionCancionPortada);
         pauseplayClick = view.findViewById(R.id.pauseplayClick);
         ImageView heartClick = view.findViewById(R.id.heartClick);
         ImageView backClick = view.findViewById(R.id.backClick);

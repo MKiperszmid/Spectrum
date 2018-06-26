@@ -73,7 +73,7 @@ public class AdapterArtistaPortada extends RecyclerView.Adapter {
 
         public void bindArtista(Artist artist){
             nombreArtista.setText(artist.getName());
-            GlideController.loadImage(itemView, artist.getPicture_big(), portadaArtista);
+            GlideController.loadImages(itemView, artist.getPicture_big(), portadaArtista);
         }
     }
 

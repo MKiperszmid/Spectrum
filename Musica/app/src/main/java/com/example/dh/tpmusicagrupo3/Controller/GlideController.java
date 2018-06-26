@@ -3,6 +3,7 @@ package com.example.dh.tpmusicagrupo3.Controller;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.example.dh.tpmusicagrupo3.R;
 
 /**
@@ -10,7 +11,15 @@ import com.example.dh.tpmusicagrupo3.R;
  */
 
 public class GlideController {
-    public static void loadImage(View view, String url, ImageView imageView){
+    public static void loadImageFade(View view, String url, ImageView imageView){
+        GlideApp.with(view)
+                .load(url)
+                .placeholder(R.drawable.placeholder)
+                .transition(DrawableTransitionOptions.withCrossFade())
+                .into(imageView);
+    }
+
+    public static void loadImages(View view, String url, ImageView imageView){
         GlideApp.with(view)
                 .load(url)
                 .placeholder(R.drawable.placeholder)

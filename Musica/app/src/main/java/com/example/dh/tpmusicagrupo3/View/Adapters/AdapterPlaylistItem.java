@@ -71,7 +71,7 @@ public class AdapterPlaylistItem extends RecyclerView.Adapter {
         }
 
         public void bindPlaylist(Playlist playlist) {
-            GlideController.loadImage(itemView, playlist.getPicture_big(), celdaplaylistImagen);
+            GlideController.loadImageFade(itemView, playlist.getPicture_big(), celdaplaylistImagen);
             String canciones = playlist.getNb_tracks() + " canciones";
             celdaplaylistCanciones.setText(canciones);
             celdaplaylistNombre.setText(playlist.getTitle());
