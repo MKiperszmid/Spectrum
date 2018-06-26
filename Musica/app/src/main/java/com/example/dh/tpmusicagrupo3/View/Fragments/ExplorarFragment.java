@@ -80,7 +80,7 @@ public class ExplorarFragment extends Fragment implements AdapterCancionArtistaP
         // Generos
         rvGenresList = view.findViewById(R.id.recyclerGenreList);
         RecyclerView.LayoutManager gridLayoutManagerGenres = new GridLayoutManager(getActivity(), 2);
-        rvGenresList.setLayoutManager(gridLayoutManagerGenres);
+        rvGenresList.setLayoutManager(new GridLayoutManager(getActivity(), 4, LinearLayoutManager.HORIZONTAL, false));
 
         return view;
     }
@@ -115,9 +115,6 @@ public class ExplorarFragment extends Fragment implements AdapterCancionArtistaP
                 setAdapterGenres(genres, rvGenresList);
             }
         });
-
-
-
     }
 
     // Adapter Playlist Destacadas
