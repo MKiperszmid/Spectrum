@@ -77,10 +77,6 @@ public class AdapterGeneroItem extends RecyclerView.Adapter {
             int rndnumber = new Random().nextInt(drawablesGradients.size());
             int rndgradient = drawablesGradients.get(rndnumber);
             genreContainer.setBackgroundResource(rndgradient);
-
-
         }
     }
-
-
 }

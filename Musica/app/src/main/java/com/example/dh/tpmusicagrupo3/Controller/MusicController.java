@@ -4,6 +4,7 @@ import com.example.dh.tpmusicagrupo3.Model.DAO.RetrofitConnector;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Chart;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Containers.ArtistContainer;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Containers.GenreContainer;
+import com.example.dh.tpmusicagrupo3.Model.POJO.Containers.PlaylistContainer;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Track;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Containers.TrackContainer;
 
@@ -131,6 +132,16 @@ public class MusicController {
         connector.getGenreList(new TrackListener<GenreContainer>() {
             @Override
             public void finish(GenreContainer track) {
+                listener.finish(track);
+            }
+        });
+    }
+
+    // TOP 10 Playlists
+    public void getPlaylistsChart(final TrackListener<PlaylistContainer> listener){
+        connector.getPlaylistsChart(new TrackListener<PlaylistContainer>() {
+            @Override
+            public void finish(PlaylistContainer track) {
                 listener.finish(track);
             }
         });

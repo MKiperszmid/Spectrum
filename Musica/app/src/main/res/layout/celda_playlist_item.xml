@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_marginStart="10dp"
+    android:layout_marginEnd="10dp"
+    android:orientation="vertical">
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:id="@+id/celdaplaylistImagen"
+            tools:src="@drawable/rockeando"
+            android:maxHeight="200dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="90 canciones"
+            android:textColor="@color/colorWhite"
+            android:layout_margin="15dp"
+            android:layout_alignBottom="@id/celdaplaylistImagen"
+            android:textSize="12sp"
+            android:id="@+id/celdaplaylistCanciones"/>
+    </RelativeLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="Exitos Argentina"
+        android:layout_gravity="center"
+        android:layout_marginTop="5dp"
+        android:textColor="@color/colorWhite"
+        android:id="@+id/celdaplaylistNombre"/>
+</LinearLayout>

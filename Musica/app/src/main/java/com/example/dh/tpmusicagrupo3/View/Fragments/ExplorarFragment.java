@@ -19,6 +19,7 @@ import com.example.dh.tpmusicagrupo3.Model.POJO.Artist;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Chart;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Containers.ArtistContainer;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Containers.GenreContainer;
+import com.example.dh.tpmusicagrupo3.Model.POJO.Containers.PlaylistContainer;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Containers.TrackContainer;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Genre;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Playlist;
@@ -27,6 +28,7 @@ import com.example.dh.tpmusicagrupo3.R;
 import com.example.dh.tpmusicagrupo3.View.Adapters.AdapterArtistaPortada;
 import com.example.dh.tpmusicagrupo3.View.Adapters.AdapterCancionArtistaPortada;
 import com.example.dh.tpmusicagrupo3.View.Adapters.AdapterGeneroItem;
+import com.example.dh.tpmusicagrupo3.View.Adapters.AdapterPlaylistItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,9 +41,8 @@ public class ExplorarFragment extends Fragment implements AdapterCancionArtistaP
 
     private HomeFragment.NotificadorActivity notificadorActivity;
     private RecyclerView rvPlaylists;
-    private List<Track> tracks;
-    private List<Track> tracksFragment;
-    private AdapterCancionArtistaPortada adapterCancionArtistaPortada;
+    private List<Playlist> playlists;
+    private AdapterPlaylistItem adapterPlaylistItem;
 
     private RecyclerView rvArtistChart;
     private List<Artist> artists;
@@ -87,14 +88,13 @@ public class ExplorarFragment extends Fragment implements AdapterCancionArtistaP
 
     private void LoadContent() {
         MusicController musicController = new MusicController();
-        tracksFragment = new ArrayList<>(); // ?
 
         // Playlist Destacadas
-        musicController.getTracksChart(new TrackListener<TrackContainer>() {
+        musicController.getPlaylistsChart(new TrackListener<PlaylistContainer>() {
             @Override
-            public void finish(TrackContainer track) {
-                tracks = track.getData();
-                setAdapter(tracks, rvPlaylists);
+            public void finish(PlaylistContainer track) {
+                playlists = track.getData();
+                setAdapter(playlists, rvPlaylists);
             }
         });
 
@@ -118,9 +118,9 @@ public class ExplorarFragment extends Fragment implements AdapterCancionArtistaP
     }
 
     // Adapter Playlist Destacadas
-    private void setAdapter(List<Track> tracks, RecyclerView recyclerView){
-        adapterCancionArtistaPortada = new AdapterCancionArtistaPortada(tracks, this);
-        recyclerView.setAdapter(adapterCancionArtistaPortada);
+    private void setAdapter(List<Playlist> playlists, RecyclerView recyclerView){
+        adapterPlaylistItem = new AdapterPlaylistItem(playlists);
+        recyclerView.setAdapter(adapterPlaylistItem);
     }
 
     // Adapter Artistas Destacados

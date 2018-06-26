@@ -4,6 +4,7 @@ import com.example.dh.tpmusicagrupo3.Controller.TrackListener;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Chart;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Containers.ArtistContainer;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Containers.GenreContainer;
+import com.example.dh.tpmusicagrupo3.Model.POJO.Containers.PlaylistContainer;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Track;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Containers.TrackContainer;
 
@@ -119,7 +120,6 @@ public class RetrofitConnector {
         });
     }
 
-
     public void getGenreList(final TrackListener<GenreContainer> listener){
         Call<GenreContainer> genreListCall = service.getGenresList();
         genreListCall.enqueue(new Callback<GenreContainer>() {
@@ -135,7 +135,18 @@ public class RetrofitConnector {
         });
     }
 
+    public void getPlaylistsChart(final TrackListener<PlaylistContainer> listener){
+        Call<PlaylistContainer> playlistContainerCall = service.getPlaylistsChart();
+        playlistContainerCall.enqueue(new Callback<PlaylistContainer>() {
+            @Override
+            public void onResponse(Call<PlaylistContainer> call, Response<PlaylistContainer> response) {
+                listener.finish(response.body());
+            }
 
-
-
+            @Override
+            public void onFailure(Call<PlaylistContainer> call, Throwable t) {
+                listener.finish(null);
+            }
+        });
+    }
 }
