@@ -167,7 +167,7 @@ public class SongFragment extends Fragment implements MediaPlayerController.Noti
         if(minutos > 1){
             segundos -= minutos * 60;
         }
-        
+
         segundosText = segundos.toString();
         if(segundos < 10){
             segundosText = "0" + segundos;

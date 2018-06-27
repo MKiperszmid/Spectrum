@@ -81,14 +81,12 @@
             android:id="@+id/playerContainer"
             android:orientation="vertical"
             android:layout_marginTop="10dp">
-
                 <SeekBar
                     android:layout_width="match_parent"
-                    android:layout_height="10dp"
+                    android:layout_height="wrap_content"
                     android:max="100"
-                    android:progress="50"
+                    android:progress="0"
                     android:id="@+id/seekBarSong"/>
-
         </LinearLayout>
 
         <LinearLayout
