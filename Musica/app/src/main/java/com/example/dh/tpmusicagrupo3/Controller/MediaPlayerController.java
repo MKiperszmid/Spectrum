@@ -1,6 +1,10 @@
 package com.example.dh.tpmusicagrupo3.Controller;
 
+import android.annotation.SuppressLint;
+import android.media.AudioAttributes;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.os.Build;
 import android.support.design.widget.FloatingActionButton;
 import android.widget.ImageView;
 
@@ -112,10 +116,16 @@ public class MediaPlayerController {
         currentPlaying = track;
     }
 
+    @SuppressLint("WrongConstant")
     public void create(Track track){
         clear();
         isPlaying = true;
         mp = new MediaPlayer();
+
+        //Esto al parecer es importante declararlo, para mejorar el rendimiento.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            mp.setAudioAttributes(new AudioAttributes.Builder().setContentType(AudioAttributes.USAGE_MEDIA).setContentType(AudioAttributes.CONTENT_TYPE_MUSIC).build());
+        }
         try {
             mp.setDataSource(track.getPreview());
             mp.prepareAsync();
@@ -124,12 +134,13 @@ public class MediaPlayerController {
             mp.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
                 @Override
                 public void onPrepared(MediaPlayer mediaPlayer) {
-                    mp.start();
+                    play();
                     notificadorEstadoCancion.cambiarEstado();
                 }
             });
         }
         catch (IOException e){
+            e.printStackTrace();
             isPlaying = false;
         }
     }
@@ -142,14 +153,12 @@ public class MediaPlayerController {
 
     // Obtener duracion de la cancion en milisegundos
     public Integer getDuration(){
-        Integer durationMP = mp.getDuration();
-        return durationMP;
+        return mp.getDuration(); //Track contiene un Duration en Segundos. Es mejor usar eso.
     }
 
     // Obtener la duracion actual
     public static Integer getCurrentDuration(){
-        Integer currentDurationMP = mp.getCurrentPosition();
-        return currentDurationMP;
+        return mp.getCurrentPosition();
     }
 
     public interface NotificadorEstadoCancion{

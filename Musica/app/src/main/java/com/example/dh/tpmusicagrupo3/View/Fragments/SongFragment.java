@@ -92,8 +92,8 @@ public class SongFragment extends Fragment implements MediaPlayerController.Noti
 
         MiliSecondsToTimer miliSecondsToTimer = new MiliSecondsToTimer();
         //String duracionCancion = miliSecondsToTimer.milliSecondsToTimer(mediaPlayerController.getDuration());
-        Integer duracion = cancion.getDuration();  // TODO: Convertir de segundos a minutos/horas/etc.
-        String duracionCancion = duracion.toString();
+        Integer duracion = cancion.getDuration();
+        String duracionCancion = segundosToTiempo(duracion);
         final String currentduracionCancion = miliSecondsToTimer.milliSecondsToTimer(MediaPlayerController.getCurrentDuration());
 
         totalDurationTV.setText(duracionCancion);
@@ -159,6 +159,21 @@ public class SongFragment extends Fragment implements MediaPlayerController.Noti
         actualizarMusicaInfo();
 
         return view;
+    }
+
+    private String segundosToTiempo(Integer segundos){
+        Integer minutos = segundos / 60;
+        String segundosText, minutosText;
+        if(minutos > 1){
+            segundos -= minutos * 60;
+        }
+        
+        segundosText = segundos.toString();
+        if(segundos < 10){
+            segundosText = "0" + segundos;
+        }
+        minutosText = minutos.toString();
+        return minutosText + ":" + segundosText;
     }
 
     @Override
