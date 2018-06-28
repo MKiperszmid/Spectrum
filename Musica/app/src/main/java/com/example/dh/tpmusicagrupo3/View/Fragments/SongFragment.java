@@ -1,12 +1,14 @@
 package com.example.dh.tpmusicagrupo3.View.Fragments;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.media.MediaPlayer;
-import android.os.Build;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.LocalBroadcastManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,13 +18,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.dh.tpmusicagrupo3.Controller.GlideController;
-import com.example.dh.tpmusicagrupo3.Controller.MediaPlayerController;
-import com.example.dh.tpmusicagrupo3.Controller.MusicController;
+import com.example.dh.tpmusicagrupo3.Controller.MediaPlayerService;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Track;
 import com.example.dh.tpmusicagrupo3.R;
 import com.example.dh.tpmusicagrupo3.Utils.MiliSecondsToTimer;
-
-import java.io.IOException;
+import com.example.dh.tpmusicagrupo3.View.Activities.MainActivity;
 
 public class SongFragment extends Fragment{
 
@@ -31,12 +31,20 @@ public class SongFragment extends Fragment{
     private FloatingActionButton pauseplayClick;
     private Track cancion;
     private NotificadorCambioCancion notificadorCambioCancion;
-    private MediaPlayerController mediaPlayerController;
 
+    private BroadcastReceiver receiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Boolean playing = intent.getExtras().getBoolean(MediaPlayerService.IS_PLAYING, false);
+            changeImage(playing);
+        }
+    };
 
     private TextView totalDurationTV;
     private TextView currentDurationTV;
     private SeekBar seekBar;
+
+    private NotificadorFragmentService notificadorFragmentService;
 
     public static final String CANCIONKEY = "cancion";
 
@@ -48,6 +56,7 @@ public class SongFragment extends Fragment{
     public void onAttach(Context context) {
         super.onAttach(context);
         this.notificadorCambioCancion = (NotificadorCambioCancion) context;
+        this.notificadorFragmentService = (NotificadorFragmentService) context;
     }
 
     public Track getCancion(){
@@ -67,7 +76,6 @@ public class SongFragment extends Fragment{
                              Bundle savedInstanceState) {
         Bundle bundle = getArguments();
         cancion = (Track) bundle.getSerializable(CANCIONKEY);
-        mediaPlayerController = MediaPlayerController.getInstance();
 
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_song, container, false);
@@ -94,12 +102,13 @@ public class SongFragment extends Fragment{
         //String duracionCancion = miliSecondsToTimer.milliSecondsToTimer(mediaPlayerController.getDuration());
         Integer duracion = cancion.getDuration();
         String duracionCancion = segundosToTiempo(duracion);
-        final String currentduracionCancion = miliSecondsToTimer.milliSecondsToTimer(MediaPlayerController.getCurrentDuration());
+        final String currentduracionCancion = miliSecondsToTimer.milliSecondsToTimer(MainActivity.mediaPlayerService.getCurrentDuration()); //MediaPlayerController.getCurrentDuration()
 
         totalDurationTV.setText(duracionCancion);
         currentDurationTV.setText(currentduracionCancion);
         seekBar = view.findViewById(R.id.seekBarSong);
         seekBar.setMax(duracion);
+        pauseplayClick.setImageResource(R.drawable.play);
 
 
         // Listener de click de elementos
@@ -123,8 +132,6 @@ public class SongFragment extends Fragment{
         backClick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getActivity(), "Retroceder", Toast.LENGTH_SHORT).show();
-                mediaPlayerController.retroceder(pauseplayClick);
                 notificadorCambioCancion.retroceder();
             }
         });
@@ -133,7 +140,8 @@ public class SongFragment extends Fragment{
         pauseplayClick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mediaPlayerController.playPause(pauseplayClick);
+                notificadorFragmentService.playSong();
+               // mediaPlayerController.playPause(pauseplayClick);
             }
         });
 
@@ -141,7 +149,6 @@ public class SongFragment extends Fragment{
         nextClick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getActivity(), "Adelantar", Toast.LENGTH_SHORT).show();
                 notificadorCambioCancion.adelantar();
             }
         });
@@ -189,7 +196,8 @@ public class SongFragment extends Fragment{
             @Override
             public void run(){
                 int currentDuration;
-                currentDuration = MediaPlayerController.getCurrentDuration();
+                //currentDuration = MediaPlayerController.getCurrentDuration();
+                currentDuration = notificadorFragmentService.getCurrentDuration();
                 updateSeekBar(currentDuration);
                 handler.postDelayed(this, 1000);
             }
@@ -202,16 +210,38 @@ public class SongFragment extends Fragment{
         seekBar.setProgress(currentDuration / 1000);
     }
 
+    public void changeImage(Boolean playing){
+        if(playing)
+            pauseplayClick.setImageResource(R.drawable.stop);
+        else
+            pauseplayClick.setImageResource(R.drawable.play);
+    }
+
     @Override
     public void onResume() {
         super.onResume();
-        if(mediaPlayerController.isPlaying()){
+
+        if(notificadorFragmentService.isPlaying()){
             pauseplayClick.setImageResource(R.drawable.stop);
         }
         else {
             pauseplayClick.setImageResource(R.drawable.play);
         }
-        if(mediaPlayerController.getIsNew())
-            pauseplayClick.setImageResource(R.drawable.stop);
+
+        LocalBroadcastManager.getInstance(getActivity()).registerReceiver(receiver, new IntentFilter(MediaPlayerService.CHANGEIMAGE));
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        LocalBroadcastManager.getInstance(getActivity()).unregisterReceiver(receiver);
+    }
+
+    public interface NotificadorFragmentService{
+        void playSong();
+        Integer getCurrentDuration();
+        void startSong(Track track);
+        Track getCurrentSong();
+        Boolean isPlaying();
     }
 }

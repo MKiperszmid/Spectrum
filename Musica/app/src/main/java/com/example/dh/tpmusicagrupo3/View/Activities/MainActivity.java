@@ -1,13 +1,21 @@
 package com.example.dh.tpmusicagrupo3.View.Activities;
+import android.content.BroadcastReceiver;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.ServiceConnection;
+import android.os.IBinder;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.FrameLayout;
 
+import com.example.dh.tpmusicagrupo3.Controller.MediaPlayerService;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Artist;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Playlist;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Track;
@@ -18,6 +26,24 @@ import com.example.dh.tpmusicagrupo3.View.Fragments.PlaybarbottomFragment;
 import com.example.dh.tpmusicagrupo3.View.Fragments.SongFragment;
 
 public class MainActivity extends AppCompatActivity implements HomeFragment.NotificadorActivity, BarbottomFragment.NotificadorActivityBarBottom{
+
+    public static MediaPlayerService mediaPlayerService;
+    private Boolean isServiceBounded = false;
+    private Track cancionActual;
+
+    private ServiceConnection serviceConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            isServiceBounded = true;
+            MediaPlayerService.MyBinder binder = (MediaPlayerService.MyBinder) service;
+            mediaPlayerService = binder.getService();
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            isServiceBounded = false;
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,13 +68,16 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Noti
 
         FrameLayout frameLayoutPlayBar = findViewById(R.id.playBarBottom);
         frameLayoutPlayBar.setVisibility(View.VISIBLE);
+        cancionActual = cancion;
+
+        startSong(cancion);//TODO: Borrar esta linea para sacar el service
 
         Bundle bundlePB = new Bundle();
         bundlePB.putInt(PlaybarbottomFragment.CLAVE_CANCION, position);
+        bundlePB.putSerializable(PlaybarbottomFragment.CLAVE_PLAYING, cancion);
         PlaybarbottomFragment playbarbottomFragment = new PlaybarbottomFragment();
         playbarbottomFragment.setArguments(bundlePB);
         LoadFragment(playbarbottomFragment, R.id.playBarBottom);
-
 
         Intent intent = new Intent(this, SongActivity.class);
         Bundle bundle = new Bundle();
@@ -56,6 +85,34 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Noti
         bundle.putSerializable(SongFragment.cancionKey, cancion);
         intent.putExtras(bundle);
         startActivity(intent);
+    }
+
+    public void startSong(Track cancion){
+        if(mediaPlayerService == null) {
+            Intent playerService = new Intent(this, MediaPlayerService.class);
+            Bundle bundleService = new Bundle();
+            bundleService.putSerializable(MediaPlayerService.PLAY_TRACK, cancion);
+            playerService.putExtras(bundleService);
+            startService(playerService);
+            bindService(playerService, serviceConnection, Context.BIND_AUTO_CREATE);
+        }
+        else if(!mediaPlayerService.getCurrentPlaying().equals(cancion)){
+            Intent playerService = new Intent(this, MediaPlayerService.class);
+            Bundle bundleService = new Bundle();
+            bundleService.putSerializable(MediaPlayerService.PLAY_TRACK, cancion);
+            playerService.putExtras(bundleService);
+            startService(playerService);
+            bindService(playerService, serviceConnection, Context.BIND_AUTO_CREATE);
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+       /* if(isServiceBounded){
+            unbindService(serviceConnection);
+            isServiceBounded = false;
+        }*/
     }
 
     @Override
@@ -66,11 +123,37 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Noti
     @Override
     public void recibirPlaylist(Playlist playlist) {
         //TODO: Crear y Cargar Activity/Fragment basado en la lista de canciones
+
+
+        //TODO: Cambiar estos, por un solo metodo que retorne TypeController.
+        //Despues TypeController.getFragment();
+        //Poner el getData como argumento al fragment de getFragment
+        //Y cargar dicho Fragment.
     }
 
+    @Override
+    public Track getCurrentPlaying() {
+        Track track = cancionActual;
+        if(mediaPlayerService != null)
+            track = mediaPlayerService.getCurrentPlaying();
+        return track;
+    }
+
+    @Override
+    public Boolean isPlaying() {
+        if(mediaPlayerService == null){
+            return false;
+        }
+        return mediaPlayerService.isPlaying();
+    }
+
+    @Override
+    public void playSong() {
+        MainActivity.mediaPlayerService.togglePlayer();
+    }
 
     @Override
     public void recibirSeccion(Fragment fragment) {
-            LoadFragment(fragment, R.id.homeID);
+        LoadFragment(fragment, R.id.homeID);
     }
 }

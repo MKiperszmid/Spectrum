@@ -7,18 +7,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
-import android.widget.Toast;
+
 import com.example.dh.tpmusicagrupo3.Controller.MusicController;
 import com.example.dh.tpmusicagrupo3.Controller.TrackListener;
-import com.example.dh.tpmusicagrupo3.Controller.MediaPlayerController;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Artist;
-import com.example.dh.tpmusicagrupo3.Model.POJO.Chart;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Containers.TrackContainer;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Playlist;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Track;
@@ -45,7 +40,6 @@ public class HomeFragment extends Fragment implements AdapterCancionArtistaPorta
     private final Integer NUMERO_PARA_NUEVOS_RESULTADOS = 5;
     private ProgressBar progressBar;
     private Boolean isLoading;
-    private MediaPlayerController mediaPlayerController;
 
     private RelativeLayout rlTop10, rlRecentlyAdded, rlTopArg, rlTopUsa;
 
@@ -124,7 +118,6 @@ public class HomeFragment extends Fragment implements AdapterCancionArtistaPorta
 
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
-        mediaPlayerController = MediaPlayerController.getInstance();
         rlTop10 = view.findViewById(R.id.layoutTop10);
         rlRecentlyAdded = view.findViewById(R.id.layoutRecentlyAdded);
         rlTopArg = view.findViewById(R.id.layoutTopArg);
@@ -221,7 +214,9 @@ public class HomeFragment extends Fragment implements AdapterCancionArtistaPorta
 
         // Llega track desde AdapterCancionArtistaPortada y se ejecuta el Media Player
         if(cancionActual != cancionClickeada){
-            mediaPlayerController.create(cancionClickeada);
+            //mediaPlayerController.create(cancionClickeada); TODO: Borrar este comentario para sacar el service
+
+           //mediaPlayerController.setCurrentPlaying(cancionClickeada);
             cancionActual = cancionClickeada;
             SongActivity.index = cancionClickeada.getId();
         }
@@ -235,5 +230,8 @@ public class HomeFragment extends Fragment implements AdapterCancionArtistaPorta
         void recibirCancion(Track cancion, int position);
         void recibirArtista(Artist artist);
         void recibirPlaylist(Playlist playlist);
+        Track getCurrentPlaying();
+        Boolean isPlaying();
+        void playSong();
     }
 }

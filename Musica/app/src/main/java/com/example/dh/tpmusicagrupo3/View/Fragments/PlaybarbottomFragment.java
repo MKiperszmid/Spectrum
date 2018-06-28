@@ -1,9 +1,13 @@
 package com.example.dh.tpmusicagrupo3.View.Fragments;
 
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.LocalBroadcastManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,11 +15,9 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.example.dh.tpmusicagrupo3.Controller.MediaPlayerController;
-import com.example.dh.tpmusicagrupo3.Controller.MusicController;
+import com.example.dh.tpmusicagrupo3.Controller.MediaPlayerService;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Track;
 import com.example.dh.tpmusicagrupo3.R;
-import com.example.dh.tpmusicagrupo3.View.Activities.SongActivity;
 
 
 /**
@@ -24,6 +26,7 @@ import com.example.dh.tpmusicagrupo3.View.Activities.SongActivity;
 public class PlaybarbottomFragment extends Fragment {
 
     public static final String CLAVE_CANCION = "cancion clave";
+    public static final String CLAVE_PLAYING = "Playing clave";
     private static ImageView playBtn;
     private TextView cancionPlaying;
     private TextView separatorPlaying;
@@ -32,8 +35,15 @@ public class PlaybarbottomFragment extends Fragment {
     private RelativeLayout queue;
     private HomeFragment.NotificadorActivity notificadorActivity;
     public static Integer posicion;
+    private Track cancion;
 
-    private MediaPlayerController mediaPlayerController;
+    private BroadcastReceiver receiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Boolean playing = intent.getExtras().getBoolean(MediaPlayerService.IS_PLAYING, false);
+            changeImage(playing);
+        }
+    };
 
     public PlaybarbottomFragment() {
         // Required empty public constructor
@@ -47,7 +57,6 @@ public class PlaybarbottomFragment extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         notificadorActivity = (HomeFragment.NotificadorActivity) context;
-        mediaPlayerController = MediaPlayerController.getInstance();
     }
 
     @Override
@@ -57,40 +66,43 @@ public class PlaybarbottomFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_playbarbottom, container, false);
         Bundle bundle = getArguments();
         posicion = bundle.getInt(CLAVE_CANCION);
-
+        cancion = (Track)bundle.getSerializable(CLAVE_PLAYING);
         cancionPlaying = view.findViewById(R.id.cancionCurrentPlayingID);
         artistaPlaying = view.findViewById(R.id.artistCurrentPlayingID);
         separatorPlaying = view.findViewById(R.id.separatorCurrentPlayingID);
         queue = view.findViewById(R.id.relativeQueue);
 
-       cancionPlaying.setText(mediaPlayerController.getCurrentPlaying().getTitle_short());
-       artistaPlaying.setText(mediaPlayerController.getCurrentPlaying().getArtist().getName());
+       cancionPlaying.setText(cancion.getTitle_short());
+       artistaPlaying.setText(cancion.getArtist().getName());
        separatorPlaying.setText(" - ");
 
         queue.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
-                if (mediaPlayerController.getCurrentPlaying() != null){
-                    notificadorActivity.recibirCancion(mediaPlayerController.getCurrentPlaying(), posicion);
+                if (cancion != null){
+                    notificadorActivity.recibirCancion(cancion, posicion);
                 }
             }
         });
 
         /* Botón Play */
         playBtn = view.findViewById(R.id.playBtn);
+        playBtn.setImageResource(R.drawable.play);
         playBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mediaPlayerController.playPause(playBtn);
+                notificadorActivity.playSong();
             }
         });
+
+
 
         /* Botón UP (Ver Canción) */
         ImageView upBtn = view.findViewById(R.id.upBtn);
         upBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mediaPlayerController.getCurrentPlaying() != null){
-                    notificadorActivity.recibirCancion(mediaPlayerController.getCurrentPlaying(), posicion);
+                if (cancion != null){
+                    notificadorActivity.recibirCancion(cancion, posicion);
                 }
             }
         });
@@ -98,13 +110,21 @@ public class PlaybarbottomFragment extends Fragment {
         return view;
     }
 
+    public void changeImage(Boolean playing){
+        if(playing)
+            playBtn.setImageResource(R.drawable.stop);
+        else
+            playBtn.setImageResource(R.drawable.play);
+    }
+
     @Override
     public void onResume() {
         super.onResume();
-        cancionPlaying.setText(mediaPlayerController.getCurrentPlaying().getTitle_short());
-        artistaPlaying.setText(mediaPlayerController.getCurrentPlaying().getArtist().getName());
+        cancion = notificadorActivity.getCurrentPlaying();
+        cancionPlaying.setText(cancion.getTitle_short());
+        artistaPlaying.setText(cancion.getArtist().getName());
         try{
-            if(mediaPlayerController.isPlaying()){
+            if(notificadorActivity.isPlaying()){
                 playBtn.setImageResource(R.drawable.stop);
             }else{
                 playBtn.setImageResource(R.drawable.play);
@@ -112,6 +132,14 @@ public class PlaybarbottomFragment extends Fragment {
         }
         catch (IllegalStateException e){
             e.printStackTrace();
+            playBtn.setImageResource(R.drawable.stop);
         }
+        LocalBroadcastManager.getInstance(getActivity()).registerReceiver(receiver, new IntentFilter(MediaPlayerService.CHANGEIMAGE));
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        LocalBroadcastManager.getInstance(getActivity()).unregisterReceiver(receiver);
     }
 }
