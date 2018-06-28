@@ -1,14 +1,22 @@
 package com.example.dh.tpmusicagrupo3.Controller;
 
+import android.app.Notification;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
 import android.os.Binder;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.media.MediaPlayer;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
 import android.support.v4.content.LocalBroadcastManager;
+import android.util.Log;
 
 import com.example.dh.tpmusicagrupo3.Model.POJO.Track;
+import com.example.dh.tpmusicagrupo3.R;
+import com.example.dh.tpmusicagrupo3.Utils.App;
+import com.example.dh.tpmusicagrupo3.View.Activities.MainActivity;
 
 import java.io.IOException;
 
@@ -21,6 +29,7 @@ public class MediaPlayerService extends Service {
 
     private MediaPlayer mediaPlayer;
     private Track currentPlaying;
+    private NotificationManagerCompat notificationManagerCompat;
 
     private final IBinder iBinder = new MyBinder();
 
@@ -38,9 +47,55 @@ public class MediaPlayerService extends Service {
     }
 
     @Override
+    public void onCreate() {
+        super.onCreate();
+        notificationManagerCompat = NotificationManagerCompat.from(this);
+    }
+
+    public void sendNotification(){
+        Intent intent = new Intent(this, MainActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
+        Notification notification = new NotificationCompat.Builder(this, App.CHANNEL_ID)
+                .setSmallIcon(R.drawable.icon_spectrum)
+                .setContentTitle(currentPlaying.getTitle_short())
+                .setContentText(currentPlaying.getArtist().getName())
+                .setPriority(NotificationCompat.PRIORITY_LOW)
+                .setCategory(NotificationCompat.CATEGORY_SERVICE)
+                .setContentIntent(pendingIntent)
+                .build();
+        notificationManagerCompat.notify(App.NOTIFICATION_ID.REPRODUCTOR_SERVICE, notification);
+    }
+
+    public void showNotification(){
+        Intent intent = new Intent(this, MainActivity.class);
+    }
+
+    @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        startSong((Track) intent.getExtras().getSerializable(PLAY_TRACK));
-        return START_NOT_STICKY;
+        Track track = (Track)intent.getExtras().getSerializable(PLAY_TRACK);
+        if(track != null)
+            startSong((Track) intent.getExtras().getSerializable(PLAY_TRACK));
+/*
+        if(intent.getAction().equals(App.ACTION.START_FOREGROUND)){
+            Log.i("MPS", "START FOREGROUND");
+            //Mostrar notificacion que contiene al reproductor
+        }
+        else if(intent.getAction().equals(App.ACTION.PREVIOUS_ACTION)){
+            Log.i("MPS", "PREVIOUS ACTION");
+        }
+        else if(intent.getAction().equals(App.ACTION.NEXT_ACTION)){
+            Log.i("MPS", "NEXT ACTION");
+        }
+        else if(intent.getAction().equals(App.ACTION.PLAY_ACTION)){
+            Log.i("MPS", "PLAY ACTION");
+        }
+        else if(intent.getAction().equals(App.ACTION.STOP_FOREGROUND)){
+            Log.i("MPS", "STOP FOREGROUND");
+            stopForeground(true);
+            stopSelf();
+        }
+*/
+        return START_REDELIVER_INTENT;
     }
 
     @Override
@@ -72,6 +127,8 @@ public class MediaPlayerService extends Service {
                     changeImage(false);
                 }
             });
+            //showNotification();
+            sendNotification();
         }
         catch (IOException e){
             e.printStackTrace();
