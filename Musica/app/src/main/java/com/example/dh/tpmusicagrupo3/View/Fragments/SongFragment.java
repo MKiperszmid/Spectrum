@@ -24,7 +24,7 @@ import com.example.dh.tpmusicagrupo3.Utils.MiliSecondsToTimer;
 
 import java.io.IOException;
 
-public class SongFragment extends Fragment implements MediaPlayerController.NotificadorEstadoCancion {
+public class SongFragment extends Fragment{
 
     public static final String cancionKey = "CANCION";
     public static String CANCIONPOS = "POSITION";
@@ -67,7 +67,7 @@ public class SongFragment extends Fragment implements MediaPlayerController.Noti
                              Bundle savedInstanceState) {
         Bundle bundle = getArguments();
         cancion = (Track) bundle.getSerializable(CANCIONKEY);
-        mediaPlayerController = MediaPlayerController.getInstance(this);
+        mediaPlayerController = MediaPlayerController.getInstance();
 
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_song, container, false);
@@ -176,14 +176,6 @@ public class SongFragment extends Fragment implements MediaPlayerController.Noti
         return minutosText + ":" + segundosText;
     }
 
-    @Override
-    public void cambiarEstado() {
-        // TODO: Hacer que el CREATE del MediaPlayerController, sea parte del SongFragment. Y no del MediaPlayerController.
-        // Ya que esto esta siendo cargado antes del resume, causando que pocas veces funcione (casi nunca)
-        mediaPlayerController.setIsPlaying(true);
-        onResume();
-    }
-
     public interface NotificadorCambioCancion{
         // Envia a SongActivity
         public void retroceder();
@@ -219,5 +211,7 @@ public class SongFragment extends Fragment implements MediaPlayerController.Noti
         else {
             pauseplayClick.setImageResource(R.drawable.play);
         }
+        if(mediaPlayerController.getIsNew())
+            pauseplayClick.setImageResource(R.drawable.stop);
     }
 }

@@ -24,7 +24,7 @@ import com.example.dh.tpmusicagrupo3.View.Activities.SongActivity;
 public class PlaybarbottomFragment extends Fragment {
 
     public static final String CLAVE_CANCION = "cancion clave";
-    private ImageView playBtn;
+    private static ImageView playBtn;
     private TextView cancionPlaying;
     private TextView separatorPlaying;
     private TextView artistaPlaying;
@@ -37,6 +37,10 @@ public class PlaybarbottomFragment extends Fragment {
 
     public PlaybarbottomFragment() {
         // Required empty public constructor
+    }
+
+    public static ImageView getPlayBtn() {
+        return playBtn;
     }
 
     @Override
