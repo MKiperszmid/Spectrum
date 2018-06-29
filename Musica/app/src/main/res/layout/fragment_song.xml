@@ -85,6 +85,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:max="100"
+                    android:progressBackgroundTint="@color/colorWhite"
                     android:progress="0"
                     android:id="@+id/seekBarSong"/>
         </LinearLayout>
