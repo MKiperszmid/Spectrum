@@ -5,15 +5,15 @@ import android.support.v4.app.Fragment;
 import java.util.List;
 
 public abstract class TypeController <T>{
-    private List<T> data;
+    private T data;
     private Fragment fragment;
 
-    public TypeController(List<T> data) {
+    public TypeController(T data) {
         this.data = data;
         this.fragment = getFragment();
     }
 
-    public List<T> getData() {
+    public T getData() {
         return data;
     }
 

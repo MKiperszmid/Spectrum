@@ -10,7 +10,7 @@ import java.util.List;
 
 public class GenreController extends TypeController <Genre> {
 
-    public GenreController(List<Genre> data) {
+    public GenreController(Genre data) {
         super(data);
     }
 

@@ -98,13 +98,21 @@ public class AdapterGeneroItem extends RecyclerView.Adapter {
 
             // En orden
 
-            if(numColorGradient < drawablesGradients.size()){
-                int gradientebg = drawablesGradients.get(numColorGradient);
-                genreContainer.setBackgroundResource(gradientebg);
-                numColorGradient ++;
+
+            // Pasar a Genero Class, y en la creacion del genero, llamar a este metodo
+            // Y asignarselo a una variable
+            if(genre.getNumber() == Genre.NO_NUMBER){
+                if(numColorGradient < drawablesGradients.size()){
+                    int gradientebg = drawablesGradients.get(numColorGradient);
+                    genreContainer.setBackgroundResource(gradientebg);
+                    numColorGradient ++;
+                }else{
+                    numColorGradient = 0;
+                }
             }else{
-                numColorGradient = 0;
+
             }
+
 
 
             /* Random gradient

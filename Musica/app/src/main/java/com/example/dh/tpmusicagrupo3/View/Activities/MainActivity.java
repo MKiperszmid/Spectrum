@@ -15,17 +15,22 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.FrameLayout;
 
+import com.example.dh.tpmusicagrupo3.Controller.DatosControllers.TypeController;
 import com.example.dh.tpmusicagrupo3.Controller.MediaPlayerService;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Artist;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Playlist;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Track;
 import com.example.dh.tpmusicagrupo3.R;
 import com.example.dh.tpmusicagrupo3.View.Fragments.BarbottomFragment;
+import com.example.dh.tpmusicagrupo3.View.Fragments.ExplorarFragment;
 import com.example.dh.tpmusicagrupo3.View.Fragments.HomeFragment;
 import com.example.dh.tpmusicagrupo3.View.Fragments.PlaybarbottomFragment;
 import com.example.dh.tpmusicagrupo3.View.Fragments.SongFragment;
 
-public class MainActivity extends AppCompatActivity implements HomeFragment.NotificadorActivity, BarbottomFragment.NotificadorActivityBarBottom{
+import java.io.Serializable;
+
+public class MainActivity extends AppCompatActivity implements HomeFragment.NotificadorActivity, BarbottomFragment.NotificadorActivityBarBottom,
+        ExplorarFragment.NotificarClickeado{
 
     public static MediaPlayerService mediaPlayerService;
     private Boolean isServiceBounded = false;
@@ -62,7 +67,6 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Noti
         transaction.commit();
     }
 
-
     @Override
     public void recibirCancion(Track cancion, int position) {
 
@@ -88,15 +92,7 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Noti
     }
 
     public void startSong(Track cancion){
-        if(mediaPlayerService == null) {
-            Intent playerService = new Intent(this, MediaPlayerService.class);
-            Bundle bundleService = new Bundle();
-            bundleService.putSerializable(MediaPlayerService.PLAY_TRACK, cancion);
-            playerService.putExtras(bundleService);
-            startService(playerService);
-            bindService(playerService, serviceConnection, Context.BIND_AUTO_CREATE);
-        }
-        else if(!mediaPlayerService.getCurrentPlaying().equals(cancion)){
+        if(mediaPlayerService == null || !mediaPlayerService.getCurrentPlaying().equals(cancion)) {
             Intent playerService = new Intent(this, MediaPlayerService.class);
             Bundle bundleService = new Bundle();
             bundleService.putSerializable(MediaPlayerService.PLAY_TRACK, cancion);
@@ -113,22 +109,6 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Noti
             unbindService(serviceConnection);
             isServiceBounded = false;
         }*/
-    }
-
-    @Override
-    public void recibirArtista(Artist artist) {
-        //TODO: Crear y Cargar Activity/Fragment basado en los datos del artista
-    }
-
-    @Override
-    public void recibirPlaylist(Playlist playlist) {
-        //TODO: Crear y Cargar Activity/Fragment basado en la lista de canciones
-
-
-        //TODO: Cambiar estos, por un solo metodo que retorne TypeController.
-        //Despues TypeController.getFragment();
-        //Poner el getData como argumento al fragment de getFragment
-        //Y cargar dicho Fragment.
     }
 
     @Override
@@ -155,5 +135,19 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Noti
     @Override
     public void recibirSeccion(Fragment fragment) {
         LoadFragment(fragment, R.id.homeID);
+    }
+
+    @Override
+    public void notificar(TypeController controller) {
+        Fragment fragment = controller.getFragment();
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("data", (Serializable) controller.getData());
+        fragment.setArguments(bundle);
+
+        FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+        transaction.replace(R.id.homeID, fragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 }

@@ -15,6 +15,9 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.example.dh.tpmusicagrupo3.Controller.DatosControllers.ArtistController;
+import com.example.dh.tpmusicagrupo3.Controller.DatosControllers.PlaylistController;
+import com.example.dh.tpmusicagrupo3.Controller.DatosControllers.TypeController;
 import com.example.dh.tpmusicagrupo3.Controller.MusicController;
 import com.example.dh.tpmusicagrupo3.Controller.TrackListener;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Artist;
@@ -58,6 +61,8 @@ public class ExplorarFragment extends Fragment implements AdapterCancionArtistaP
     private RelativeLayout rlPlaylist, rlGenero, rlArtista;
     private ProgressBar progressBar;
 
+    private NotificarClickeado notificarClickeado;
+
     public ExplorarFragment() {
         // Required empty public constructor
     }
@@ -66,6 +71,7 @@ public class ExplorarFragment extends Fragment implements AdapterCancionArtistaP
     public void onAttach(Context context) {
         super.onAttach(context);
         this.notificadorActivity = (HomeFragment.NotificadorActivity) context;
+        this.notificarClickeado = (NotificarClickeado) context;
     }
 
     @Override
@@ -179,8 +185,8 @@ public class ExplorarFragment extends Fragment implements AdapterCancionArtistaP
 
     @Override
     public void notificarArtistaClickeado(Artist artist) {
-        Toast.makeText(getActivity(), artist.getName(), Toast.LENGTH_SHORT).show();
         //Ir al MainActivity y despues ir al ArtistFragment
+        notificarClickeado.notificar(new ArtistController(artist));
     }
 
     @Override
@@ -191,7 +197,10 @@ public class ExplorarFragment extends Fragment implements AdapterCancionArtistaP
 
     @Override
     public void notificarPlaylistClickeada(Playlist playlist) {
-        Toast.makeText(getActivity(), playlist.getTitle(), Toast.LENGTH_SHORT).show();
-        //Ir al MainActivity y despues ir al PlaylistFragment
+        notificarClickeado.notificar(new PlaylistController(playlist));
+    }
+
+    public interface NotificarClickeado {
+        public void notificar(TypeController controller);
     }
 }

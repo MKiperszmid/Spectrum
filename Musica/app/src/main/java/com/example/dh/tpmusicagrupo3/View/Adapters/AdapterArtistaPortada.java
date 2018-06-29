@@ -10,15 +10,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.dh.tpmusicagrupo3.Controller.DatosControllers.TypeController;
 import com.example.dh.tpmusicagrupo3.Controller.GlideController;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Artist;
 import com.example.dh.tpmusicagrupo3.R;
+import com.example.dh.tpmusicagrupo3.View.Fragments.ExplorarFragment;
 
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class AdapterArtistaPortada extends RecyclerView.Adapter {
+public class AdapterArtistaPortada extends RecyclerView.Adapter{
 
     private List<Artist> artistas;
     private NotificadorArtistaCelda notificadorArtistaCelda;

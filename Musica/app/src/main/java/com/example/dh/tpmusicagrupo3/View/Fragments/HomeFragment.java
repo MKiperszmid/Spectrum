@@ -228,8 +228,6 @@ public class HomeFragment extends Fragment implements AdapterCancionArtistaPorta
     public interface NotificadorActivity{
         // Metodos que implementa MainActivity de HomeFragment
         void recibirCancion(Track cancion, int position);
-        void recibirArtista(Artist artist);
-        void recibirPlaylist(Playlist playlist);
         Track getCurrentPlaying();
         Boolean isPlaying();
         void playSong();

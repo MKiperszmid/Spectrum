@@ -10,7 +10,7 @@ import java.util.List;
 
 public class TrackController extends TypeController <Track> {
 
-    public TrackController(List<Track> data) {
+    public TrackController(Track data) {
         super(data);
     }
 

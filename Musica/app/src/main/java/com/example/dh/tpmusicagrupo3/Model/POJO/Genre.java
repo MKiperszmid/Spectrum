@@ -1,12 +1,15 @@
 package com.example.dh.tpmusicagrupo3.Model.POJO;
 
 public class Genre {
+    public static final int NO_NUMBER = -1;
     private Integer id;
     private String name;
+    private int number;
 
     public Genre(Integer id, String name) {
         this.id = id;
         this.name = name;
+        number = NO_NUMBER;
     }
 
     public Integer getId() {
@@ -23,5 +26,13 @@ public class Genre {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public int getNumber() {
+        return number;
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
     }
 }
