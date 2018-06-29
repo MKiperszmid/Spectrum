@@ -62,6 +62,8 @@ public class MediaPlayerService extends Service {
                 .setPriority(NotificationCompat.PRIORITY_LOW)
                 .setCategory(NotificationCompat.CATEGORY_SERVICE)
                 .setContentIntent(pendingIntent)
+                .setOngoing(true)
+                .setColor(getResources().getColor(R.color.colorAccent))
                 .build();
         notificationManagerCompat.notify(App.NOTIFICATION_ID.REPRODUCTOR_SERVICE, notification);
     }
