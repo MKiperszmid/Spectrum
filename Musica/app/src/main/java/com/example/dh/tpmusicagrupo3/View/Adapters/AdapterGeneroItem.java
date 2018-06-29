@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.dh.tpmusicagrupo3.Model.POJO.Genre;
 import com.example.dh.tpmusicagrupo3.R;
@@ -24,6 +25,7 @@ public class AdapterGeneroItem extends RecyclerView.Adapter {
     private List<Genre> generos;
     private List<Integer> drawablesGradients;
     private NotificadorGeneroCelda notificadorGeneroCelda;
+    private Integer numColorGradient = 0;
 
     public AdapterGeneroItem(List<Genre> generos, NotificadorGeneroCelda notificadorGeneroCelda) {
         this.generos = generos;
@@ -33,6 +35,15 @@ public class AdapterGeneroItem extends RecyclerView.Adapter {
         drawablesGradients.add(R.drawable.gradientnaranja);
         drawablesGradients.add(R.drawable.gradientrojo);
         drawablesGradients.add(R.drawable.gradientvioleta);
+        drawablesGradients.add(R.drawable.gradienteverde);
+        drawablesGradients.add(R.drawable.gradienteceleste);
+        drawablesGradients.add(R.drawable.gradienterosa);
+        drawablesGradients.add(R.drawable.gradienteturquesa);
+        drawablesGradients.add(R.drawable.gradientebordo);
+        drawablesGradients.add(R.drawable.gradienteviolerosa);
+        drawablesGradients.add(R.drawable.gradienteazuloscuro);
+        drawablesGradients.add(R.drawable.gradientenaranjaamarillo);
+        drawablesGradients.add(R.drawable.gradienteverdeoscuro);
         this.notificadorGeneroCelda = notificadorGeneroCelda;
     }
 
@@ -81,10 +92,27 @@ public class AdapterGeneroItem extends RecyclerView.Adapter {
         }
 
         public void bindGenero(Genre genre) {
+
             generoNombre.setText(genre.getName());
+
+
+            // En orden
+
+            if(numColorGradient < drawablesGradients.size()){
+                int gradientebg = drawablesGradients.get(numColorGradient);
+                genreContainer.setBackgroundResource(gradientebg);
+                numColorGradient ++;
+            }else{
+                numColorGradient = 0;
+            }
+
+
+            /* Random gradient
             int rndnumber = new Random().nextInt(drawablesGradients.size());
             int rndgradient = drawablesGradients.get(rndnumber);
             genreContainer.setBackgroundResource(rndgradient);
+            */
+
         }
     }
 
