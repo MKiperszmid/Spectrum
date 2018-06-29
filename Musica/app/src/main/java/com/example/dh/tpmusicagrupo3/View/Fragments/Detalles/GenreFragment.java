@@ -9,16 +9,16 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.dh.tpmusicagrupo3.Controller.DatosControllers.TypeController;
-import com.example.dh.tpmusicagrupo3.Model.POJO.Playlist;
+import com.example.dh.tpmusicagrupo3.Model.POJO.Genre;
 import com.example.dh.tpmusicagrupo3.R;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class PlaylistFragment extends Fragment {
+public class GenreFragment extends Fragment {
 
 
-    public PlaylistFragment() {
+    public GenreFragment() {
         // Required empty public constructor
     }
 
@@ -26,14 +26,14 @@ public class PlaylistFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_playlist, container, false);
-        TextView textView = view.findViewById(R.id.fp_tv_test);
+        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_genre, container, false);
 
+
+        TextView textView = view.findViewById(R.id.fg_tv_test);
         Bundle bundle = getArguments();
-        Playlist playlist = (Playlist) bundle.getSerializable(TypeController.KEY_T);
-
-        textView.setText("Nombre: " + playlist.getTitle());
+        Genre genre = (Genre)bundle.getSerializable(TypeController.KEY_T);
+        textView.setText(genre.getName());
 
 
         return view;

@@ -1,7 +1,9 @@
 package com.example.dh.tpmusicagrupo3.Model.DAO;
 
 import com.example.dh.tpmusicagrupo3.Controller.TrackListener;
+import com.example.dh.tpmusicagrupo3.Model.POJO.Artist;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Chart;
+import com.example.dh.tpmusicagrupo3.Model.POJO.Containers.AlbumContainer;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Containers.ArtistContainer;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Containers.GenreContainer;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Containers.PlaylistContainer;
@@ -145,6 +147,51 @@ public class RetrofitConnector {
 
             @Override
             public void onFailure(Call<PlaylistContainer> call, Throwable t) {
+                listener.finish(null);
+            }
+        });
+    }
+
+    public void getArtist(final TrackListener<Artist> listener, Integer id){
+        Call<Artist> artistCall = service.getArtist(id);
+        artistCall.enqueue(new Callback<Artist>() {
+            @Override
+            public void onResponse(Call<Artist> call, Response<Artist> response) {
+                listener.finish(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<Artist> call, Throwable t) {
+                listener.finish(null);
+            }
+        });
+    }
+
+    public void getArtistTracks(final TrackListener<TrackContainer> listener, Integer id, Integer limit){
+        Call<TrackContainer> trackContainerCall = service.getArtistTracks(id, limit);
+        trackContainerCall.enqueue(new Callback<TrackContainer>() {
+            @Override
+            public void onResponse(Call<TrackContainer> call, Response<TrackContainer> response) {
+                listener.finish(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<TrackContainer> call, Throwable t) {
+                listener.finish(null);
+            }
+        });
+    }
+
+    public void getArtistAlbums(final TrackListener<AlbumContainer> listener, Integer id){
+        Call<AlbumContainer> albumContainerCall = service.getArtistAlbums(id);
+        albumContainerCall.enqueue(new Callback<AlbumContainer>() {
+            @Override
+            public void onResponse(Call<AlbumContainer> call, Response<AlbumContainer> response) {
+                listener.finish(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<AlbumContainer> call, Throwable t) {
                 listener.finish(null);
             }
         });

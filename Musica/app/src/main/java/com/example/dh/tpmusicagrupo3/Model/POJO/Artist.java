@@ -11,12 +11,14 @@ public class Artist implements Serializable {
     private String name;
     private String picture_big;
     private String tracklist;
+    private Integer nb_fan;
 
-    public Artist(Integer id, String name, String picture_big, String tracklist) {
+    public Artist(Integer id, String name, String picture_big, String tracklist, Integer nb_fan) {
         this.id = id;
         this.name = name;
         this.picture_big = picture_big;
         this.tracklist = tracklist;
+        this.nb_fan = nb_fan;
     }
 
     public Integer getId() {
@@ -49,6 +51,14 @@ public class Artist implements Serializable {
 
     public void setTracklist(String tracklist) {
         this.tracklist = tracklist;
+    }
+
+    public Integer getNb_fan() {
+        return nb_fan;
+    }
+
+    public void setNb_fan(Integer nb_fan) {
+        this.nb_fan = nb_fan;
     }
 
     @Override

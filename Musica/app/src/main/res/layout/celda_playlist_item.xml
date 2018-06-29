@@ -16,15 +16,19 @@
             android:id="@+id/celdaplaylistImagen"
             tools:src="@drawable/rockeando"
             android:maxHeight="200dp"/>
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="90 canciones"
+            android:background="@drawable/round_borders_celda_playlist"
             android:textColor="@color/colorWhite"
-            android:layout_margin="15dp"
+            android:layout_margin="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="7dp"
+            android:paddingBottom="7dp"
             android:layout_alignBottom="@id/celdaplaylistImagen"
-            android:textSize="12sp"
+            android:textSize="10sp"
             android:id="@+id/celdaplaylistCanciones"/>
     </RelativeLayout>
     <TextView

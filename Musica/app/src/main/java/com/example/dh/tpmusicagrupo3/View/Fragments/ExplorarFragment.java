@@ -16,6 +16,7 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.example.dh.tpmusicagrupo3.Controller.DatosControllers.ArtistController;
+import com.example.dh.tpmusicagrupo3.Controller.DatosControllers.GenreController;
 import com.example.dh.tpmusicagrupo3.Controller.DatosControllers.PlaylistController;
 import com.example.dh.tpmusicagrupo3.Controller.DatosControllers.TypeController;
 import com.example.dh.tpmusicagrupo3.Controller.MusicController;
@@ -42,8 +43,7 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ExplorarFragment extends Fragment implements AdapterCancionArtistaPortada.NotificadorCancionCelda,
-        AdapterArtistaPortada.NotificadorArtistaCelda, AdapterGeneroItem.NotificadorGeneroCelda, AdapterPlaylistItem.NotificadorPlaylistCelda {
+public class ExplorarFragment extends Fragment implements AdapterArtistaPortada.NotificadorArtistaCelda, AdapterGeneroItem.NotificadorGeneroCelda, AdapterPlaylistItem.NotificadorPlaylistCelda {
 
     private HomeFragment.NotificadorActivity notificadorActivity;
     private RecyclerView rvPlaylists;
@@ -170,29 +170,13 @@ public class ExplorarFragment extends Fragment implements AdapterCancionArtistaP
     }
 
     @Override
-    public void notificarCancionClickeada(Track cancionClickeada) {
-        /*
-        if(cancionActual != cancionClickeada){
-            //queue.setVisibility(View.VISIBLE);
-            MediaPlayerController.create(cancionClickeada.getPreview());
-            cancionActual = cancionClickeada;
-            SongActivity.index = cancionClickeada.getId();
-        }
-        */
-        Toast.makeText(getActivity(), "Implementar.", Toast.LENGTH_SHORT).show();
-     //   notificadorActivity.recibirCancion(cancionClickeada, tracks.indexOf(cancionClickeada));
-    }
-
-    @Override
     public void notificarArtistaClickeado(Artist artist) {
-        //Ir al MainActivity y despues ir al ArtistFragment
         notificarClickeado.notificar(new ArtistController(artist));
     }
 
     @Override
     public void notificarGeneroClickeado(Genre genre) {
-        Toast.makeText(getActivity(), genre.getName(), Toast.LENGTH_SHORT).show();
-        //Ir al MainActivity y despues ir al GenreFragment
+        notificarClickeado.notificar(new GenreController(genre));
     }
 
     @Override

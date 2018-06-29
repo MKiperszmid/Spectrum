@@ -1,6 +1,8 @@
 package com.example.dh.tpmusicagrupo3.Model.POJO;
 
-public class Genre {
+import java.io.Serializable;
+
+public class Genre implements Serializable{
     public static final int NO_NUMBER = -1;
     private Integer id;
     private String name;

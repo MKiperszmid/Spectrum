@@ -35,6 +35,9 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Noti
     public static MediaPlayerService mediaPlayerService;
     private Boolean isServiceBounded = false;
     private Track cancionActual;
+    private Boolean playbarMostrado = false;
+    private FrameLayout frameLayoutPlayBar;
+    private Integer posicion;
 
     private ServiceConnection serviceConnection = new ServiceConnection() {
         @Override
@@ -67,10 +70,19 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Noti
         transaction.commit();
     }
 
+    public void LoadFragment(Fragment fragment, int id, Bundle bundle){
+        fragment.setArguments(bundle);
+        FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+        transaction.replace(id, fragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
+
     @Override
     public void recibirCancion(Track cancion, int position) {
 
-        FrameLayout frameLayoutPlayBar = findViewById(R.id.playBarBottom);
+        frameLayoutPlayBar = findViewById(R.id.playBarBottom);
         frameLayoutPlayBar.setVisibility(View.VISIBLE);
         cancionActual = cancion;
 
@@ -78,6 +90,7 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Noti
 
         Bundle bundlePB = new Bundle();
         bundlePB.putInt(PlaybarbottomFragment.CLAVE_CANCION, position);
+        posicion = position;
         bundlePB.putSerializable(PlaybarbottomFragment.CLAVE_PLAYING, cancion);
         PlaybarbottomFragment playbarbottomFragment = new PlaybarbottomFragment();
         playbarbottomFragment.setArguments(bundlePB);
@@ -141,13 +154,7 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Noti
     public void notificar(TypeController controller) {
         Fragment fragment = controller.getFragment();
         Bundle bundle = new Bundle();
-        bundle.putSerializable("data", (Serializable) controller.getData());
-        fragment.setArguments(bundle);
-
-        FragmentManager manager = getSupportFragmentManager();
-        FragmentTransaction transaction = manager.beginTransaction();
-        transaction.replace(R.id.homeID, fragment);
-        transaction.addToBackStack(null);
-        transaction.commit();
+        bundle.putSerializable(TypeController.KEY_T, (Serializable) controller.getData());
+        LoadFragment(fragment,R.id.homeID, bundle);
     }
 }

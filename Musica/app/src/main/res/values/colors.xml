@@ -8,4 +8,5 @@
     <color name="colorGraySemiWhite">#a2a3a9</color>
     <color name="colorGrayWhite">#c2c2c2</color>
     <color name="colorBlack">#000</color>
+    <color name="colorBlackTransparente">#43000000</color>
 </resources>

@@ -1,7 +1,9 @@
 package com.example.dh.tpmusicagrupo3.Controller;
 
 import com.example.dh.tpmusicagrupo3.Model.DAO.RetrofitConnector;
+import com.example.dh.tpmusicagrupo3.Model.POJO.Artist;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Chart;
+import com.example.dh.tpmusicagrupo3.Model.POJO.Containers.AlbumContainer;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Containers.ArtistContainer;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Containers.GenreContainer;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Containers.PlaylistContainer;
@@ -147,6 +149,33 @@ public class MusicController {
         });
     }
 
+    // Get Artista
+    public void getArtist(final TrackListener<Artist> listener, Integer id){
+        connector.getArtist(new TrackListener<Artist>() {
+            @Override
+            public void finish(Artist track) {
+                listener.finish(track);
+            }
+        }, id);
+    }
+
+    public void getArtistTracks(final TrackListener<TrackContainer> listener, Integer id){
+        connector.getArtistTracks(new TrackListener<TrackContainer>() {
+            @Override
+            public void finish(TrackContainer track) {
+                listener.finish(track);
+            }
+        }, id, 4); // 4 Hardcodeado para el diseño de ArtistFragment?
+    }
+
+    public void getArtistAlbums(final TrackListener<AlbumContainer> listener, Integer id){
+        connector.getArtistAlbums(new TrackListener<AlbumContainer>() {
+            @Override
+            public void finish(AlbumContainer track) {
+                listener.finish(track);
+            }
+        }, id);
+    }
 
     public Boolean getHayPaginasArgentina(){ return hayPaginasArgentina; }
 
@@ -166,6 +195,4 @@ public class MusicController {
         validatedTracks.setData(trackList);
         return validatedTracks;
     }
-
-
 }

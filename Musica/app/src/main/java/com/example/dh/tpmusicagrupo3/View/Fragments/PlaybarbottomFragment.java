@@ -121,6 +121,8 @@ public class PlaybarbottomFragment extends Fragment {
     public void onResume() {
         super.onResume();
         cancion = notificadorActivity.getCurrentPlaying();
+        if(cancion == null) return;
+
         cancionPlaying.setText(cancion.getTitle_short());
         artistaPlaying.setText(cancion.getArtist().getName());
         try{

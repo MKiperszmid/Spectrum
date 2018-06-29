@@ -4,6 +4,7 @@ import android.support.v4.app.Fragment;
 
 import com.example.dh.tpmusicagrupo3.Model.POJO.Genre;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Track;
+import com.example.dh.tpmusicagrupo3.View.Fragments.Detalles.GenreFragment;
 import com.example.dh.tpmusicagrupo3.View.Fragments.SongFragment;
 
 import java.util.List;
@@ -16,6 +17,6 @@ public class GenreController extends TypeController <Genre> {
 
     @Override
     public Fragment getFragment() {
-        return new SongFragment();
+        return new GenreFragment();
     } //TODO: Cambiar por GenreFragment en un futuro.
 }

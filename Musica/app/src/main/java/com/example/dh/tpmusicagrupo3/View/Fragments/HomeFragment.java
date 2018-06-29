@@ -213,13 +213,8 @@ public class HomeFragment extends Fragment implements AdapterCancionArtistaPorta
     public void notificarCancionClickeada(Track cancionClickeada) {
 
         // Llega track desde AdapterCancionArtistaPortada y se ejecuta el Media Player
-        if(cancionActual != cancionClickeada){
-            //mediaPlayerController.create(cancionClickeada); TODO: Borrar este comentario para sacar el service
-
-           //mediaPlayerController.setCurrentPlaying(cancionClickeada);
-            cancionActual = cancionClickeada;
-            SongActivity.index = cancionClickeada.getId();
-        }
+        cancionActual = cancionClickeada;
+        SongActivity.index = cancionClickeada.getId();
 
         // Se envia a MainActivity la cancion y position
         notificadorActivity.recibirCancion(cancionClickeada, tracks.indexOf(cancionClickeada));

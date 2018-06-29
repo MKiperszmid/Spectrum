@@ -1,15 +1,105 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.dh.tpmusicagrupo3.View.Fragments.Detalles.ArtistFragment">
-
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    tools:context="com.example.dh.tpmusicagrupo3.View.Fragments.Detalles.ArtistFragment"
+    android:background="@color/colorPrimaryDark">
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment"
-        android:id="@+id/af_tv_test"
-        android:textColor="@color/colorWhite"/>
+        android:layout_height="wrap_content"
+        android:id="@+id/fa_rl_datos"
+        android:visibility="gone">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:src="@drawable/playlisttest"
+            android:layout_alignParentTop="true"
+            android:adjustViewBounds="true"
+            android:maxHeight="300dp"
+            android:scaleType="fitXY"
+            android:id="@+id/fa_iv_artwork"
+            android:alpha="0.45"
+            android:layout_marginBottom="20dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="Daft Punk"
+            android:textColor="@color/colorWhite"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:id="@+id/fa_tv_artistName"
+            android:layout_marginBottom="15dp"
+            android:layout_above="@id/fa_tv_artistFollowers"
+            android:gravity="center"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="3.624.971 seguidores"
+            android:textColor="@color/colorWhite"
+            android:textSize="12sp"
+            android:id="@+id/fa_tv_artistFollowers"
+            android:layout_alignBottom="@id/fa_iv_artwork"
+            android:layout_above="@id/fa_tv_reproducirButton"
+            android:gravity="center"
+            android:layout_marginBottom="50dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="REPRODUCIR"
+            android:visibility="gone"
+            android:textColor="@color/colorBlack"
+            android:background="@drawable/round_borders_artista_reproducirbtn"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:paddingRight="15dp"
+            android:paddingLeft="15dp"
+            android:id="@+id/fa_tv_reproducirButton"
+            android:layout_centerHorizontal="true"
+            android:textSize="18sp"
+            android:layout_above="@id/fa_rl_layoutCanciones"/>
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/fa_rl_layoutCanciones"
+            android:layout_below="@id/fa_iv_artwork"
+            android:visibility="gone">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Canciones Populares"
+                android:textColor="@color/colorWhite"
+                android:layout_centerHorizontal="true"
+                android:textSize="18sp"
+                android:layout_marginTop="20dp"
+                android:id="@+id/fa_tv_cancionesPopulares"/>
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/fa_tv_cancionesPopulares"
+                android:id="@+id/fa_rv_cancionesPopulares"/>
 
-</FrameLayout>
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/fa_rl_layoutCanciones"
+            android:id="@+id/fa_rl_layoutAlbumes"
+            android:visibility="gone">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Albums"
+                android:textColor="@color/colorWhite"
+                android:layout_margin="10dp"
+                android:textSize="18sp"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/fa_tv_albumesPopulares"/>
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/fa_tv_albumesPopulares"
+                android:id="@+id/fa_rv_albumesPopulares"/>
+        </RelativeLayout>
+    </RelativeLayout>
+</ScrollView>
