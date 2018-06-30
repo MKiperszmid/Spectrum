@@ -74,8 +74,8 @@ public class AdapterCancionArtistaPortada extends RecyclerView.Adapter {
                 @Override
                 public void onClick(View view) {
                     int pos = getAdapterPosition();
-                    HomeFragment.LoadCancionesFragment(canciones);
-                    notificadorCancionCelda.notificarCancionClickeada(canciones.get(pos));
+                    //HomeFragment.LoadCancionesFragment(canciones);
+                    notificadorCancionCelda.notificarCancionClickeada(canciones.get(pos), canciones);
                 }
             });
         }
@@ -88,6 +88,6 @@ public class AdapterCancionArtistaPortada extends RecyclerView.Adapter {
         }
     }
     public interface NotificadorCancionCelda{
-        void notificarCancionClickeada(Track cancionClickeada);
+        void notificarCancionClickeada(Track cancionClickeada, List<Track> tracks);
     }
 }

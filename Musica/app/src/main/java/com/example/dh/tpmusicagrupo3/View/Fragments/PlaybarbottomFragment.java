@@ -19,6 +19,9 @@ import com.example.dh.tpmusicagrupo3.Controller.MediaPlayerService;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Track;
 import com.example.dh.tpmusicagrupo3.R;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -27,6 +30,7 @@ public class PlaybarbottomFragment extends Fragment {
 
     public static final String CLAVE_CANCION = "cancion clave";
     public static final String CLAVE_PLAYING = "Playing clave";
+    public static final String CLAVE_CANCIONES = "canciones clave";
     private static ImageView playBtn;
     private TextView cancionPlaying;
     private TextView separatorPlaying;
@@ -36,6 +40,7 @@ public class PlaybarbottomFragment extends Fragment {
     private HomeFragment.NotificadorActivity notificadorActivity;
     public static Integer posicion;
     private Track cancion;
+    private ArrayList<Track> trackList;
 
     private BroadcastReceiver receiver = new BroadcastReceiver() {
         @Override
@@ -66,6 +71,8 @@ public class PlaybarbottomFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_playbarbottom, container, false);
         Bundle bundle = getArguments();
         posicion = bundle.getInt(CLAVE_CANCION);
+
+        trackList = (ArrayList<Track>)bundle.getSerializable(CLAVE_CANCIONES);
         cancion = (Track)bundle.getSerializable(CLAVE_PLAYING);
         cancionPlaying = view.findViewById(R.id.cancionCurrentPlayingID);
         artistaPlaying = view.findViewById(R.id.artistCurrentPlayingID);
@@ -79,7 +86,7 @@ public class PlaybarbottomFragment extends Fragment {
         queue.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
                 if (cancion != null){
-                    notificadorActivity.recibirCancion(cancion, posicion);
+                    notificadorActivity.recibirCancion(cancion, trackList);
                 }
             }
         });
@@ -102,7 +109,7 @@ public class PlaybarbottomFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (cancion != null){
-                    notificadorActivity.recibirCancion(cancion, posicion);
+                    notificadorActivity.recibirCancion(cancion, trackList);
                 }
             }
         });

@@ -28,6 +28,8 @@ import com.example.dh.tpmusicagrupo3.View.Fragments.PlaybarbottomFragment;
 import com.example.dh.tpmusicagrupo3.View.Fragments.SongFragment;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements HomeFragment.NotificadorActivity, BarbottomFragment.NotificadorActivityBarBottom,
         ExplorarFragment.NotificarClickeado{
@@ -39,6 +41,7 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Noti
     private FrameLayout frameLayoutPlayBar;
     private Integer posicion;
 
+    private List<Track> tracks;
     private ServiceConnection serviceConnection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
@@ -80,16 +83,20 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Noti
     }
 
     @Override
-    public void recibirCancion(Track cancion, int position) {
+    public void recibirCancion(Track cancion, ArrayList<Track> tracks) {
 
         frameLayoutPlayBar = findViewById(R.id.playBarBottom);
         frameLayoutPlayBar.setVisibility(View.VISIBLE);
         cancionActual = cancion;
+        if(tracks != null)
+            this.tracks = tracks;
 
         startSong(cancion);//TODO: Borrar esta linea para sacar el service
 
+        Integer position = tracks.indexOf(cancion);
         Bundle bundlePB = new Bundle();
         bundlePB.putInt(PlaybarbottomFragment.CLAVE_CANCION, position);
+        bundlePB.putSerializable(PlaybarbottomFragment.CLAVE_CANCIONES, tracks);
         posicion = position;
         bundlePB.putSerializable(PlaybarbottomFragment.CLAVE_PLAYING, cancion);
         PlaybarbottomFragment playbarbottomFragment = new PlaybarbottomFragment();
@@ -100,6 +107,7 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Noti
         Bundle bundle = new Bundle();
         bundle.putInt(SongFragment.CANCIONPOS, position);
         bundle.putSerializable(SongFragment.cancionKey, cancion);
+        bundle.putSerializable(SongFragment.CANCIONESKEY, tracks);
         intent.putExtras(bundle);
         startActivity(intent);
     }

@@ -57,13 +57,13 @@ public class HomeFragment extends Fragment implements AdapterCancionArtistaPorta
         return tracksFragment;
     }
 
-    public static void LoadCancionesFragment(List<Track> newTracks){
+   /* public static void LoadCancionesFragment(List<Track> newTracks){
         tracksFragment = new ArrayList<>();
         tracksFragment.add(newTracks.get(newTracks.size() - 1));
         tracksFragment.addAll(newTracks);
         tracksFragment.add(newTracks.get(0));
         tracks = newTracks;
-    }
+    }*/
 
     private void LoadCanciones(){
 
@@ -210,19 +210,21 @@ public class HomeFragment extends Fragment implements AdapterCancionArtistaPorta
     }
 
     @Override
-    public void notificarCancionClickeada(Track cancionClickeada) {
+    public void notificarCancionClickeada(Track cancionClickeada, List<Track> myTracks) {
 
         // Llega track desde AdapterCancionArtistaPortada y se ejecuta el Media Player
         cancionActual = cancionClickeada;
         SongActivity.index = cancionClickeada.getId();
 
+        ArrayList<Track> newTracks = new ArrayList<>();
+        newTracks.addAll(myTracks);
         // Se envia a MainActivity la cancion y position
-        notificadorActivity.recibirCancion(cancionClickeada, tracks.indexOf(cancionClickeada));
+        notificadorActivity.recibirCancion(cancionClickeada, newTracks);
     }
 
     public interface NotificadorActivity{
         // Metodos que implementa MainActivity de HomeFragment
-        void recibirCancion(Track cancion, int position);
+        void recibirCancion(Track cancion, ArrayList<Track> tracks);
         Track getCurrentPlaying();
         Boolean isPlaying();
         void playSong();

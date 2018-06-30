@@ -27,6 +27,7 @@ import com.example.dh.tpmusicagrupo3.View.Activities.MainActivity;
 public class SongFragment extends Fragment{
 
     public static final String cancionKey = "CANCION";
+    public static final String CANCIONESKEY = "CANCIONES";
     public static String CANCIONPOS = "POSITION";
     private FloatingActionButton pauseplayClick;
     private Track cancion;

@@ -163,6 +163,8 @@ public class ArtistFragment extends Fragment implements AdapterArtistaCanciones.
     @Override
     public void notificarCancion(Track cancion) {
         Toast.makeText(getContext(), "Song: " + cancion.getTitle_short(), Toast.LENGTH_SHORT).show();
-        notificadorActivity.recibirCancion(cancion, tracks.indexOf(cancion));
+        ArrayList<Track> newTrack = new ArrayList<>();
+        newTrack.addAll(tracks);
+        notificadorActivity.recibirCancion(cancion, newTrack);
     }
 }

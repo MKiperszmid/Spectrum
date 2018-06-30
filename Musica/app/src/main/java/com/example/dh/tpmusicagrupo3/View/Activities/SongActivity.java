@@ -20,6 +20,7 @@ public class SongActivity extends AppCompatActivity implements SongFragment.Noti
     private List<Track> canciones;
     public static Integer index;
     private ViewPager pager;
+    private List<Track> tracks;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +30,7 @@ public class SongActivity extends AppCompatActivity implements SongFragment.Noti
         fragments = new ArrayList<>();
         index = getIntent().getExtras().getInt(SongFragment.CANCIONPOS) + 1;
 
+        tracks = (ArrayList<Track>)getIntent().getExtras().getSerializable(SongFragment.CANCIONESKEY);
         CargarFragments();
         pager = findViewById(R.id.songactivityViewPager);
         final AdapterSongPager adapter = new AdapterSongPager(getSupportFragmentManager(), fragments);
@@ -65,7 +67,12 @@ public class SongActivity extends AppCompatActivity implements SongFragment.Noti
 
     private void CargarFragments() {
 
-        canciones = HomeFragment.getCancionesFragment();
+        canciones = new ArrayList<>();
+        canciones.add(tracks.get(tracks.size() - 1));
+        canciones.addAll(tracks);
+        canciones.add(tracks.get(0));
+
+        //canciones = HomeFragment.getCancionesFragment();
 
         for(Track cancion : canciones){
             fragments.add(SongFragment.dameFragment(cancion));
