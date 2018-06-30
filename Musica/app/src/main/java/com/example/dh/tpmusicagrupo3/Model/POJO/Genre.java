@@ -1,17 +1,19 @@
 package com.example.dh.tpmusicagrupo3.Model.POJO;
 
+import com.example.dh.tpmusicagrupo3.R;
+
 import java.io.Serializable;
 
 public class Genre implements Serializable{
-    public static final int NO_NUMBER = -1;
+    public static final int GRADIENT_DEFAULT = R.drawable.gradientamarillo;
     private Integer id;
     private String name;
-    private int number;
+    private int gradient;
 
-    public Genre(Integer id, String name) {
+    public Genre(Integer id, String name, int gradient) {
         this.id = id;
         this.name = name;
-        number = NO_NUMBER;
+        this.gradient = gradient;
     }
 
     public Integer getId() {
@@ -30,11 +32,11 @@ public class Genre implements Serializable{
         this.name = name;
     }
 
-    public int getNumber() {
-        return number;
+    public int getGradient() {
+        return gradient;
     }
 
-    public void setNumber(int number) {
-        this.number = number;
+    public void setGradient(int gradient) {
+        this.gradient = gradient;
     }
 }

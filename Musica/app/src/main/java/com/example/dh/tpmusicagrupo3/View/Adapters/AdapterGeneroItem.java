@@ -22,13 +22,13 @@ import java.util.Random;
 
 public class AdapterGeneroItem extends RecyclerView.Adapter {
 
-    private List<Genre> generos;
     private List<Integer> drawablesGradients;
+    private List<Genre> generosFinal;
     private NotificadorGeneroCelda notificadorGeneroCelda;
-    private Integer numColorGradient = 0;
 
     public AdapterGeneroItem(List<Genre> generos, NotificadorGeneroCelda notificadorGeneroCelda) {
-        this.generos = generos;
+
+        // Lleno el Array de gradientes con cada uno que fue creado
         drawablesGradients = new ArrayList<>();
         drawablesGradients.add(R.drawable.gradientamarillo);
         drawablesGradients.add(R.drawable.gradientazul);
@@ -44,6 +44,21 @@ public class AdapterGeneroItem extends RecyclerView.Adapter {
         drawablesGradients.add(R.drawable.gradienteazuloscuro);
         drawablesGradients.add(R.drawable.gradientenaranjaamarillo);
         drawablesGradients.add(R.drawable.gradienteverdeoscuro);
+
+        this.generosFinal = new ArrayList<>();
+        int numgr = 0;
+
+        // Lleno el array de generos con cada genero y le agrego un gradiente de la lista de gradients de arriba
+        for (Genre genero : generos) {
+            if(numgr < drawablesGradients.size() -1 ){
+                numgr++;
+            }else {
+                // Al llegar al ultimo gradiente de la lista, vuelve al primero
+                numgr = 0;
+            }
+            generosFinal.add(new Genre(genero.getId(), genero.getName(), drawablesGradients.get(numgr) ));
+        }
+
         this.notificadorGeneroCelda = notificadorGeneroCelda;
     }
 
@@ -58,15 +73,15 @@ public class AdapterGeneroItem extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        Genre genre = generos.get(position);
+        Genre genre = generosFinal.get(position);
         GeneroViewHolder generoViewHolder = (GeneroViewHolder) holder;
         generoViewHolder.bindGenero(genre);
     }
 
     @Override
     public int getItemCount() {
-        if(generos != null){
-            return generos.size();
+        if(generosFinal != null){
+            return generosFinal.size();
         }else{
             return 0;
         }
@@ -86,41 +101,14 @@ public class AdapterGeneroItem extends RecyclerView.Adapter {
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    notificadorGeneroCelda.notificarGeneroClickeado(generos.get(getAdapterPosition()));
+                    notificadorGeneroCelda.notificarGeneroClickeado(generosFinal.get(getAdapterPosition()));
                 }
             });
         }
 
         public void bindGenero(Genre genre) {
-
             generoNombre.setText(genre.getName());
-
-
-            // En orden
-
-
-            // Pasar a Genero Class, y en la creacion del genero, llamar a este metodo
-            // Y asignarselo a una variable
-            if(genre.getNumber() == Genre.NO_NUMBER){
-                if(numColorGradient < drawablesGradients.size()){
-                    int gradientebg = drawablesGradients.get(numColorGradient);
-                    genreContainer.setBackgroundResource(gradientebg);
-                    numColorGradient ++;
-                }else{
-                    numColorGradient = 0;
-                }
-            }else{
-
-            }
-
-
-
-            /* Random gradient
-            int rndnumber = new Random().nextInt(drawablesGradients.size());
-            int rndgradient = drawablesGradients.get(rndnumber);
-            genreContainer.setBackgroundResource(rndgradient);
-            */
-
+            genreContainer.setBackgroundResource(genre.getGradient());
         }
     }
 
