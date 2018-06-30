@@ -95,38 +95,46 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Noti
     @Override
     public void recibirCancion(Track cancion, ArrayList<Track> tracks) {
 
-        frameLayoutPlayBar = findViewById(R.id.playBarBottom);
-        frameLayoutPlayBar.setVisibility(View.VISIBLE);
         cancionActual = cancion;
         if(tracks != null)
             this.tracks = tracks;
 
-        startSong(cancion);//TODO: Borrar esta linea para sacar el service
+        startSong(cancion, tracks);//TODO: Borrar esta linea para sacar el service
 
-        Integer position = tracks.indexOf(cancion);
-        Bundle bundlePB = new Bundle();
-        bundlePB.putInt(PlaybarbottomFragment.CLAVE_CANCION, position);
-        bundlePB.putSerializable(PlaybarbottomFragment.CLAVE_CANCIONES, tracks);
-        posicion = position;
-        bundlePB.putSerializable(PlaybarbottomFragment.CLAVE_PLAYING, cancion);
-        PlaybarbottomFragment playbarbottomFragment = new PlaybarbottomFragment();
-        playbarbottomFragment.setArguments(bundlePB);
-        LoadFragment(playbarbottomFragment, R.id.playBarBottom);
+        loadPlayBar(cancion, tracks);
 
+        loadSongActivity(cancion, tracks);
+    }
+
+    private void loadSongActivity(Track cancion, ArrayList<Track> tracks){
         Intent intent = new Intent(this, SongActivity.class);
         Bundle bundle = new Bundle();
-        bundle.putInt(SongFragment.CANCIONPOS, position);
+        bundle.putInt(SongFragment.CANCIONPOS, tracks.indexOf(cancion));
         bundle.putSerializable(SongFragment.cancionKey, cancion);
         bundle.putSerializable(SongFragment.CANCIONESKEY, tracks);
         intent.putExtras(bundle);
         startActivity(intent);
     }
 
-    public void startSong(Track cancion){
+    private void loadPlayBar(Track cancion, ArrayList<Track> tracks){
+        Bundle bundlePB = new Bundle();
+        bundlePB.putInt(PlaybarbottomFragment.CLAVE_CANCION, tracks.indexOf(cancion));
+        bundlePB.putSerializable(PlaybarbottomFragment.CLAVE_CANCIONES, tracks);
+        bundlePB.putSerializable(PlaybarbottomFragment.CLAVE_PLAYING, cancion);
+        PlaybarbottomFragment playbarbottomFragment = new PlaybarbottomFragment();
+        playbarbottomFragment.setArguments(bundlePB);
+
+        frameLayoutPlayBar = findViewById(R.id.playBarBottom);
+        frameLayoutPlayBar.setVisibility(View.VISIBLE);
+        LoadFragment(playbarbottomFragment, R.id.playBarBottom);
+    }
+
+    public void startSong(Track cancion, ArrayList<Track> tracks){
         if(mediaPlayerService == null || !mediaPlayerService.getCurrentPlaying().equals(cancion)) {
             Intent playerService = new Intent(this, MediaPlayerService.class);
             Bundle bundleService = new Bundle();
             bundleService.putSerializable(MediaPlayerService.PLAY_TRACK, cancion);
+            bundleService.putSerializable(MediaPlayerService.PLAY_TRACKS, tracks);
             playerService.putExtras(bundleService);
             startService(playerService);
             bindService(playerService, serviceConnection, Context.BIND_AUTO_CREATE);
@@ -174,5 +182,13 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Noti
         Bundle bundle = new Bundle();
         bundle.putSerializable(TypeController.KEY_T, (Serializable) controller.getData());
         LoadFragment(fragment,R.id.homeID, bundle);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(mediaPlayerService != null && mediaPlayerService.getCurrentPlaying() != null) {
+            loadPlayBar(mediaPlayerService.getCurrentPlaying(), (ArrayList<Track>) mediaPlayerService.getCurrentTracks());
+        }
     }
 }

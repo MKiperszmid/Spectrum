@@ -19,6 +19,8 @@ import com.example.dh.tpmusicagrupo3.Utils.App;
 import com.example.dh.tpmusicagrupo3.View.Activities.MainActivity;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MediaPlayerService extends Service {
 
@@ -30,6 +32,7 @@ public class MediaPlayerService extends Service {
     private MediaPlayer mediaPlayer;
     private Track currentPlaying;
     private NotificationManagerCompat notificationManagerCompat;
+    private List<Track> currentTracks;
 
     private final IBinder iBinder = new MyBinder();
 
@@ -39,6 +42,7 @@ public class MediaPlayerService extends Service {
         }
     }
 
+    public static final String PLAY_TRACKS = "PLAYTRACKS";
     public static final String PLAY_TRACK = "playtrack";
     public static final String IS_PLAYING = "isplaying";
     public static final String CHANGEIMAGE = "changeImage";
@@ -74,9 +78,12 @@ public class MediaPlayerService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Track track = (Track)intent.getExtras().getSerializable(PLAY_TRACK);
-        if(track != null)
-            startSong((Track) intent.getExtras().getSerializable(PLAY_TRACK));
+        Bundle bundle = intent.getExtras();
+        Track track = (Track)bundle.getSerializable(PLAY_TRACK);
+        ArrayList<Track> tracks = (ArrayList<Track>) bundle.getSerializable(PLAY_TRACKS);
+        if(track != null){
+            startSong(track, tracks);
+        }
 /*
         if(intent.getAction().equals(App.ACTION.START_FOREGROUND)){
             Log.i("MPS", "START FOREGROUND");
@@ -110,13 +117,14 @@ public class MediaPlayerService extends Service {
             mediaPlayer.release();
     }
 
-    public void startSong(Track track){
+    public void startSong(Track track, List<Track> tracks){
         clearPlayer();
         mediaPlayer = new MediaPlayer();
         try{
             mediaPlayer.setDataSource(track.getPreview());
             mediaPlayer.prepareAsync();
             currentPlaying = track;
+            currentTracks = tracks;
             mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
                 @Override
                 public void onPrepared(MediaPlayer mp) {
@@ -169,6 +177,8 @@ public class MediaPlayerService extends Service {
     public void goToPosition(int position){
         mediaPlayer.seekTo(position);
     }
+
+    public List<Track> getCurrentTracks(){ return  currentTracks; }
 
     public Integer getCurrentDuration(){
         return mediaPlayer.getCurrentPosition();

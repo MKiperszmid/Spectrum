@@ -53,7 +53,7 @@ public class SongActivity extends AppCompatActivity implements SongFragment.Noti
                 } else if(position <= 0) {
                     pager.setCurrentItem(fragments.size() - 2, false);
                 }
-                MainActivity.mediaPlayerService.startSong(fragments.get(position).getCancion());
+                MainActivity.mediaPlayerService.startSong(fragments.get(position).getCancion(), tracks);
                 //mediaPlayerController.create(fragments.get(position).getCancion());
                 HomeFragment.cancionActual = canciones.get(position);
                 index = position;
@@ -103,7 +103,7 @@ public class SongActivity extends AppCompatActivity implements SongFragment.Noti
 
     @Override
     public void startSong(Track track) {
-        MainActivity.mediaPlayerService.startSong(track);
+        MainActivity.mediaPlayerService.startSong(track, tracks);
     }
 
     @Override
