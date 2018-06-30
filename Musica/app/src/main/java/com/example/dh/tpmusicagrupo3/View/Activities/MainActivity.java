@@ -14,7 +14,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
+import com.example.dh.tpmusicagrupo3.Controller.DatosControllers.ArtistController;
 import com.example.dh.tpmusicagrupo3.Controller.DatosControllers.TypeController;
 import com.example.dh.tpmusicagrupo3.Controller.MediaPlayerService;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Artist;
@@ -40,7 +42,7 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Noti
     private Boolean playbarMostrado = false;
     private FrameLayout frameLayoutPlayBar;
     private Integer posicion;
-
+    public static final String ArtistaKey = "ArtistaKey";
     private List<Track> tracks;
     private ServiceConnection serviceConnection = new ServiceConnection() {
         @Override
@@ -61,8 +63,16 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Noti
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         getSupportActionBar().setTitle("Inicio");
-        LoadFragment(new HomeFragment(), R.id.homeID);
+
         LoadFragment(new BarbottomFragment(), R.id.barBottom);
+        try{
+            ArtistController artistController = new ArtistController((Artist)getIntent().getExtras().getSerializable(ArtistaKey));
+            notificar(artistController);
+        }
+        catch (Exception e){
+            LoadFragment(new HomeFragment(), R.id.homeID);
+        }
+
         //LoadFragment(new PlaybarbottomFragment(), R.id.playBarBottom);
     }
 

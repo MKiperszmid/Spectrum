@@ -74,6 +74,12 @@ public class ArtistFragment extends Fragment implements AdapterArtistaCanciones.
         rvCanciones = view.findViewById(R.id.fa_rv_cancionesPopulares);
         rvAlbumes = view.findViewById(R.id.fa_rv_albumesPopulares);
         tvReproducir = view.findViewById(R.id.fa_tv_reproducirButton);
+        tvReproducir.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                notificarCancion(tracks.get(0));
+            }
+        });
 
         // TODO: Ver si hacer esto antes de entrar al fragment?
 
@@ -162,7 +168,6 @@ public class ArtistFragment extends Fragment implements AdapterArtistaCanciones.
 
     @Override
     public void notificarCancion(Track cancion) {
-        Toast.makeText(getContext(), "Song: " + cancion.getTitle_short(), Toast.LENGTH_SHORT).show();
         ArrayList<Track> newTrack = new ArrayList<>();
         newTrack.addAll(tracks);
         notificadorActivity.recibirCancion(cancion, newTrack);

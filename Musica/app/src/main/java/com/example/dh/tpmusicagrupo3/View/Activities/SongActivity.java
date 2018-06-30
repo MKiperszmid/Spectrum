@@ -1,9 +1,11 @@
 package com.example.dh.tpmusicagrupo3.View.Activities;
 
+import android.content.Intent;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.example.dh.tpmusicagrupo3.Model.POJO.Artist;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Track;
 import com.example.dh.tpmusicagrupo3.R;
 import com.example.dh.tpmusicagrupo3.View.Adapters.AdapterSongPager;
@@ -14,7 +16,7 @@ import com.example.dh.tpmusicagrupo3.View.Fragments.SongFragment;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SongActivity extends AppCompatActivity implements SongFragment.NotificadorCambioCancion, SongFragment.NotificadorFragmentService {
+public class SongActivity extends AppCompatActivity implements SongFragment.NotificadorCambioCancion, SongFragment.NotificadorFragmentService, SongFragment.NotificadorFragmentActivity {
 
     private List<SongFragment> fragments;
     private List<Track> canciones;
@@ -112,5 +114,14 @@ public class SongActivity extends AppCompatActivity implements SongFragment.Noti
     @Override
     public Boolean isPlaying() {
         return MainActivity.mediaPlayerService.isPlaying();
+    }
+
+    @Override
+    public void notificarArtista(Artist artist) {
+        Intent intent = new Intent(this, MainActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(MainActivity.ArtistaKey, artist);
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 }

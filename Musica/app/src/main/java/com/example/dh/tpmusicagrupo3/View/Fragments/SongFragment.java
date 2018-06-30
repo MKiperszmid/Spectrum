@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.example.dh.tpmusicagrupo3.Controller.GlideController;
 import com.example.dh.tpmusicagrupo3.Controller.MediaPlayerService;
+import com.example.dh.tpmusicagrupo3.Model.POJO.Artist;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Track;
 import com.example.dh.tpmusicagrupo3.R;
 import com.example.dh.tpmusicagrupo3.Utils.MiliSecondsToTimer;
@@ -48,7 +49,7 @@ public class SongFragment extends Fragment{
     private NotificadorFragmentService notificadorFragmentService;
 
     public static final String CANCIONKEY = "cancion";
-
+    private NotificadorFragmentActivity notificadorFragmentActivity;
     public SongFragment() {
         // Required empty public constructor
     }
@@ -58,6 +59,7 @@ public class SongFragment extends Fragment{
         super.onAttach(context);
         this.notificadorCambioCancion = (NotificadorCambioCancion) context;
         this.notificadorFragmentService = (NotificadorFragmentService) context;
+        this.notificadorFragmentActivity = (NotificadorFragmentActivity)context;
     }
 
     public Track getCancion(){
@@ -118,6 +120,8 @@ public class SongFragment extends Fragment{
             @Override
             public void onClick(View view) {
                 Toast.makeText(getActivity(), "Mostrar perfil de " + cancion.getArtist(), Toast.LENGTH_SHORT).show();
+                notificadorFragmentActivity.notificarArtista(cancion.getArtist());
+                //TODO:
             }
         });
 
@@ -188,6 +192,10 @@ public class SongFragment extends Fragment{
         // Envia a SongActivity
         public void retroceder();
         public void adelantar();
+    }
+
+    public interface NotificadorFragmentActivity{
+        void notificarArtista(Artist artist);
     }
 
     // Cada 1 segundo actualiza el textview de por que segundo va la cancion y la seekbar
