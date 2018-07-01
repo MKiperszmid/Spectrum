@@ -1,16 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".View.Fragments.Detalles.GenreFragment">
+    tools:context=".View.Fragments.Detalles.GenreFragment"
+    android:background="@color/colorPrimaryDark">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <!-- Container general -->
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment"
-        android:textColor="@color/colorWhite"
-        android:id="@+id/fg_tv_test"/>
+        android:layout_height="wrap_content">
 
-</FrameLayout>
+        <!-- Container Info genero (Portada) -->
+        <RelativeLayout
+            android:id="@+id/infoGenero_rl_generofragment"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:paddingBottom="20dp">
+
+            <!-- Portada-->
+            <ImageView
+                android:id="@+id/portada_iv_generofragment"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:alpha="0.65"
+                android:src="@drawable/gradientnaranja" />
+
+            <!-- Titulo -->
+            <TextView
+                android:id="@+id/nombre_tv_generofragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Nombre Genero"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:gravity="center"
+                android:textColor="@color/colorWhite"
+                android:layout_marginBottom="50dp"
+                android:layout_alignParentBottom="true"/>
+
+
+        </RelativeLayout>
+
+        <!-- Btn Reproducir -->
+        <TextView
+            android:id="@+id/reproducirBtn_tv_genrefragment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="REPRODUCIR"
+            android:textColor="@color/colorBlack"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:paddingRight="15dp"
+            android:paddingLeft="15dp"
+            android:textSize="18sp"
+            android:layout_centerHorizontal="true"
+            android:layout_above="@+id/rl_genrefragment"
+            android:background="@drawable/round_borders_artista_reproducirbtn"/>
+
+        <!-- Contenedor lista de canciones -->
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/infoGenero_rl_generofragment"
+            android:id="@+id/rl_genrefragment"
+            android:visibility="visible"
+            android:layout_marginTop="10dp">
+
+            <!-- Titulo lista  -->
+            <TextView
+                android:id="@+id/cancionespopulares_tv_genrefragment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Canciones Populares"
+                android:textColor="@color/colorWhite"
+                android:layout_margin="10dp"
+                android:textSize="18sp"
+                android:layout_centerHorizontal="true"/>
+
+
+            <!-- RecyclerView lista canciones -->
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/cancionpopulares_rl_genrefragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/cancionespopulares_tv_genrefragment"/>
+
+
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+
+
+</ScrollView>

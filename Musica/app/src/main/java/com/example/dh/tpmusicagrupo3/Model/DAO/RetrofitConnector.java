@@ -7,6 +7,7 @@ import com.example.dh.tpmusicagrupo3.Model.POJO.Containers.AlbumContainer;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Containers.ArtistContainer;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Containers.GenreContainer;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Containers.PlaylistContainer;
+import com.example.dh.tpmusicagrupo3.Model.POJO.Genre;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Track;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Containers.TrackContainer;
 
@@ -30,8 +31,7 @@ public class RetrofitConnector {
         service = retrofit.create(DeezerService.class);
     }
 
-    //TODO: GetTrack, GetChart, GetPlaylist, etc...
-
+    //
     public void getChart(final TrackListener<Chart> listener){
         Call<Chart> chartCall = service.getChart();
         chartCall.enqueue(new Callback<Chart>() {
@@ -47,6 +47,7 @@ public class RetrofitConnector {
         });
     }
 
+    //
     public void getTracksPlaylist(final TrackListener<TrackContainer> listener, String id, Integer index){
         Call<TrackContainer> trackCall = service.getTracksPlaylist(id, index);
         trackCall.enqueue(new Callback<TrackContainer>() {
@@ -62,6 +63,7 @@ public class RetrofitConnector {
         });
     }
 
+    //
     public void getTracksRadio(final TrackListener<TrackContainer> listener, String id){
         Call<TrackContainer> trackListenerCall = service.getTracksRadio(id);
         trackListenerCall.enqueue(new Callback<TrackContainer>() {
@@ -77,6 +79,7 @@ public class RetrofitConnector {
         });
     }
 
+    // Obtener cancion en especifico
     public void getTrack(final TrackListener<Track> listener, String id){
         Call<Track> track = service.getTrack(id);
         track.enqueue(new Callback<Track>() {
@@ -92,6 +95,8 @@ public class RetrofitConnector {
         });
     }
 
+
+    // Obtener lista de Artistas populares
     public void getArtistsChart(final TrackListener<ArtistContainer> listener){
         Call<ArtistContainer> artistChartCall = service.getArtistsChart();
         artistChartCall.enqueue(new Callback<ArtistContainer>() {
@@ -107,6 +112,7 @@ public class RetrofitConnector {
         });
     }
 
+    //
     public void getTracksChart(final TrackListener<TrackContainer> listener){
         Call<TrackContainer> trackContainerCall = service.getTracksChart();
         trackContainerCall.enqueue(new Callback<TrackContainer>() {
@@ -122,6 +128,7 @@ public class RetrofitConnector {
         });
     }
 
+    // Obtener lista de Generos
     public void getGenreList(final TrackListener<GenreContainer> listener){
         Call<GenreContainer> genreListCall = service.getGenresList();
         genreListCall.enqueue(new Callback<GenreContainer>() {
@@ -137,6 +144,7 @@ public class RetrofitConnector {
         });
     }
 
+    //
     public void getPlaylistsChart(final TrackListener<PlaylistContainer> listener){
         Call<PlaylistContainer> playlistContainerCall = service.getPlaylistsChart();
         playlistContainerCall.enqueue(new Callback<PlaylistContainer>() {
@@ -152,6 +160,7 @@ public class RetrofitConnector {
         });
     }
 
+    // Obtener Artista
     public void getArtist(final TrackListener<Artist> listener, Integer id){
         Call<Artist> artistCall = service.getArtist(id);
         artistCall.enqueue(new Callback<Artist>() {
@@ -167,6 +176,7 @@ public class RetrofitConnector {
         });
     }
 
+    // Obtener lista de canciones de Artista en especifico
     public void getArtistTracks(final TrackListener<TrackContainer> listener, Integer id, Integer limit){
         Call<TrackContainer> trackContainerCall = service.getArtistTracks(id, limit);
         trackContainerCall.enqueue(new Callback<TrackContainer>() {
@@ -182,6 +192,7 @@ public class RetrofitConnector {
         });
     }
 
+    // Obtener lista de albums de Artista en especifico
     public void getArtistAlbums(final TrackListener<AlbumContainer> listener, Integer id){
         Call<AlbumContainer> albumContainerCall = service.getArtistAlbums(id);
         albumContainerCall.enqueue(new Callback<AlbumContainer>() {
@@ -196,4 +207,24 @@ public class RetrofitConnector {
             }
         });
     }
+
+    // Obtener lista de canciones de Genero en especifico
+    public void getGenreTracks(final TrackListener<TrackContainer> listener, Integer id, Integer limit){
+        Call<TrackContainer> trackContainerCall = service.getGenreTracks(id, limit);
+        trackContainerCall.enqueue(new Callback<TrackContainer>() {
+            @Override
+            public void onResponse(Call<TrackContainer> call, Response<TrackContainer> response) {
+                listener.finish(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<TrackContainer> call, Throwable t) {
+                listener.finish(null);
+            }
+        });
+    }
+
+
+
+
 }

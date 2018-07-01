@@ -67,6 +67,8 @@ public class ArtistFragment extends Fragment implements AdapterArtistaCanciones.
         final View view = inflater.inflate(R.layout.fragment_artist, container, false);
         musicController = new MusicController();
         Bundle bundle = getArguments();
+
+        // Declaración de variables con los views find
         artist = (Artist) bundle.getSerializable(TypeController.KEY_T);
         rlDatos = view.findViewById(R.id.fa_rl_datos);
         rlCanciones = view.findViewById(R.id.fa_rl_layoutCanciones);
@@ -84,6 +86,7 @@ public class ArtistFragment extends Fragment implements AdapterArtistaCanciones.
         // TODO: Ver si hacer esto antes de entrar al fragment?
 
         // TODO: Iniciar algun loading o algo, para mostrar que esta cargando
+        // Pedido de artista
         musicController.getArtist(new TrackListener<Artist>() {
             @Override
             public void finish(Artist track) {
@@ -96,12 +99,12 @@ public class ArtistFragment extends Fragment implements AdapterArtistaCanciones.
         return view;
     }
 
+    // Cargar datos en view
     private void loadContent(View view){
 
         TextView tvArtistName = view.findViewById(R.id.fa_tv_artistName);
         TextView tvArtistSeguidores = view.findViewById(R.id.fa_tv_artistFollowers);
         ImageView ivArtistArtwork = view.findViewById(R.id.fa_iv_artwork);
-
         tvArtistName.setText(currentArtist.getName());
 
         String fans = currentArtist.getNb_fan().toString();
@@ -116,6 +119,8 @@ public class ArtistFragment extends Fragment implements AdapterArtistaCanciones.
         getArtistInfo();
     }
 
+
+    // Agregar puntos a lo numeros
     private String addDotsToNumber(String number){
         if(number.length() < 3)
             return number;
@@ -142,6 +147,8 @@ public class ArtistFragment extends Fragment implements AdapterArtistaCanciones.
         //TODO: Agregar Paginacion en albums
 
         final AdapterArtistaCanciones.NotificadorCancionArtista notificadorCancionArtista = this;
+
+        // Obtener canciones del artista seleccionado
         musicController.getArtistTracks(new TrackListener<TrackContainer>() {
             @Override
             public void finish(TrackContainer track) {
@@ -154,6 +161,7 @@ public class ArtistFragment extends Fragment implements AdapterArtistaCanciones.
             }
         }, artist.getId());
 
+        // Obtener albums del artista seleccionado
         musicController.getArtistAlbums(new TrackListener<AlbumContainer>() {
             @Override
             public void finish(AlbumContainer track) {

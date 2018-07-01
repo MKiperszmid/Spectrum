@@ -6,6 +6,7 @@ import com.example.dh.tpmusicagrupo3.Model.POJO.Containers.AlbumContainer;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Containers.ArtistContainer;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Containers.GenreContainer;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Containers.PlaylistContainer;
+import com.example.dh.tpmusicagrupo3.Model.POJO.Genre;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Track;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Containers.TrackContainer;
 
@@ -63,4 +64,10 @@ public interface DeezerService {
     // Artista Albumes
     @GET("artist/{id}/albums")
     Call<AlbumContainer> getArtistAlbums(@Path("id") Integer id);
+
+    // Genero Canciones
+    @GET("chart/{id}/tracks")
+    Call<TrackContainer> getGenreTracks(@Path("id") Integer id, @Query("limit") Integer limit);
+
+
 }

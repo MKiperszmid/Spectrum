@@ -82,18 +82,19 @@ public class ExplorarFragment extends Fragment implements AdapterArtistaPortada.
 
         progressBar = view.findViewById(R.id.explorarProgressbar);
 
-        // Playlist Destacadas
+        // Recycler View  Playlist Destacadas
         rvPlaylists = view.findViewById(R.id.recyclerPlaylistDestacada);
         rvPlaylists.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
 
-        // Artistas Populares
+        // Recycler View Artistas Populares
         rvArtistChart = view.findViewById(R.id.recyclerArtistChart);
         rvArtistChart.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
 
-        // Generos
+        // Recycler View  Generos
         rvGenresList = view.findViewById(R.id.recyclerGenreList);
         rvGenresList.setLayoutManager(new GridLayoutManager(getActivity(), 4, LinearLayoutManager.HORIZONTAL, false));
 
+        // RelativesLayouts
         rlPlaylist = view.findViewById(R.id.explorarLayoutPlaylist);
         rlGenero = view.findViewById(R.id.explorarLayoutGeneros);
         rlArtista = view.findViewById(R.id.explorarLayoutArtistas);

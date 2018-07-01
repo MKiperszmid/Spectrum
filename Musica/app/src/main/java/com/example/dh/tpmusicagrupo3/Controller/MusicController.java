@@ -7,6 +7,7 @@ import com.example.dh.tpmusicagrupo3.Model.POJO.Containers.AlbumContainer;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Containers.ArtistContainer;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Containers.GenreContainer;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Containers.PlaylistContainer;
+import com.example.dh.tpmusicagrupo3.Model.POJO.Genre;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Track;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Containers.TrackContainer;
 
@@ -159,6 +160,7 @@ public class MusicController {
         }, id);
     }
 
+    // Canciones de un Artista en especifico
     public void getArtistTracks(final TrackListener<TrackContainer> listener, Integer id){
         connector.getArtistTracks(new TrackListener<TrackContainer>() {
             @Override
@@ -168,6 +170,7 @@ public class MusicController {
         }, id, 4); // 4 Hardcodeado para el diseño de ArtistFragment?
     }
 
+    // Albums de un Artista en especifico
     public void getArtistAlbums(final TrackListener<AlbumContainer> listener, Integer id){
         connector.getArtistAlbums(new TrackListener<AlbumContainer>() {
             @Override
@@ -175,6 +178,16 @@ public class MusicController {
                 listener.finish(track);
             }
         }, id);
+    }
+
+    // Canciones de un Genero en especifico
+    public void getGenreTracks(final TrackListener<TrackContainer> listener, Integer id){
+        connector.getGenreTracks(new TrackListener<TrackContainer>() {
+            @Override
+            public void finish(TrackContainer track) {
+                listener.finish(track);
+            }
+        }, id, 8); // 8 Hardcodeado para el diseño de ArtistFragment?
     }
 
     public Boolean getHayPaginasArgentina(){ return hayPaginasArgentina; }
