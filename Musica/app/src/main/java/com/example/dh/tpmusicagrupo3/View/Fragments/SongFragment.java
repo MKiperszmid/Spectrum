@@ -6,13 +6,24 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.LocalBroadcastManager;
+import android.support.v4.widget.DrawerLayout;
+import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.ScaleAnimation;
+import android.view.animation.TranslateAnimation;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -45,6 +56,13 @@ public class SongFragment extends Fragment{
     private TextView totalDurationTV;
     private TextView currentDurationTV;
     private SeekBar seekBar;
+
+
+    private FrameLayout menuMasOpciones;
+    private FrameLayout cerrarMenuMasOpciones;
+    private LinearLayout agregarAPlaylistBtn;
+    private LinearLayout compartirBtn;
+    private Boolean menuMasOpcionesStatus = false;
 
     private NotificadorFragmentService notificadorFragmentService;
 
@@ -83,6 +101,7 @@ public class SongFragment extends Fragment{
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_song, container, false);
 
+
         // Declaración de elementos visuales y carga de datos/contenido
         TextView descripcionCancionNombre = view.findViewById(R.id.descripcionCancionNombre);
         descripcionCancionNombre.setText(cancion.getTitle_short());
@@ -90,12 +109,19 @@ public class SongFragment extends Fragment{
         descripcionCancionArtista.setText(cancion.getArtist().getName());
         ImageView descripcionCancionPortada = view.findViewById(R.id.descripcionCancionPortada);
 
+        menuMasOpciones = view.findViewById(R.id.menuMasOpciones);
+        cerrarMenuMasOpciones = view.findViewById(R.id.cerrarMenuMasOpciones);
+        agregarAPlaylistBtn = view.findViewById(R.id.agregarAPlaylistBtn);
+        compartirBtn = view.findViewById(R.id.compartirBtn);
+
+
+
         GlideController.loadImages(view, cancion.getAlbum().getCover_big(), descripcionCancionPortada);
         pauseplayClick = view.findViewById(R.id.pauseplayClick);
         ImageView heartClick = view.findViewById(R.id.heartClick);
         ImageView backClick = view.findViewById(R.id.backClick);
         ImageView nextClick = view.findViewById(R.id.nextClick);
-        ImageView agregarOffline = view.findViewById(R.id.agregarOffline);
+        ImageView masOpciones = view.findViewById(R.id.masOpciones);
 
         // Manejo de la duracion total de la cancion y tiempo escuchado actualmente
         totalDurationTV = view.findViewById(R.id.totalDurationSong);
@@ -158,11 +184,66 @@ public class SongFragment extends Fragment{
             }
         });
 
-        // Agregar canción a playlist
-        agregarOffline.setOnClickListener(new View.OnClickListener() {
+        // Abrir menu más opciones
+        masOpciones.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getActivity(), "Agregar a playlist", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getActivity(), "Abrir más opciones", Toast.LENGTH_SHORT).show();
+                if(menuMasOpcionesStatus == false){
+                    Animation animation;
+                    animation = AnimationUtils.loadAnimation(getContext(),
+                            R.anim.slide_up);
+                    menuMasOpciones.startAnimation(animation);
+                    menuMasOpciones.setVisibility(View.VISIBLE);
+                    menuMasOpciones.setClickable(true);
+                    menuMasOpciones.setEnabled(true);
+                    menuMasOpcionesStatus = true;
+                    setClickable(menuMasOpciones, true);
+                }
+            }
+        });
+
+        // Cerrar menu más opciones
+        cerrarMenuMasOpciones.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Toast.makeText(getActivity(), "cerrar más opciones", Toast.LENGTH_SHORT).show();
+                if(menuMasOpcionesStatus == true){
+                    Animation animation;
+                    animation = AnimationUtils.loadAnimation(getContext(),
+                            R.anim.slide_down);
+                    menuMasOpciones.startAnimation(animation);
+                    menuMasOpciones.setVisibility(View.GONE);
+                    menuMasOpciones.setClickable(false);
+                    menuMasOpciones.setEnabled(false);
+                    menuMasOpcionesStatus = false;
+                    setClickable(menuMasOpciones, false);
+                }
+            }
+        });
+
+        // Agregar a Playlist
+        agregarAPlaylistBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getActivity(), "Agregar a Playlist", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        // Compartir
+        compartirBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getActivity(), "Compartir", Toast.LENGTH_SHORT).show();
+                Intent share = new Intent(android.content.Intent.ACTION_SEND);
+                share.setType("text/plain");
+                share.putExtra(Intent.EXTRA_SUBJECT, "Te recomiendo esta canción!");
+                String cancionInfo = cancion.getArtist().toString() + " " +  cancion.getTitle_short().toString();
+
+                // TODO: Levantar atributo "Share" de api y ponerlo en cancionURL
+                String cancionURL ="https://www.deezer.com/track/3135556?utm_source=deezer&utm_content=track-3135556&utm_term=0_1530416266&utm_medium=web";
+                share.putExtra(Intent.EXTRA_TEXT, "Te recomiendo esta canción: " + cancionInfo + " " + cancionURL);
+                startActivity(Intent.createChooser(share, "Share link!"));
             }
         });
 
@@ -187,6 +268,7 @@ public class SongFragment extends Fragment{
         minutosText = minutos.toString();
         return minutosText + ":" + segundosText;
     }
+
 
     public interface NotificadorCambioCancion{
         // Envia a SongActivity
@@ -253,4 +335,19 @@ public class SongFragment extends Fragment{
         Track getCurrentSong();
         Boolean isPlaying();
     }
+
+
+    // Recibe un view contenedor y un estado, y hace unclickeable a todos sus childs
+    public void setClickable(View view, boolean status) {
+        if (view != null) {
+            view.setClickable(status);
+            if (view instanceof ViewGroup) {
+                ViewGroup vg = ((ViewGroup) view);
+                for (int i = 0; i < vg.getChildCount(); i++) {
+                    setClickable(vg.getChildAt(i), status);
+                }
+            }
+        }
+    }
+
 }

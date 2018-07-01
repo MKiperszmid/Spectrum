@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,168 +8,320 @@
     tools:context=".View.Fragments.SongFragment"
     android:background="@color/colorPrimaryDark">
 
-    <ImageView
+
+
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:adjustViewBounds="true"
-        android:scaleType="centerCrop"
-        android:id="@+id/descripcionCancionPortada"
-        android:alpha="0.47"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="210dp"
-        android:orientation="vertical"
-        android:layout_gravity="bottom">
+        android:id="@+id/songFrame">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
+            android:id="@+id/descripcionCancionPortada"
+            android:alpha="0.47"/>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/infoCancionContenedor"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/descripcionCancionNombre"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginBottom="15dp"
-                android:fontFamily="@font/montserrat"
-                android:text="Canción sonando"
-                android:textColor="@color/colorWhite"
-                android:textSize="@dimen/maxSizeSongNamePlaying" />
-
-            <TextView
-                android:id="@+id/descripcionCancionArtista"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:alpha="0.75"
-                android:fontFamily="@font/montserrat"
-                android:text="Artista"
-                android:textColor="@color/colorWhite"
-                android:textSize="@dimen/maxSizeArtistNamePlaying" />
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_gravity="center">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="00"
-                android:textColor="@color/colorWhite"
-                android:id="@+id/currentDurationSong"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="/"
-                android:textColor="@color/colorWhite"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="00"
-                android:textColor="@color/colorWhite"
-                android:id="@+id/totalDurationSong"/>
-        </LinearLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/playerContainer"
+            android:layout_height="210dp"
             android:orientation="vertical"
-            android:layout_marginTop="10dp">
+            android:layout_gravity="bottom">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/infoCancionContenedor"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/descripcionCancionNombre"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="15dp"
+                    android:fontFamily="@font/montserrat"
+                    android:text="Canción sonando"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/maxSizeSongNamePlaying" />
+
+                <TextView
+                    android:id="@+id/descripcionCancionArtista"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:alpha="0.75"
+                    android:fontFamily="@font/montserrat"
+                    android:text="Artista"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/maxSizeArtistNamePlaying" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_gravity="center">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="00"
+                        android:textColor="@color/colorWhite"
+                        android:id="@+id/currentDurationSong"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="/"
+                        android:textColor="@color/colorWhite"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="00"
+                        android:textColor="@color/colorWhite"
+                        android:id="@+id/totalDurationSong"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/playerContainer"
+                android:orientation="vertical"
+                android:layout_marginTop="10dp">
                 <SeekBar
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:max="100"
                     android:progressBackgroundTint="@color/colorWhite"
                     android:progress="0"
+                    android:animateLayoutChanges="true"
                     android:id="@+id/seekBarSong"/>
-        </LinearLayout>
+            </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:layout_marginTop="20dp"
-            android:orientation="horizontal">
-            <FrameLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:layout_weight="1">
-
-                <ImageView android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/SongOptionsIcons"
-                    android:src="@drawable/fav"
-                    android:id="@+id/heartClick">
-                </ImageView>
-
-            </FrameLayout>
-
-            <FrameLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:layout_weight="1">
-                <ImageView android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/SongOptionsIcons"
-                    android:src="@drawable/prev"
-                    android:id="@+id/backClick">
-                </ImageView>
-            </FrameLayout>
-
-            <FrameLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:layout_weight="1">
-
-                <android.support.design.widget.FloatingActionButton
-                    android:id="@+id/pauseplayClick"
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
-                    android:padding="40dp"
-                    android:src="@drawable/stop"
-                    android:scaleType="centerInside"
-                    android:layout_gravity="center"
-                    app:backgroundTint="@color/colorPrimary"/>
-            </FrameLayout>
-
-            <FrameLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:layout_weight="1">
-                <ImageView android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/SongOptionsIcons"
-                    android:src="@drawable/next"
-                    android:id="@+id/nextClick">
-                </ImageView>
-            </FrameLayout>
-
-            <FrameLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:layout_weight="1">
-                <ImageView
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
+                <FrameLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/SongOptionsIcons"
-                    android:src="@drawable/plus"
-                    android:id="@+id/agregarOffline">
-                </ImageView>
-            </FrameLayout>
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_weight="1">
+
+                    <ImageView android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/SongOptionsIcons"
+                        android:src="@drawable/fav"
+                        android:id="@+id/heartClick">
+                    </ImageView>
+
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_weight="1">
+                    <ImageView android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/SongOptionsIcons"
+                        android:src="@drawable/prev"
+                        android:id="@+id/backClick">
+                    </ImageView>
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_weight="1">
+
+                    <android.support.design.widget.FloatingActionButton
+                        android:id="@+id/pauseplayClick"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:padding="40dp"
+                        android:src="@drawable/stop"
+                        android:scaleType="centerInside"
+                        android:layout_gravity="center"
+                        app:backgroundTint="@color/colorPrimary"/>
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_weight="1">
+                    <ImageView android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/SongOptionsIcons"
+                        android:src="@drawable/next"
+                        android:id="@+id/nextClick">
+                    </ImageView>
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_weight="1">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/SongOptionsIcons"
+                        android:src="@drawable/dots"
+                        android:id="@+id/masOpciones">
+                    </ImageView>
+                </FrameLayout>
+
+            </LinearLayout>
 
         </LinearLayout>
 
-    </LinearLayout>
+    </FrameLayout>
+
+
+    <!--- Menu más opciones -->
+    <FrameLayout
+        android:id="@+id/menuMasOpciones"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:background="@color/colorPrimary"
+        android:visibility="gone"
+        android:layout_gravity="bottom">
+        <!--- Contenedor -->
+        <LinearLayout
+            android:id="@+id/contenedorTodoMenuMasOpciones"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <!--- Contenedor opciones -->
+            <LinearLayout
+                android:id="@+id/contenedorOpcionesMenuMasOpciones"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <!--- Cont. Agregar a Playlist -->
+                <FrameLayout
+                    android:id="@+id/contenedorAgregarPlaylist"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:padding="20dp">
+
+                    <!--- Boton opciones -->
+                    <LinearLayout
+                        android:id="@+id/agregarAPlaylistBtn"
+                        android:layout_width="150dp"
+                        android:layout_height="75dp"
+                        android:orientation="vertical"
+                        android:layout_gravity="center">
+
+                        <ImageView
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:src="@drawable/plus"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginBottom="10dp"
+                            />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:fontFamily="@font/montserrat"
+                            android:text="Agregar a Playlist"
+                            android:textColor="@color/colorGraySemiWhite" />
+
+                    </LinearLayout>
+                </FrameLayout>
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:alpha="0.2"
+                    android:background="@color/colorGraySemiWhite">
+                </View>
+
+                <!--- Cont. Compartir -->
+                <FrameLayout
+                    android:id="@+id/contenedorCompartir"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:padding="20dp">
+
+                    <!--- Btn Compartir -->
+                    <LinearLayout
+                        android:id="@+id/compartirBtn"
+                        android:layout_width="150dp"
+                        android:layout_height="75dp"
+                        android:orientation="vertical"
+                        android:layout_gravity="center">
+
+                        <ImageView
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:src="@drawable/compartir"
+                            android:clickable="false"
+                            android:focusable="false"
+                            android:layout_gravity="center"
+                            android:layout_marginBottom="10dp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:clickable="false"
+                            android:focusable="false"
+                            android:fontFamily="@font/montserrat"
+                            android:text="Compartir"
+                            android:textColor="@color/colorGraySemiWhite" />
+                    </LinearLayout>
+                </FrameLayout>
+
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:alpha="0.2"
+                android:background="@color/colorGraySemiWhite"></View>
+
+
+            <!--- Contenedor Cerrar -->
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+
+                <!--- Boton cerrar -->
+                    <FrameLayout
+                        android:id="@+id/cerrarMenuMasOpciones"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:background="@drawable/circle"
+                        android:layout_gravity="center"
+                        android:backgroundTint="@color/colorPrimaryDark">
+                        <View
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"
+                            android:layout_gravity="center"
+                            android:background="@drawable/cerrar">
+                        </View>
+                    </FrameLayout>
+
+            </FrameLayout>
+        </LinearLayout>
+    </FrameLayout>
+
+
 
 </FrameLayout>
