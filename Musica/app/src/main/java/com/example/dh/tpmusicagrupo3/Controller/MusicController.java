@@ -29,6 +29,10 @@ public class MusicController {
     private Integer offsetUsa;
     private Integer limitUsa = 25;
     private Boolean hayPaginasUsa;
+
+    private Integer offsetPlaylist;
+    private Boolean hayPaginasPlaylist;
+    private Integer limitPlaylist = 25;
     //IF track == null , devolver una lista descargada.
 
     public MusicController(){
@@ -36,6 +40,8 @@ public class MusicController {
         hayPaginasArgentina = true;
         offsetUsa = 0;
         hayPaginasUsa = true;
+        offsetPlaylist = 0;
+        hayPaginasPlaylist = true;
     }
 
     public void getChart(final TrackListener<Chart> listener){
@@ -62,9 +68,15 @@ public class MusicController {
         connector.getTracksPlaylist(new TrackListener<TrackContainer>() {
             @Override
             public void finish(TrackContainer track) {
+                if(track != null){
+                    if(track.getData().size() < limitPlaylist){
+                        hayPaginasPlaylist = false;
+                    }
+                    offsetPlaylist += track.getData().size();
+                }
                 listener.finish(track);
             }
-        }, id, index);
+        }, id, offsetPlaylist);
     }
 
     // Popular Argentina

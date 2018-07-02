@@ -68,13 +68,10 @@ public class SongActivity extends AppCompatActivity implements SongFragment.Noti
     }
 
     private void CargarFragments() {
-
         canciones = new ArrayList<>();
         canciones.add(tracks.get(tracks.size() - 1));
         canciones.addAll(tracks);
         canciones.add(tracks.get(0));
-
-        //canciones = HomeFragment.getCancionesFragment();
 
         for(Track cancion : canciones){
             fragments.add(SongFragment.dameFragment(cancion));

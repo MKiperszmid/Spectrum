@@ -83,7 +83,6 @@ public class GenreFragment extends Fragment implements AdapterArtistaCanciones.N
     }
 
     private void cargarGeneroInfo(View view){
-
         // Seteo los datos en los views
         nombreGeneroTV.setText(currentGenre.getName());
         portadaGeneroIV.setImageResource(currentGenre.getGradient());
@@ -93,13 +92,12 @@ public class GenreFragment extends Fragment implements AdapterArtistaCanciones.N
     }
 
     private void obtenerGeneroCanciones() {
-
         final AdapterArtistaCanciones.NotificadorCancionArtista notificadorCancionArtista = this;
 
         musicController.getGenreTracks(new TrackListener<TrackContainer>() {
                 @Override
                 public void finish(TrackContainer track) {
-                        tracks = track.getData();
+                    tracks = track.getData();
                     AdapterArtistaCanciones adapterArtistaCanciones = new AdapterArtistaCanciones(tracks, notificadorCancionArtista);
                     rvCancionesPopularesGenero.setAdapter(adapterArtistaCanciones);
                     rvCancionesPopularesGenero.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
@@ -112,7 +110,6 @@ public class GenreFragment extends Fragment implements AdapterArtistaCanciones.N
         super.onAttach(context);
         this.notificadorActivity = (HomeFragment.NotificadorActivity)context;
     }
-
 
     @Override
     public void notificarCancion(Track cancion) {

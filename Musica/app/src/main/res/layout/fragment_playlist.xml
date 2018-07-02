@@ -1,15 +1,124 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.dh.tpmusicagrupo3.View.Fragments.Detalles.PlaylistFragment">
+    tools:context="com.example.dh.tpmusicagrupo3.View.Fragments.HomeFragment"
+    android:background="@color/colorPrimaryDark">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment"
-        android:id="@+id/fp_tv_test"
-        android:textColor="@color/colorWhite"/>
+        tools:context=".View.Fragments.Detalles.GenreFragment"
+        android:background="@color/colorPrimaryDark">
 
-</FrameLayout>
+        <!-- Container general -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!-- Container Info genero (Portada) -->
+            <RelativeLayout
+                android:id="@+id/fp_rl_datosPlaylist"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:paddingBottom="20dp">
+
+                <!-- Portada-->
+                <ImageView
+                    android:id="@+id/fp_iv_portada"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:alpha="0.4"
+                    tools:src="@drawable/playlisttest"
+                    android:scaleType="fitXY"/>
+
+                <!-- Titulo -->
+                <TextView
+                    android:id="@+id/fp_tv_nombrePlaylist"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="Top Argentina"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    android:gravity="center"
+                    android:textColor="@color/colorWhite"
+                    android:layout_above="@id/fp_ll_descripcion"
+                    android:layout_marginBottom="20dp"/>
+
+                <!-- Descripcion -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:id="@+id/fp_ll_descripcion"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="60dp"
+                    android:gravity="center"
+                    android:alpha="0.75">
+                    <TextView
+                        android:id="@+id/fp_tv_descripcion"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="100 canciones - Creada por "
+                        android:textSize="18sp"
+                        android:textColor="@color/colorWhite"/>
+                    <!-- Creador -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/fp_tv_creador"
+                        tools:text="Spectrum"
+                        android:textSize="18sp"
+                        android:textStyle="italic|bold"
+                        android:textColor="@color/colorWhite"/>
+                </LinearLayout>
+            </RelativeLayout>
+
+            <!-- Btn Reproducir -->
+            <TextView
+                android:id="@+id/fp_tv_reproducir"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="REPRODUCIR"
+                android:textColor="@color/colorBlack"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:paddingRight="15dp"
+                android:paddingLeft="15dp"
+                android:textSize="18sp"
+                android:layout_centerHorizontal="true"
+                android:layout_above="@+id/fp_rl_cancionesContainer"
+                android:background="@drawable/round_borders_artista_reproducirbtn"/>
+
+            <!-- Contenedor lista de canciones -->
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/fp_rl_datosPlaylist"
+                android:id="@+id/fp_rl_cancionesContainer"
+                android:visibility="visible"
+                android:layout_marginTop="10dp">
+
+                <!-- RecyclerView lista canciones -->
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/fp_rv_canciones"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/cancionespopulares_tv_genrefragment"/>
+            </RelativeLayout>
+        </RelativeLayout>
+    </ScrollView>
+
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/fp_pb_progress"
+        android:layout_centerInParent="true"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="30dp"
+        android:visibility="invisible"/>
+
+</RelativeLayout>

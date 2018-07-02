@@ -211,7 +211,6 @@ public class HomeFragment extends Fragment implements AdapterCancionArtistaPorta
 
     @Override
     public void notificarCancionClickeada(Track cancionClickeada, List<Track> myTracks) {
-
         // Llega track desde AdapterCancionArtistaPortada y se ejecuta el Media Player
         cancionActual = cancionClickeada;
         SongActivity.index = cancionClickeada.getId();

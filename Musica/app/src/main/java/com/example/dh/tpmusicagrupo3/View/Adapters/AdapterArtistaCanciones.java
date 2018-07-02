@@ -12,14 +12,20 @@ import com.example.dh.tpmusicagrupo3.Controller.GlideController;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Track;
 import com.example.dh.tpmusicagrupo3.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class AdapterArtistaCanciones extends RecyclerView.Adapter {
     private List<Track> trackList;
     private NotificadorCancionArtista notificadorCancionArtista;
 
-    public AdapterArtistaCanciones(List<Track> trackList, NotificadorCancionArtista notificadorCancionArtista){
-        this.trackList = trackList;
+    public AdapterArtistaCanciones(NotificadorCancionArtista notificadorCancionArtista){
+        this.notificadorCancionArtista = notificadorCancionArtista;
+        trackList = new ArrayList<>();
+    }
+
+    public AdapterArtistaCanciones(List<Track> canciones, NotificadorCancionArtista notificadorCancionArtista){
+        this.trackList = canciones;
         this.notificadorCancionArtista = notificadorCancionArtista;
     }
     @NonNull
@@ -40,7 +46,14 @@ public class AdapterArtistaCanciones extends RecyclerView.Adapter {
 
     @Override
     public int getItemCount() {
+        if(trackList == null)
+            return 0;
         return trackList.size();
+    }
+
+    public void addTracks(List<Track> tracks){
+        trackList.addAll(tracks);
+        notifyDataSetChanged(); //TODO: Cambiar por Range para hacerlo un poco mas performante
     }
 
     public class ArtistaCancionesViewHolder extends RecyclerView.ViewHolder {
