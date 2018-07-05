@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -38,6 +39,7 @@ public class GenreFragment extends Fragment implements AdapterArtistaCanciones.N
     private ImageView portadaGeneroIV;
     private RecyclerView rvCancionesPopularesGenero;
     private TextView reproducirBtn;
+    private ProgressBar progressBar;
 
     private MusicController musicController;
     private Genre currentGenre;
@@ -64,6 +66,9 @@ public class GenreFragment extends Fragment implements AdapterArtistaCanciones.N
         portadaGeneroIV = view.findViewById(R.id.portada_iv_generofragment);
         rvCancionesPopularesGenero = view.findViewById(R.id.cancionpopulares_rl_genrefragment);
         reproducirBtn = view.findViewById(R.id.reproducirBtn_tv_genrefragment);
+        progressBar = view.findViewById(R.id.fg_pb_progress);
+        progressBar.setVisibility(View.VISIBLE);
+        progressBar.setIndeterminate(true);
 
         reproducirBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -103,6 +108,8 @@ public class GenreFragment extends Fragment implements AdapterArtistaCanciones.N
                     AdapterArtistaCanciones adapterArtistaCanciones = new AdapterArtistaCanciones(tracks, notificadorCancionArtista);
                     rvCancionesPopularesGenero.setAdapter(adapterArtistaCanciones);
                     rvCancionesPopularesGenero.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+                    progressBar.setVisibility(View.INVISIBLE);
+                    progressBar.setIndeterminate(false);
                 }
             }, currentGenre.getId());
     }
