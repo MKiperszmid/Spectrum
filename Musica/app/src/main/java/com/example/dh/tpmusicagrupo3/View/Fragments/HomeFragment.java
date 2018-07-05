@@ -18,6 +18,7 @@ import com.example.dh.tpmusicagrupo3.Model.POJO.Containers.TrackContainer;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Playlist;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Track;
 import com.example.dh.tpmusicagrupo3.R;
+import com.example.dh.tpmusicagrupo3.View.Activities.MainActivity;
 import com.example.dh.tpmusicagrupo3.View.Activities.SongActivity;
 import com.example.dh.tpmusicagrupo3.View.Adapters.AdapterCancionArtistaPortada;
 import java.util.ArrayList;
@@ -42,6 +43,7 @@ public class HomeFragment extends Fragment implements AdapterCancionArtistaPorta
     private Boolean isLoading;
 
     private RelativeLayout rlTop10, rlRecentlyAdded, rlTopArg, rlTopUsa;
+    private String sectionString = "Inicio";
 
     public HomeFragment() {
         // Required empty public constructo
@@ -117,6 +119,9 @@ public class HomeFragment extends Fragment implements AdapterCancionArtistaPorta
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+
+
+        ((MainActivity)getActivity()).getSupportActionBar().setTitle(sectionString);
 
         rlTop10 = view.findViewById(R.id.layoutTop10);
         rlRecentlyAdded = view.findViewById(R.id.layoutRecentlyAdded);

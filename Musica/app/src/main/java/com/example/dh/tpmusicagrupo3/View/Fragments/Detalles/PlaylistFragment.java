@@ -43,6 +43,7 @@ public class PlaylistFragment extends Fragment implements AdapterArtistaCancione
     private MusicController musicController;
     private HomeFragment.NotificadorActivity notificadorActivity;
     private Boolean isLoading;
+    private TextView tvReproducir;
 
     @Override
     public void onAttach(Context context) {
@@ -77,6 +78,8 @@ public class PlaylistFragment extends Fragment implements AdapterArtistaCancione
         ivArtWork = view.findViewById(R.id.fp_iv_portada);
         rvPlaylist = view.findViewById(R.id.fp_rv_canciones);
         progressBar = view.findViewById(R.id.fp_pb_progress);
+        tvReproducir = view.findViewById(R.id.fp_tv_reproducir);
+
         isLoading = false;
         tracks = new ArrayList<>();
 
@@ -91,6 +94,13 @@ public class PlaylistFragment extends Fragment implements AdapterArtistaCancione
         rvPlaylist.setAdapter(adapterArtistaCanciones);
         rvPlaylist.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         getCanciones(rvPlaylist);
+
+        tvReproducir.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                notificarCancion(tracks.get(0));
+            }
+        });
 
 /*
 //TODO: Arreglar esto.

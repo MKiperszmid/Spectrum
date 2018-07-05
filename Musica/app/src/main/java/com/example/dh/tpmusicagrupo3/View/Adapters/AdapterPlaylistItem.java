@@ -12,6 +12,7 @@ import com.example.dh.tpmusicagrupo3.Controller.GlideController;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Playlist;
 import com.example.dh.tpmusicagrupo3.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -24,6 +25,11 @@ public class AdapterPlaylistItem extends RecyclerView.Adapter {
 
     public AdapterPlaylistItem(List<Playlist> playlists, NotificadorPlaylistCelda notificadorPlaylistCelda){
         this.playlists = playlists;
+        this.notificadorPlaylistCelda = notificadorPlaylistCelda;
+    }
+
+    public AdapterPlaylistItem(NotificadorPlaylistCelda notificadorPlaylistCelda){
+        this.playlists = new ArrayList<>();
         this.notificadorPlaylistCelda = notificadorPlaylistCelda;
     }
 

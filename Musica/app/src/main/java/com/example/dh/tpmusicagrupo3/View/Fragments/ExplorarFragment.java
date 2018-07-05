@@ -31,6 +31,7 @@ import com.example.dh.tpmusicagrupo3.Model.POJO.Genre;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Playlist;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Track;
 import com.example.dh.tpmusicagrupo3.R;
+import com.example.dh.tpmusicagrupo3.View.Activities.MainActivity;
 import com.example.dh.tpmusicagrupo3.View.Adapters.AdapterArtistaPortada;
 import com.example.dh.tpmusicagrupo3.View.Adapters.AdapterCancionArtistaPortada;
 import com.example.dh.tpmusicagrupo3.View.Adapters.AdapterGeneroItem;
@@ -62,6 +63,7 @@ public class ExplorarFragment extends Fragment implements AdapterArtistaPortada.
     private ProgressBar progressBar;
 
     private NotificarClickeado notificarClickeado;
+    private String sectionString = "Explorar";
 
     public ExplorarFragment() {
         // Required empty public constructor
@@ -80,6 +82,7 @@ public class ExplorarFragment extends Fragment implements AdapterArtistaPortada.
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_explorar, container, false);
 
+        ((MainActivity)getActivity()).getSupportActionBar().setTitle(sectionString);
         progressBar = view.findViewById(R.id.explorarProgressbar);
 
         // Recycler View  Playlist Destacadas

@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.dh.tpmusicagrupo3.R;
+import com.example.dh.tpmusicagrupo3.View.Activities.MainActivity;
 
 
 /**
@@ -15,6 +16,8 @@ import com.example.dh.tpmusicagrupo3.R;
  */
 public class BuscarFragment extends Fragment {
 
+
+    private String sectionString = "Buscar";
 
     public BuscarFragment() {
         // Required empty public constructor
@@ -25,7 +28,10 @@ public class BuscarFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_buscar, container, false);
+        View view = inflater.inflate(R.layout.fragment_buscar, container, false);
+
+        ((MainActivity)getActivity()).getSupportActionBar().setTitle(sectionString);
+        return view;
     }
 
 }
