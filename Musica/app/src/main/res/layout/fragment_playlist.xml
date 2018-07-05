@@ -33,7 +33,7 @@
                     android:layout_height="300dp"
                     android:alpha="0.4"
                     tools:src="@drawable/playlisttest"
-                    android:scaleType="fitXY"/>
+                    android:scaleType="centerCrop"/>
 
                 <!-- Titulo -->
                 <TextView
