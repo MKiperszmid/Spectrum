@@ -68,7 +68,9 @@ public class GenreFragment extends Fragment implements AdapterArtistaCanciones.N
         reproducirBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                notificarCancion(tracks.get(0));
+                if(tracks != null && tracks.size() > 0) {
+                    notificarCancion(tracks.get(0));
+                }
             }
         });
 
