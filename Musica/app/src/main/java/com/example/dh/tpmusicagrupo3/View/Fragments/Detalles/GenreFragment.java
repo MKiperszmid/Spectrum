@@ -102,7 +102,7 @@ public class GenreFragment extends Fragment implements AdapterArtistaCanciones.N
                     rvCancionesPopularesGenero.setAdapter(adapterArtistaCanciones);
                     rvCancionesPopularesGenero.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
                 }
-            }, currentGenre.getId().intValue());
+            }, currentGenre.getId());
     }
 
     @Override

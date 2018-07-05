@@ -1,10 +1,15 @@
 package com.example.dh.tpmusicagrupo3.View.Activities;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.example.dh.tpmusicagrupo3.Controller.MediaPlayerService;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Artist;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Track;
 import com.example.dh.tpmusicagrupo3.R;
@@ -23,6 +28,16 @@ public class SongActivity extends AppCompatActivity implements SongFragment.Noti
     public static Integer index;
     private ViewPager pager;
     private List<Track> tracks;
+
+    private BroadcastReceiver receiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Boolean songChange = intent.getExtras().getBoolean(MediaPlayerService.IS_FINISHED, false);
+            if(songChange){
+                adelantar();
+            }
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,5 +135,24 @@ public class SongActivity extends AppCompatActivity implements SongFragment.Noti
         bundle.putSerializable(MainActivity.ArtistaKey, artist);
         intent.putExtras(bundle);
         startActivity(intent);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        //TODO: Preguntar a Nico como arreglar bug:
+
+        //Escucho cancion en songfragment. Pasa cancion
+        //Escucho en home fragment, pasa cancion
+        //Escucho en songfragment denuevo, crashea.
+
+        LocalBroadcastManager.getInstance(this).registerReceiver(receiver, new IntentFilter(MediaPlayerService.CHANGESONG));
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        //LocalBroadcastManager.getInstance(this).unregisterReceiver(receiver);
     }
 }

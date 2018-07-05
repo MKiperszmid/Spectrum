@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "950226988046",
+    "firebase_url": "https://spectrum-24e10.firebaseio.com",
+    "project_id": "spectrum-24e10",
+    "storage_bucket": "spectrum-24e10.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:950226988046:android:2e5cdb4e285342fb",
+        "android_client_info": {
+          "package_name": "com.example.dh.tpmusicagrupo3"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "950226988046-qbvnm7en5uq9ldtpk7630q2m85atk0sb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.dh.tpmusicagrupo3",
+            "certificate_hash": "9409b8ec0195a9a01659f1d552ee7f4ef6bd4d4d"
+          }
+        },
+        {
+          "client_id": "950226988046-itapeut8mbci25leo6k3ajjqolqm3jd5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB_-5bl_9vLS7k-UkYJtjzwA-wVKCt5a8A"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "950226988046-itapeut8mbci25leo6k3ajjqolqm3jd5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

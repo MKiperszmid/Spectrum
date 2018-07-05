@@ -47,8 +47,19 @@ public class PlaybarbottomFragment extends Fragment {
         public void onReceive(Context context, Intent intent) {
             Boolean playing = intent.getExtras().getBoolean(MediaPlayerService.IS_PLAYING, false);
             changeImage(playing);
+            changeSong();
         }
     };
+
+    /*private BroadcastReceiver songReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Boolean songChange = intent.getExtras().getBoolean(MediaPlayerService.IS_FINISHED, false);
+            if(songChange){
+                changeSong();
+            }
+        }
+    };*/
 
     public PlaybarbottomFragment() {
         // Required empty public constructor
@@ -115,6 +126,13 @@ public class PlaybarbottomFragment extends Fragment {
         });
 
         return view;
+    }
+
+    private void changeSong(){
+        cancionPlaying.setText(cancion.getTitle_short());
+        artistaPlaying.setText(cancion.getArtist().getName());
+        cancion = trackList.get(posicion);
+        posicion ++;
     }
 
     public void changeImage(Boolean playing){

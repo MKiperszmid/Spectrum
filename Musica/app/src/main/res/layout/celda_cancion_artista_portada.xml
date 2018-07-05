@@ -24,7 +24,8 @@
         android:textColor="@color/colorWhite"
         android:textSize="@dimen/maxSizeSongName"
         android:textStyle="bold"
-        tools:text="Cancion" />
+        tools:text="Cancion"
+        android:maxLength="25"/>
 
     <TextView
         android:id="@+id/celdaArtistaID"

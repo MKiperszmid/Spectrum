@@ -46,6 +46,9 @@ public class MediaPlayerService extends Service {
     public static final String PLAY_TRACK = "playtrack";
     public static final String IS_PLAYING = "isplaying";
     public static final String CHANGEIMAGE = "changeImage";
+    public static final String CHANGESONG = "changeSong";
+    public static final String IS_FINISHED = "isFinished";
+
     public MediaPlayerService() {
 
     }
@@ -135,6 +138,7 @@ public class MediaPlayerService extends Service {
                 @Override
                 public void onCompletion(MediaPlayer mp) {
                     changeImage(false);
+                    changeSong(true);
                 }
             });
             //showNotification();
@@ -156,6 +160,14 @@ public class MediaPlayerService extends Service {
         Intent intent = new Intent(CHANGEIMAGE);
         Bundle bundle = new Bundle();
         bundle.putBoolean(IS_PLAYING, playing);
+        intent.putExtras(bundle);
+        LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
+    }
+
+    public void changeSong(Boolean finish){
+        Intent intent = new Intent(CHANGESONG);
+        Bundle bundle = new Bundle();
+        bundle.putBoolean(IS_FINISHED, finish);
         intent.putExtras(bundle);
         LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
     }
