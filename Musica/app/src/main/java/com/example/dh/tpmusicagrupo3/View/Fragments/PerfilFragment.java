@@ -188,6 +188,7 @@ public class PerfilFragment extends Fragment implements AdapterCancionArtistaPor
         if(loggedIn){
             layoutCreateAccount.setVisibility(View.GONE);
             layoutProfile.setVisibility(View.VISIBLE);
+            loggedInContent(getView());
         }
         else {
             layoutCreateAccount.setVisibility(View.VISIBLE);
