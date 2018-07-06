@@ -12,15 +12,17 @@
         android:adjustViewBounds="true"
         android:maxWidth="200dp"
         android:id="@+id/caa_iv_artwork"/>
+
     <TextView
+        android:id="@+id/caa_tv_albumName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/caa_iv_artwork"
-        tools:text="Album Numero Uno"
+        android:layout_gravity="center"
         android:layout_margin="5dp"
+        android:fontFamily="@font/montserrat"
+        android:maxLength="24"
         android:textColor="@color/colorWhite"
         android:textSize="14sp"
-        android:layout_gravity="center"
-        android:maxLength="24"
-        android:id="@+id/caa_tv_albumName"/>
+        tools:text="Album Numero Uno" />
 </LinearLayout>

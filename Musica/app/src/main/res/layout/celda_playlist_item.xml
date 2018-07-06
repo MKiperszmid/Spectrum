@@ -31,12 +31,14 @@
             android:textSize="10sp"
             android:id="@+id/celdaplaylistCanciones"/>
     </RelativeLayout>
+
     <TextView
+        android:id="@+id/celdaplaylistNombre"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="Exitos Argentina"
         android:layout_gravity="center"
         android:layout_marginTop="5dp"
+        android:fontFamily="@font/montserrat"
         android:textColor="@color/colorWhite"
-        android:id="@+id/celdaplaylistNombre"/>
+        tools:text="Exitos Argentina" />
 </LinearLayout>

@@ -34,13 +34,14 @@
                     android:id="@+id/nombre_tv_generofragment"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Nombre Genero"
-                    android:textStyle="bold"
-                    android:textSize="18sp"
-                    android:gravity="center"
-                    android:textColor="@color/colorWhite"
+                    android:layout_alignParentBottom="true"
                     android:layout_marginBottom="50dp"
-                    android:layout_alignParentBottom="true"/>
+                    android:fontFamily="@font/montserrat"
+                    android:gravity="center"
+                    android:text="Nombre Genero"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
             </RelativeLayout>
 
@@ -49,16 +50,17 @@
                 android:id="@+id/reproducirBtn_tv_genrefragment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_above="@+id/rl_genrefragment"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/round_borders_artista_reproducirbtn"
+                android:fontFamily="@font/montserrat"
+                android:paddingBottom="10dp"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:paddingTop="10dp"
                 android:text="REPRODUCIR"
                 android:textColor="@color/colorBlack"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
-                android:paddingRight="15dp"
-                android:paddingLeft="15dp"
-                android:textSize="18sp"
-                android:layout_centerHorizontal="true"
-                android:layout_above="@+id/rl_genrefragment"
-                android:background="@drawable/round_borders_artista_reproducirbtn"/>
+                android:textSize="18sp" />
 
             <!-- Contenedor lista de canciones -->
             <RelativeLayout
@@ -74,11 +76,12 @@
                     android:id="@+id/cancionespopulares_tv_genrefragment"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_margin="10dp"
+                    android:fontFamily="@font/montserrat"
                     android:text="Canciones Populares"
                     android:textColor="@color/colorWhite"
-                    android:layout_margin="10dp"
-                    android:textSize="18sp"
-                    android:layout_centerHorizontal="true"/>
+                    android:textSize="18sp" />
 
 
                 <!-- RecyclerView lista canciones -->
