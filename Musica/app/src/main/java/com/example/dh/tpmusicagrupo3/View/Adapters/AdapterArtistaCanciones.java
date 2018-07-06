@@ -75,7 +75,7 @@ public class AdapterArtistaCanciones extends RecyclerView.Adapter {
         }
 
         public void bindTrack(Track track){
-            GlideController.loadImageFade(itemView, track.getAlbum().getCover_big(), ivArtwork);
+            GlideController.loadImageFade(itemView, track.getAlbum().getCover_medium(), ivArtwork);
             tvSongName.setText(track.getTitle_short());
             tvArtistName.setText(track.getArtist().getName());
         }

@@ -14,17 +14,27 @@ public class Album implements Serializable {
     private Integer id;
     private String title;
     private String cover_big;
+    private String cover_medium;
     private String tracklist;
     private Artist artist;
     private TrackContainer tracks;
 
-    public Album(Integer id, String title, String cover_big, String tracklist, Artist artist, TrackContainer tracks) {
+    public Album(Integer id, String title, String cover_big, String tracklist, Artist artist, TrackContainer tracks, String cover_medium) {
         this.id = id;
         this.title = title;
         this.cover_big = cover_big;
         this.tracklist = tracklist;
         this.artist = artist;
         this.tracks = tracks;
+        this.cover_medium = cover_medium;
+    }
+
+    public String getCover_medium() {
+        return cover_medium;
+    }
+
+    public void setCover_medium(String cover_small) {
+        this.cover_medium = cover_small;
     }
 
     public Integer getId() {
