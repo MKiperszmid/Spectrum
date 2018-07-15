@@ -13,7 +13,122 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <!-- Formulario de Ingreso/Registro -->
+        <LinearLayout
+            android:id="@+id/fp_ll_createAccount"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="visible"
+            android:orientation="vertical"
+            android:background="@drawable/rectroundborders"
+            android:layout_margin="40dp">
+
+            <!-- Botones de solapas -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <Button
+                    android:id="@+id/solapa_iniciarsesion_btn"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:text="Inicia Sesión"
+                    android:textSize="15sp"
+                    android:fontFamily="@font/montserrat"
+                    android:background="@color/colorPrimary"
+                    android:textColor="@color/colorAccent"/>
+                <Button
+                    android:id="@+id/solapa_crearcuenta_btn"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:text="Crear Cuenta"
+                    android:textSize="15sp"
+                    android:fontFamily="@font/montserrat"
+                    android:background="@color/colorPrimaryDark"
+                    android:textColor="@color/colorGraySemiWhite"/>
+            </LinearLayout>
+
+
+            <!-- Contenido de formularios -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp"
+                android:background="@drawable/rectroundborders">
+
+                <!-- Input de email -->
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/fp_til_emailContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="30dp"
+                    android:textColorHint="@color/colorAccent">
+                    <android.support.design.widget.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorAccent"
+                        android:inputType="textEmailAddress"
+                        android:singleLine="true"
+                        android:fontFamily="@font/roboto"
+                        android:id="@+id/fp_tiet_email"
+                        android:hint="Email"/>
+                </android.support.design.widget.TextInputLayout>
+
+                <!-- Input de contraseña -->
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColorHint="@color/colorAccent"
+                    android:id="@+id/fp_til_passContainer">
+                    <android.support.design.widget.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:singleLine="true"
+                        android:textColor="@color/colorAccent"
+                        android:id="@+id/fp_tiet_pass"
+                        android:fontFamily="@font/roboto"
+                        android:inputType="textPassword"
+                        android:hint="Contraseña"/>
+                </android.support.design.widget.TextInputLayout>
+
+                <!-- Boton de ingresar -->
+                <Button
+                    android:id="@+id/fp_btn_signinAccount"
+                    android:layout_width="200dp"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:layout_height="60dp"
+                    android:text="Ingresar"
+                    android:textSize="17sp"
+                    android:layout_margin="25dp"
+                    android:fontFamily="@font/montserrat"
+                    android:background="@drawable/round_borders_artista_reproducirbtn"/>
+
+                <!-- Boton de Registrarse -->
+                <Button
+                    android:id="@+id/fp_btn_createAccount"
+                    android:layout_width="200dp"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:layout_height="60dp"
+                    android:text="Registrarse"
+                    android:textSize="17sp"
+                    android:layout_margin="25dp"
+                    android:fontFamily="@font/montserrat"
+                    android:visibility="gone"
+                    android:background="@drawable/round_borders_artista_reproducirbtn"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
         <!-- No Logeado-->
+        <!--
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -94,7 +209,8 @@
                     android:paddingTop="10dp"
                     android:paddingBottom="10dp"/>
             </LinearLayout>
-
+                </LinearLayout>
+  -->
             <!-- Comentado hasta arreglar el problema
     <com.facebook.login.widget.LoginButton
         android:id="@+id/login_button"
@@ -105,7 +221,7 @@
         android:layout_marginBottom="30dp" />
     -->
 
-        </LinearLayout>
+
 
         <!-- Logeado -->
         <LinearLayout

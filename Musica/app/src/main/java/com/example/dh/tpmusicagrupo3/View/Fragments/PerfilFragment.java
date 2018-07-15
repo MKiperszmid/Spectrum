@@ -1,8 +1,10 @@
 package com.example.dh.tpmusicagrupo3.View.Fragments;
 
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputEditText;
@@ -14,6 +16,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -233,6 +236,10 @@ public class PerfilFragment extends Fragment implements AdapterCancionArtistaPor
     }
 
     private void loggedOutContent(View view){
+
+
+
+
         final TextInputEditText etPass;
 
         final TextInputEditText etEmail = view.findViewById(R.id.fp_tiet_email);
@@ -240,10 +247,12 @@ public class PerfilFragment extends Fragment implements AdapterCancionArtistaPor
         etPass = view.findViewById(R.id.fp_tiet_pass);
         passContainer = view.findViewById(R.id.fp_til_passContainer);
 
-        TextView createAccount = view.findViewById(R.id.fp_tv_createAccount);
-        TextView signinAccount = view.findViewById(R.id.fp_tv_signinAccount);
+        final Button createAccount = view.findViewById(R.id.fp_btn_createAccount);
+        final Button signinAccount = view.findViewById(R.id.fp_btn_signinAccount);
+
 
         loadFacebook(view);
+
 
         createAccount.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -257,6 +266,7 @@ public class PerfilFragment extends Fragment implements AdapterCancionArtistaPor
             }
         });
 
+
         signinAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -268,6 +278,35 @@ public class PerfilFragment extends Fragment implements AdapterCancionArtistaPor
                 signinAccount(email, pass);
             }
         });
+
+
+        final Button solapa_iniciarsesion_btn = view.findViewById(R.id.solapa_iniciarsesion_btn);
+        final Button solapa_crearcuenta_btn = view.findViewById(R.id.solapa_crearcuenta_btn);
+
+        solapa_iniciarsesion_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                signinAccount.setVisibility(View.VISIBLE);
+                createAccount.setVisibility(View.GONE);
+                solapa_iniciarsesion_btn.setBackgroundResource(R.color.colorPrimary);
+                solapa_iniciarsesion_btn.setTextColor(Color.parseColor("#0bffae"));
+                solapa_crearcuenta_btn.setBackgroundResource(R.color.colorPrimaryDark);
+                solapa_crearcuenta_btn.setTextColor(Color.parseColor("#a2a3a9"));
+            }
+        });
+
+        solapa_crearcuenta_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                signinAccount.setVisibility(View.GONE);
+                createAccount.setVisibility(View.VISIBLE);
+                solapa_iniciarsesion_btn.setBackgroundResource(R.color.colorPrimaryDark);
+                solapa_iniciarsesion_btn.setTextColor(Color.parseColor("#a2a3a9"));
+                solapa_crearcuenta_btn.setBackgroundResource(R.color.colorPrimary);
+                solapa_crearcuenta_btn.setTextColor(Color.parseColor("#0bffae"));
+            }
+        });
+
     }
 
     private Boolean validLogin(String email, String pass){
