@@ -157,7 +157,7 @@ public class PerfilFragment extends Fragment implements AdapterCancionArtistaPor
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w("CREATEACCOUNT", "createUserWithEmail:failure", task.getException());
-                            Toast.makeText(getContext(), "Authentication failed.",
+                            Toast.makeText(getContext(), "No se ha podido registrar, pruebe con otros datos.",
                                     Toast.LENGTH_SHORT).show();
                         }
 
@@ -178,7 +178,7 @@ public class PerfilFragment extends Fragment implements AdapterCancionArtistaPor
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w("SIGNINACCOUNT", "signInWithEmail:failure", task.getException());
-                            Toast.makeText(getContext(), "Authentication failed.",
+                            Toast.makeText(getContext(), "No se ha podido ingresar a su cuenta, compruebe sus datos.",
                                     Toast.LENGTH_SHORT).show();
                         }
 
@@ -314,6 +314,14 @@ public class PerfilFragment extends Fragment implements AdapterCancionArtistaPor
         passContainer.setError(null);
         if(!email.contains("@")){
             emailContainer.setError("Email necesita un @");
+            return false;
+        }
+        if(email == null || email.matches("")){
+            emailContainer.setError("Debes completas este campo");
+            return false;
+        }
+        if(pass == null || pass.matches("") ){
+            passContainer.setError("Debes completas este campo");
             return false;
         }
         return true;
