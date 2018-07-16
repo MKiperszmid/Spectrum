@@ -12,6 +12,7 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.dh.tpmusicagrupo3.Model.POJO.Track;
 import com.example.dh.tpmusicagrupo3.R;
@@ -146,6 +147,9 @@ public class MediaPlayerService extends Service {
         }
         catch (IOException e){
             e.printStackTrace();
+        }
+        catch (Exception e){
+            //
         }
     }
 

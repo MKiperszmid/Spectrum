@@ -129,9 +129,9 @@ public class PlaybarbottomFragment extends Fragment {
     }
 
     private void changeSong(){
+        cancion = trackList.get(posicion);
         cancionPlaying.setText(cancion.getTitle_short());
         artistaPlaying.setText(cancion.getArtist().getName());
-        cancion = trackList.get(posicion);
         posicion ++;
     }
 
