@@ -5,12 +5,15 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.SearchView;
+import android.widget.Toast;
 
 import com.example.dh.tpmusicagrupo3.Controller.MusicController;
 import com.example.dh.tpmusicagrupo3.Controller.TrackListener;
@@ -54,25 +57,52 @@ public class BuscarFragment extends Fragment {
         // Buscador EditText
         searchET = view.findViewById(R.id.searchET_buscarFragment);
 
+        searchET.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (s != null || s.equals("")){
+                    LoadResults(s.toString().toLowerCase());
+                }
+
+            }
+        });
+
+
+
         // RecyclerView con resultados
         rvSearch = view.findViewById(R.id.rvSearch_buscarFragment);
         rvSearch.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
 
-        LoadResults();
+        //LoadResults();
 
         return view;
     }
 
-    private void LoadResults() {
+
+    private void LoadResults(String s) {
         MusicController musicController = new MusicController();
         musicController.getSearchTracks(new TrackListener<TrackContainer>() {
             @Override
             public void finish(TrackContainer track) {
-                tracks = track.getData();
-                setAdapter(tracks, rvSearch);
+                if(track != null){
+                    tracks = track.getData();
+                    setAdapter(tracks, rvSearch);
+                }
             }
-        });
+        }, s);
     }
+
+
 
     private void setAdapter(List<Track> tracks, RecyclerView recyclerView) {
         adapterSearchCancionResult =  new AdapterSearchCancionResult(tracks);
