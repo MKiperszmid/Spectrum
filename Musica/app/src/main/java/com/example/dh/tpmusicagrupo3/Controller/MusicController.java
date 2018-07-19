@@ -206,6 +206,17 @@ public class MusicController {
 
     public Boolean getHayPaginasUsa(){ return hayPaginasUsa; }
 
+    // Buscar cancion
+    public void getSearchTracks(final TrackListener<TrackContainer> listener){
+        connector.getSearchTracks(new TrackListener<TrackContainer>() {
+            @Override
+            public void finish(TrackContainer track) {
+                listener.finish(validateTracks(track));
+            }
+        });
+    }
+
+
     private TrackContainer validateTracks(TrackContainer trackContainer){
         if(trackContainer == null)
             return trackContainer;

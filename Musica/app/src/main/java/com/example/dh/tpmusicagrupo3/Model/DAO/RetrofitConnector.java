@@ -225,6 +225,23 @@ public class RetrofitConnector {
     }
 
 
+    // Buscar cancion
+    public void getSearchTracks(final TrackListener<TrackContainer> listener){
+        Call<TrackContainer> trackContainerCall = service.getSearchTracks("bote");
+        trackContainerCall.enqueue(new Callback<TrackContainer>() {
+            @Override
+            public void onResponse(Call<TrackContainer> call, Response<TrackContainer> response) {
+                listener.finish(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<TrackContainer> call, Throwable t) {
+                listener.finish(null);
+            }
+        });
+    }
+
+
 
 
 }

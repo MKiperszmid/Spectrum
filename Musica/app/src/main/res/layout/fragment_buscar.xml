@@ -1,16 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".View.Fragments.BuscarFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".View.Fragments.BuscarFragment"
+    android:background="@color/colorPrimaryDark"
+    android:orientation="vertical">
 
-    <TextView
+    <EditText
+        android:id="@+id/searchET_buscarFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Buscar"
-        android:textColor="@color/colorAccent"
-        android:textSize="30dp"
-        android:textAlignment="center"/>
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorWhite"
+        android:textColorHint="@color/colorGray"
+        android:textAlignment="center"
+        android:hint="Buscar Artistas, Canciones, Playlists"/>
 
-</FrameLayout>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvSearch_buscarFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+</LinearLayout>
