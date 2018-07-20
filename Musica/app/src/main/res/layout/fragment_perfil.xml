@@ -251,7 +251,7 @@
                     <ImageView
                         android:id="@+id/fp_iv_profileImage"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="200dp"
                         android:alpha="0.2"
                         android:foregroundGravity="center"
                         android:scaleType="centerCrop"
@@ -264,7 +264,8 @@
                         android:layout_centerHorizontal="true"
                         android:layout_gravity="center"
                         android:layout_margin="20dp"
-                        android:src="@drawable/drake" />
+                        android:src="@drawable/defaultuser"
+                        android:scaleType="centerCrop"/>
 
                     <TextView
                         android:id="@+id/fp_tv_profileName"
@@ -272,7 +273,7 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@id/fp_civ_profileImage"
                         android:gravity="center"
-                        android:text="Drake"
+                        android:text="Usuario"
                         android:textColor="@color/colorWhite"
                         android:textSize="20sp" />
                 </RelativeLayout>

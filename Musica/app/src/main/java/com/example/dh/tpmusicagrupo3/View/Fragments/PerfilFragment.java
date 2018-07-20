@@ -140,7 +140,7 @@ public class PerfilFragment extends Fragment implements AdapterCancionArtistaPor
             @Override
             public void onSuccess(LoginResult loginResult) {
                 handleFacebookAccessToken(loginResult.getAccessToken());
-                Toast.makeText(getContext(), "SUCCESS", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getContext(), "SUCCESS", Toast.LENGTH_SHORT).show();
                 // App code
             }
 
@@ -226,11 +226,20 @@ public class PerfilFragment extends Fragment implements AdapterCancionArtistaPor
         progressBar.setIndeterminate(true);
         progressBar.setVisibility(View.VISIBLE);
 
+
+
+
         if(Profile.getCurrentProfile() != null){
             Uri photoUri = Profile.getCurrentProfile().getProfilePictureUri(200,200);
+            Uri coverUri = Profile.getCurrentProfile().getProfilePictureUri(450, 300);
             Picasso.get().load(photoUri).into(imageFg);
+            Picasso.get().load(coverUri).into(imageBg);
 
             name.setText(Profile.getCurrentProfile().getFirstName());
+        }else{
+            name.setText(user.getEmail());
+            imageBg.setImageResource(R.drawable.drake);
+            imageFg.setImageResource(R.drawable.defaultuser);
         }
 
 
