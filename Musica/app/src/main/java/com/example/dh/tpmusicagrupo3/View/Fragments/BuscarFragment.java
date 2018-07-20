@@ -1,6 +1,7 @@
 package com.example.dh.tpmusicagrupo3.View.Fragments;
 
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -22,17 +23,20 @@ import com.example.dh.tpmusicagrupo3.Model.POJO.Playlist;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Track;
 import com.example.dh.tpmusicagrupo3.R;
 import com.example.dh.tpmusicagrupo3.View.Activities.MainActivity;
+import com.example.dh.tpmusicagrupo3.View.Activities.SongActivity;
 import com.example.dh.tpmusicagrupo3.View.Adapters.AdapterSearchCancionResult;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class BuscarFragment extends Fragment {
+public class BuscarFragment extends Fragment implements AdapterSearchCancionResult.NotificadorSearchCancionResult {
 
 
+    private HomeFragment.NotificadorActivity notificadorActivity;
     private String sectionString = "Buscar";
     private EditText searchET;
     private RecyclerView rvSearch;
@@ -40,6 +44,7 @@ public class BuscarFragment extends Fragment {
     private static List<Track> tracks;
 
     private AdapterSearchCancionResult adapterSearchCancionResult;
+
 
     public BuscarFragment() {
         // Required empty public constructor
@@ -105,10 +110,32 @@ public class BuscarFragment extends Fragment {
 
 
     private void setAdapter(List<Track> tracks, RecyclerView recyclerView) {
-        adapterSearchCancionResult =  new AdapterSearchCancionResult(tracks);
+        adapterSearchCancionResult =  new AdapterSearchCancionResult(tracks, this);
         recyclerView.setAdapter(adapterSearchCancionResult);
     }
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        this.notificadorActivity = (HomeFragment.NotificadorActivity) context;
+    }
 
+    @Override
+    public void notificar(Track track, List<Track> myTracks) {
+        //cancionActual = cancionClickeada;
+        //SongActivity.index = cancionClickeada.getId();
+
+        ArrayList<Track> newTracks = new ArrayList<>();
+        newTracks.addAll(myTracks);
+        notificadorActivity.recibirCancion(track, newTracks);
+    }
+
+    public interface NotificadorActivity{
+        // Metodos que implementa MainActivity de HomeFragment
+        void recibirCancion(Track cancion, ArrayList<Track> tracks);
+        Track getCurrentPlaying();
+        Boolean isPlaying();
+        void playSong();
+    }
 
 }

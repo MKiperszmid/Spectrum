@@ -17,9 +17,11 @@ import java.util.List;
 public class AdapterSearchCancionResult extends RecyclerView.Adapter{
 
     private List<Track> tracks;
+    private NotificadorSearchCancionResult notificadorSearchCancionResult;
 
-    public AdapterSearchCancionResult(List<Track> tracks) {
+    public AdapterSearchCancionResult(List<Track> tracks, NotificadorSearchCancionResult notificadorSearchCancionResult) {
         this.tracks = tracks;
+        this.notificadorSearchCancionResult = notificadorSearchCancionResult;
     }
 
     @NonNull
@@ -59,6 +61,14 @@ public class AdapterSearchCancionResult extends RecyclerView.Adapter{
             image = itemView.findViewById(R.id.celdaImagenCancionBusqueda);
             title = itemView.findViewById(R.id.celdaTituloCancionBusqueda);
             artist = itemView.findViewById(R.id.celdaArtistaCancionBusqueda);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    notificadorSearchCancionResult.notificar(tracks.get(getAdapterPosition()), tracks);
+                }
+            });
+
         }
 
         public void bindTrack(Track track) {
@@ -66,6 +76,11 @@ public class AdapterSearchCancionResult extends RecyclerView.Adapter{
             artist.setText(track.getArtist().getName());
             GlideController.loadImageFade(itemView, track.getAlbum().getCover_medium(), image);
         }
+    }
+
+
+    public interface NotificadorSearchCancionResult{
+        void notificar(Track track, List<Track> tracks);
     }
 
 }
