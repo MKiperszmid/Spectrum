@@ -21,6 +21,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <receiver android:name=".Controller.NotificationReceiver"/>
         <activity android:name=".View.Activities.SongActivity" />
 
         <meta-data android:name="com.facebook.sdk.ApplicationId"

@@ -45,11 +45,13 @@ public class MediaPlayerService extends Service {
     private NotificationManagerCompat notificationManagerCompat;
     private List<Track> currentTracks;
     private MediaSessionCompat mediaSessionCompat;
+    private static MediaPlayerService mediaPlayerService;
 
     private final IBinder iBinder = new MyBinder();
 
     public class MyBinder extends Binder {
         public MediaPlayerService getService() {
+            mediaPlayerService = MediaPlayerService.this;
             return MediaPlayerService.this;
         }
     }
@@ -63,6 +65,13 @@ public class MediaPlayerService extends Service {
 
     public MediaPlayerService() {
 
+    }
+
+    public static MediaPlayerService getInstance(){
+        if(mediaPlayerService == null){
+            mediaPlayerService = new MediaPlayerService();
+        }
+        return mediaPlayerService;
     }
 
     @Override
@@ -79,8 +88,15 @@ public class MediaPlayerService extends Service {
 
     public void sendNotification(final Boolean onGoing) {
         if (currentPlaying == null) return;
-        Intent intent = new Intent(this, MainActivity.class);
+
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         final PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
+
+
+        Intent playIntent = new Intent(getApplicationContext(), NotificationReceiver.class);
+        playIntent.putExtra(NotificationReceiver.ACTION_KEY, NotificationReceiver.PLAY_ACTION);
+        final PendingIntent playPending = PendingIntent.getBroadcast(getApplicationContext(), 0, playIntent,PendingIntent.FLAG_UPDATE_CURRENT);
+
         Glide.with(this).asBitmap().load(currentPlaying.getAlbum().getCover_big()).into(new SimpleTarget<Bitmap>() {
             @Override
             public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
@@ -94,7 +110,7 @@ public class MediaPlayerService extends Service {
                         .setContentIntent(pendingIntent)
                         .setOngoing(onGoing)
                         .addAction(R.drawable.prevresize, "Previous", null)
-                        .addAction(R.drawable.playresize, "Play", null)
+                        .addAction(R.drawable.playresize, "Play", playPending)
                         .addAction(R.drawable.nextresize, "Next", null)
                         .setStyle(new android.support.v4.media.app.NotificationCompat.MediaStyle()
                                 .setShowActionsInCompactView(0, 1, 2)
