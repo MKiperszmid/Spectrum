@@ -51,15 +51,19 @@ public class AdapterSearchCancionResult extends RecyclerView.Adapter{
 
         private ImageView image;
         private TextView title;
+        private TextView artist;
+
 
         public SearchCancionResultViewHolder(View itemView) {
             super(itemView);
             image = itemView.findViewById(R.id.celdaImagenCancionBusqueda);
             title = itemView.findViewById(R.id.celdaTituloCancionBusqueda);
+            artist = itemView.findViewById(R.id.celdaArtistaCancionBusqueda);
         }
 
         public void bindTrack(Track track) {
             title.setText(track.getTitle_short());
+            artist.setText(track.getArtist().getName());
             GlideController.loadImageFade(itemView, track.getAlbum().getCover_medium(), image);
         }
     }
