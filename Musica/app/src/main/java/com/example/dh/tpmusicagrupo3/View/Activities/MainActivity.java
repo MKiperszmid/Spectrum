@@ -82,6 +82,7 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Noti
         }
 
         //LoadFragment(new PlaybarbottomFragment(), R.id.playBarBottom);
+        //printHash();
     }
 
     public void LoadFragment(Fragment fragment, int id){
@@ -206,4 +207,26 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Noti
             loadPlayBar(mediaPlayerService.getCurrentPlaying(), (ArrayList<Track>) mediaPlayerService.getCurrentTracks());
         }
     }
+
+
+    private void printHash() {
+        try {
+
+            PackageInfo info =
+                    getPackageManager().getPackageInfo(getApplicationContext().getPackageName(),
+                            PackageManager.GET_SIGNATURES);
+
+            for (Signature signature : info.signatures) {
+                MessageDigest md = MessageDigest.getInstance("SHA");
+                md.update(signature.toByteArray());
+                Log.v("MY KEY HASH:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 }

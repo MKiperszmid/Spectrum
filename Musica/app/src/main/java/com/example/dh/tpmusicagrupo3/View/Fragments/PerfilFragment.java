@@ -5,6 +5,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputEditText;
@@ -38,6 +39,7 @@ import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
+import com.facebook.Profile;
 import com.facebook.appevents.AppEventsLogger;
 import com.example.dh.tpmusicagrupo3.R;
 import com.facebook.login.LoginManager;
@@ -50,6 +52,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -215,6 +218,15 @@ public class PerfilFragment extends Fragment implements AdapterCancionArtistaPor
 
         progressBar.setIndeterminate(true);
         progressBar.setVisibility(View.VISIBLE);
+
+        if(Profile.getCurrentProfile() != null){
+            Uri photoUri = Profile.getCurrentProfile().getProfilePictureUri(200,200);
+            Picasso.get().load(photoUri).into(imageFg);
+
+            name.setText(Profile.getCurrentProfile().getFirstName());
+        }
+
+
 
         rvCanciones.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         rvPlaylists.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
