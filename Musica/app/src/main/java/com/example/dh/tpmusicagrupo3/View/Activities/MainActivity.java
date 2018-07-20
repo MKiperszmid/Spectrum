@@ -139,14 +139,21 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Noti
 
     public void startSong(Track cancion, ArrayList<Track> tracks){
         if(mediaPlayerService == null || !mediaPlayerService.getCurrentPlaying().equals(cancion)) {
-            Intent playerService = new Intent(this, MediaPlayerService.class);
+            Intent playerService = new Intent(getApplicationContext(), MediaPlayerService.class);
             Bundle bundleService = new Bundle();
             bundleService.putSerializable(MediaPlayerService.PLAY_TRACK, cancion);
             bundleService.putSerializable(MediaPlayerService.PLAY_TRACKS, tracks);
             playerService.putExtras(bundleService);
             startService(playerService);
-            bindService(playerService, serviceConnection, Context.BIND_AUTO_CREATE);
+            getApplicationContext().bindService(playerService, serviceConnection, Context.BIND_AUTO_CREATE);
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        getApplicationContext().unbindService(serviceConnection);
+        mediaPlayerService.closeNotification();
+        super.onDestroy();
     }
 
     @Override

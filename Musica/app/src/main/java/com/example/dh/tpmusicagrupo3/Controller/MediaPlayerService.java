@@ -1,8 +1,10 @@
 package com.example.dh.tpmusicagrupo3.Controller;
 
 import android.app.Notification;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -70,7 +72,13 @@ public class MediaPlayerService extends Service {
         mediaSessionCompat = new MediaSessionCompat(this, "tag");
     }
 
-    public void sendNotification(){
+    public void closeNotification(){
+        NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        manager.cancel(App.NOTIFICATION_ID.REPRODUCTOR_SERVICE);
+    }
+
+    public void sendNotification(final Boolean onGoing){
+        if(currentPlaying == null) return;
         Intent intent = new Intent(this, MainActivity.class);
         final PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
         Glide.with(this).asBitmap().load(currentPlaying.getAlbum().getCover_big()).into(new SimpleTarget<Bitmap>() {
@@ -84,17 +92,18 @@ public class MediaPlayerService extends Service {
                         .setPriority(NotificationCompat.PRIORITY_LOW)
                         .setCategory(NotificationCompat.CATEGORY_SERVICE)
                         .setContentIntent(pendingIntent)
-                        .setOngoing(true)
-                        //.addAction(R.drawable.clear_day, "Play", null)
+                        .setOngoing(onGoing)
+                        .addAction(R.drawable.prevresize, "Previous", null)
+                        .addAction(R.drawable.playresize, "Play", null)
+                        .addAction(R.drawable.nextresize, "Next", null)
                         .setStyle(new android.support.v4.media.app.NotificationCompat.MediaStyle()
-                        //.setShowActionsInCompactView(0)
+                        .setShowActionsInCompactView(0, 1, 2)
                         .setMediaSession(mediaSessionCompat.getSessionToken()))
                         .setColor(getResources().getColor(R.color.colorAccent))
                         .build();
                 notificationManagerCompat.notify(App.NOTIFICATION_ID.REPRODUCTOR_SERVICE, notification);
             }
         });
-
     }
 
     public void showNotification(){
@@ -163,8 +172,8 @@ public class MediaPlayerService extends Service {
                     changeSong(true);
                 }
             });
-            //showNotification();
-            sendNotification();
+
+            sendNotification(true);
         }
         catch (IOException e){
             e.printStackTrace();

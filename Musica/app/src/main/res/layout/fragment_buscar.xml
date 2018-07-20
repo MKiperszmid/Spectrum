@@ -26,6 +26,9 @@
             android:textColorHint="@color/colorGray"
             android:backgroundTint="@color/colorAccent"
             android:hint="Buscar"
+            android:maxLines="1"
+            android:imeOptions="actionSearch"
+            android:inputType="text"
             android:layout_marginHorizontal="10dp"/>
 
     </LinearLayout>
