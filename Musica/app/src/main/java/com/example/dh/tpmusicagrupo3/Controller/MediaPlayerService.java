@@ -4,16 +4,24 @@ import android.app.Notification;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Binder;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.media.MediaPlayer;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 import android.support.v4.content.LocalBroadcastManager;
+import android.support.v4.media.session.MediaSessionCompat;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Track;
 import com.example.dh.tpmusicagrupo3.R;
 import com.example.dh.tpmusicagrupo3.Utils.App;
@@ -34,6 +42,7 @@ public class MediaPlayerService extends Service {
     private Track currentPlaying;
     private NotificationManagerCompat notificationManagerCompat;
     private List<Track> currentTracks;
+    private MediaSessionCompat mediaSessionCompat;
 
     private final IBinder iBinder = new MyBinder();
 
@@ -58,22 +67,34 @@ public class MediaPlayerService extends Service {
     public void onCreate() {
         super.onCreate();
         notificationManagerCompat = NotificationManagerCompat.from(this);
+        mediaSessionCompat = new MediaSessionCompat(this, "tag");
     }
 
     public void sendNotification(){
         Intent intent = new Intent(this, MainActivity.class);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
-        Notification notification = new NotificationCompat.Builder(this, App.CHANNEL_ID)
-                .setSmallIcon(R.drawable.icon_spectrum)
-                .setContentTitle(currentPlaying.getTitle_short())
-                .setContentText(currentPlaying.getArtist().getName())
-                .setPriority(NotificationCompat.PRIORITY_LOW)
-                .setCategory(NotificationCompat.CATEGORY_SERVICE)
-                .setContentIntent(pendingIntent)
-                .setOngoing(true)
-                .setColor(getResources().getColor(R.color.colorAccent))
-                .build();
-        notificationManagerCompat.notify(App.NOTIFICATION_ID.REPRODUCTOR_SERVICE, notification);
+        final PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
+        Glide.with(this).asBitmap().load(currentPlaying.getAlbum().getCover_big()).into(new SimpleTarget<Bitmap>() {
+            @Override
+            public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                Notification notification = new NotificationCompat.Builder(getApplicationContext(), App.CHANNEL_ID)
+                        .setSmallIcon(R.drawable.icon_spectrum)
+                        .setLargeIcon(resource)
+                        .setContentTitle(currentPlaying.getTitle_short())
+                        .setContentText(currentPlaying.getArtist().getName())
+                        .setPriority(NotificationCompat.PRIORITY_LOW)
+                        .setCategory(NotificationCompat.CATEGORY_SERVICE)
+                        .setContentIntent(pendingIntent)
+                        .setOngoing(true)
+                        //.addAction(R.drawable.clear_day, "Play", null)
+                        .setStyle(new android.support.v4.media.app.NotificationCompat.MediaStyle()
+                        //.setShowActionsInCompactView(0)
+                        .setMediaSession(mediaSessionCompat.getSessionToken()))
+                        .setColor(getResources().getColor(R.color.colorAccent))
+                        .build();
+                notificationManagerCompat.notify(App.NOTIFICATION_ID.REPRODUCTOR_SERVICE, notification);
+            }
+        });
+
     }
 
     public void showNotification(){
