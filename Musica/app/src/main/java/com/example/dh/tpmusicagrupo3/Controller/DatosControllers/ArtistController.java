@@ -9,7 +9,7 @@ import com.example.dh.tpmusicagrupo3.View.Fragments.SongFragment;
 
 import java.util.List;
 
-public class ArtistController extends TypeController <Artist> {
+public class ArtistController extends TypeController<Artist> {
 
     public ArtistController(Artist data) {
         super(data);
@@ -17,6 +17,6 @@ public class ArtistController extends TypeController <Artist> {
 
     @Override
     public Fragment getFragment() {
-        return new ArtistFragment(); //TODO: Cambiar por ArtistFragment en un futuro.
+        return new ArtistFragment();
     }
 }

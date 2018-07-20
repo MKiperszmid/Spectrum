@@ -23,12 +23,12 @@ public class AdapterPlaylistItem extends RecyclerView.Adapter {
     private List<Playlist> playlists;
     private NotificadorPlaylistCelda notificadorPlaylistCelda;
 
-    public AdapterPlaylistItem(List<Playlist> playlists, NotificadorPlaylistCelda notificadorPlaylistCelda){
+    public AdapterPlaylistItem(List<Playlist> playlists, NotificadorPlaylistCelda notificadorPlaylistCelda) {
         this.playlists = playlists;
         this.notificadorPlaylistCelda = notificadorPlaylistCelda;
     }
 
-    public AdapterPlaylistItem(NotificadorPlaylistCelda notificadorPlaylistCelda){
+    public AdapterPlaylistItem(NotificadorPlaylistCelda notificadorPlaylistCelda) {
         this.playlists = new ArrayList<>();
         this.notificadorPlaylistCelda = notificadorPlaylistCelda;
     }
@@ -45,15 +45,15 @@ public class AdapterPlaylistItem extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         Playlist playlist = playlists.get(position);
-        PlaylistViewHolder playlistViewHolder = (PlaylistViewHolder)holder;
+        PlaylistViewHolder playlistViewHolder = (PlaylistViewHolder) holder;
         playlistViewHolder.bindPlaylist(playlist);
     }
 
     @Override
     public int getItemCount() {
-        if(playlists != null){
+        if (playlists != null) {
             return playlists.size();
-        }else{
+        } else {
             return 0;
         }
     }
@@ -84,7 +84,7 @@ public class AdapterPlaylistItem extends RecyclerView.Adapter {
         }
     }
 
-    public interface NotificadorPlaylistCelda{
+    public interface NotificadorPlaylistCelda {
         void notificarPlaylistClickeada(Playlist playlist);
     }
 }

@@ -4,7 +4,7 @@ import com.example.dh.tpmusicagrupo3.R;
 
 import java.io.Serializable;
 
-public class Genre implements Serializable{
+public class Genre implements Serializable {
     public static final int GRADIENT_DEFAULT = R.drawable.gradientamarillo;
     private Integer id;
     private String name;

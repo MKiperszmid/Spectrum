@@ -19,7 +19,7 @@ public class Chart implements Serializable {
     private ArtistContainer artists;
     private PlaylistContainer playlists;
 
-    public Chart(){
+    public Chart() {
         this.tracks = new TrackContainer();
         this.albums = new AlbumContainer();
         this.artists = new ArtistContainer();

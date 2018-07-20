@@ -62,8 +62,8 @@ import de.hdodenhof.circleimageview.CircleImageView;
  */
 public class PerfilFragment extends Fragment implements AdapterCancionArtistaPortada.NotificadorCancionCelda, AdapterPlaylistItem.NotificadorPlaylistCelda {
 
-  //  private CallbackManager callbackManager;
-  //  private LoginButton loginButton;
+    //  private CallbackManager callbackManager;
+    //  private LoginButton loginButton;
 
     private FirebaseAuth mAuth;
     private LinearLayout layoutCreateAccount;
@@ -83,6 +83,7 @@ public class PerfilFragment extends Fragment implements AdapterCancionArtistaPor
 
     private LoginButton loginButton;
     private CallbackManager callbackManager;
+    private TextView loginfacebookCustom;
 
     public PerfilFragment() {
         // Required empty public constructor
@@ -91,8 +92,8 @@ public class PerfilFragment extends Fragment implements AdapterCancionArtistaPor
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        this.notificarClickeado = (ExplorarFragment.NotificarClickeado)context;
-        this.notificadorActivity = (HomeFragment.NotificadorActivity)context;
+        this.notificarClickeado = (ExplorarFragment.NotificarClickeado) context;
+        this.notificadorActivity = (HomeFragment.NotificadorActivity) context;
     }
 
     @Override
@@ -100,7 +101,7 @@ public class PerfilFragment extends Fragment implements AdapterCancionArtistaPor
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-        ((MainActivity)getActivity()).getSupportActionBar().setTitle(sectionString);
+        ((MainActivity) getActivity()).getSupportActionBar().setTitle(sectionString);
         musicController = new MusicController();
         mAuth = FirebaseAuth.getInstance();
         View view = inflater.inflate(R.layout.fragment_perfil, container, false);
@@ -108,19 +109,26 @@ public class PerfilFragment extends Fragment implements AdapterCancionArtistaPor
         layoutCreateAccount = view.findViewById(R.id.fp_ll_createAccount);
         layoutProfile = view.findViewById(R.id.fp_ll_profileAccount);
 
-        if(mAuth.getCurrentUser() != null){
+        if (mAuth.getCurrentUser() != null) {
             loggedInContent(view);
-        }
-        else {
+        } else {
             loggedOutContent(view);
         }
 
         return view;
     }
 
-    private void loadFacebook(View view){
+    private void loadFacebook(View view) {
 
         callbackManager = CallbackManager.Factory.create();
+        loginfacebookCustom = view.findViewById(R.id.fp_tv_loginFacebookCustom);
+
+        loginfacebookCustom.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                loginButton.performClick();
+            }
+        });
 
         loginButton.setReadPermissions("email", "public_profile");
         loginButton.setFragment(this);
@@ -147,7 +155,7 @@ public class PerfilFragment extends Fragment implements AdapterCancionArtistaPor
         });
     }
 
-    private void createAccount(String email, String password){
+    private void createAccount(String email, String password) {
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
                     @Override
@@ -168,7 +176,7 @@ public class PerfilFragment extends Fragment implements AdapterCancionArtistaPor
                 });
     }
 
-    private void signinAccount(String email, String password){
+    private void signinAccount(String email, String password) {
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
                     @Override
@@ -189,19 +197,18 @@ public class PerfilFragment extends Fragment implements AdapterCancionArtistaPor
                 });
     }
 
-    private void showLoggedin(Boolean loggedIn){
-        if(loggedIn){
+    private void showLoggedin(Boolean loggedIn) {
+        if (loggedIn) {
             layoutCreateAccount.setVisibility(View.GONE);
             layoutProfile.setVisibility(View.VISIBLE);
             loggedInContent(getView());
-        }
-        else {
+        } else {
             layoutCreateAccount.setVisibility(View.VISIBLE);
             layoutProfile.setVisibility(View.GONE);
         }
     }
 
-    private void loggedInContent(View view){
+    private void loggedInContent(View view) {
         ImageView imageBg = view.findViewById(R.id.fp_iv_profileImage);
         CircleImageView imageFg = view.findViewById(R.id.fp_civ_profileImage);
         TextView name = view.findViewById(R.id.fp_tv_profileName);
@@ -225,11 +232,11 @@ public class PerfilFragment extends Fragment implements AdapterCancionArtistaPor
             @Override
             public void onClick(View v) {
                 FirebaseUser user = mAuth.getCurrentUser();
-                if(user != null) {
+                if (user != null) {
                     showLoggedin(false);
                     mAuth.signOut();
                     AccessToken accessToken = AccessToken.getCurrentAccessToken();
-                    if(accessToken != null && !accessToken.isExpired()) {
+                    if (accessToken != null && !accessToken.isExpired()) {
                         LoginManager.getInstance().logOut();
                     }
                 }
@@ -237,7 +244,7 @@ public class PerfilFragment extends Fragment implements AdapterCancionArtistaPor
         });
     }
 
-    private void loggedOutContent(View view){
+    private void loggedOutContent(View view) {
         final TextInputEditText etPass;
 
         loginButton = view.findViewById(R.id.login_button);
@@ -258,7 +265,7 @@ public class PerfilFragment extends Fragment implements AdapterCancionArtistaPor
             public void onClick(View v) {
                 String email = etEmail.getText().toString();
                 String pass = etPass.getText().toString();
-                if(!validLogin(email, pass)){
+                if (!validLogin(email, pass)) {
                     return;
                 }
                 createAccount(email, pass);
@@ -271,7 +278,7 @@ public class PerfilFragment extends Fragment implements AdapterCancionArtistaPor
             public void onClick(View v) {
                 String email = etEmail.getText().toString();
                 String pass = etPass.getText().toString();
-                if(!validLogin(email, pass)){
+                if (!validLogin(email, pass)) {
                     return;
                 }
                 signinAccount(email, pass);
@@ -308,35 +315,35 @@ public class PerfilFragment extends Fragment implements AdapterCancionArtistaPor
 
     }
 
-    private Boolean validLogin(String email, String pass){
+    private Boolean validLogin(String email, String pass) {
         emailContainer.setError(null);
         passContainer.setError(null);
-        if(!email.contains("@")){
+        if (!email.contains("@")) {
             emailContainer.setError("Email necesita un @");
             return false;
         }
-        if(email == null || email.matches("")){
+        if (email == null || email.matches("")) {
             emailContainer.setError("Debes completas este campo");
             return false;
         }
-        if(pass == null || pass.matches("") ){
+        if (pass == null || pass.matches("")) {
             passContainer.setError("Debes completas este campo");
             return false;
         }
         return true;
     }
 
-    private void loadDatabase(){
+    private void loadDatabase() {
         getPlaylistsDb();
         getCancionesDb();
     }
 
-    private void getPlaylistsDb(){
+    private void getPlaylistsDb() {
         final AdapterPlaylistItem.NotificadorPlaylistCelda notificadorPlaylistCelda = this;
         musicController.getPlaylistsChart(new TrackListener<PlaylistContainer>() {
             @Override
             public void finish(PlaylistContainer track) {
-                if(track != null){
+                if (track != null) {
                     AdapterPlaylistItem adapterPlaylistItem = new AdapterPlaylistItem(track.getData(), notificadorPlaylistCelda);
                     rvPlaylists.setAdapter(adapterPlaylistItem);
                     progressBar.setIndeterminate(false);
@@ -346,12 +353,12 @@ public class PerfilFragment extends Fragment implements AdapterCancionArtistaPor
         });
     }
 
-    private void getCancionesDb(){
+    private void getCancionesDb() {
         final AdapterCancionArtistaPortada.NotificadorCancionCelda notificadorCancionCelda = this;
         musicController.getTracksChart(new TrackListener<TrackContainer>() {
             @Override
             public void finish(TrackContainer track) {
-                if(track != null){
+                if (track != null) {
                     AdapterCancionArtistaPortada adapterCancionArtistaPortada = new AdapterCancionArtistaPortada(track.getData(), notificadorCancionCelda);
                     rvCanciones.setAdapter(adapterCancionArtistaPortada);
                     progressBar.setIndeterminate(false);
@@ -380,10 +387,9 @@ public class PerfilFragment extends Fragment implements AdapterCancionArtistaPor
     public void onStart() {
         super.onStart();
         FirebaseUser user = mAuth.getCurrentUser();
-        if(user != null) {
+        if (user != null) {
             showLoggedin(true);
-        }
-        else {
+        } else {
             showLoggedin(false);
         }
     }

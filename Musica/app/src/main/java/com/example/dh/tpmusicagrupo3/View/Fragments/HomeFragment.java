@@ -1,4 +1,5 @@
 package com.example.dh.tpmusicagrupo3.View.Fragments;
+
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -21,6 +22,7 @@ import com.example.dh.tpmusicagrupo3.R;
 import com.example.dh.tpmusicagrupo3.View.Activities.MainActivity;
 import com.example.dh.tpmusicagrupo3.View.Activities.SongActivity;
 import com.example.dh.tpmusicagrupo3.View.Adapters.AdapterCancionArtistaPortada;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,12 +52,12 @@ public class HomeFragment extends Fragment implements AdapterCancionArtistaPorta
     }
 
     @Override
-    public void onAttach(Context context){
+    public void onAttach(Context context) {
         super.onAttach(context);
         this.notificadorActivity = (NotificadorActivity) context;
     }
 
-    public static List<Track> getCancionesFragment(){
+    public static List<Track> getCancionesFragment() {
         return tracksFragment;
     }
 
@@ -67,7 +69,7 @@ public class HomeFragment extends Fragment implements AdapterCancionArtistaPorta
         tracks = newTracks;
     }*/
 
-    private void LoadCanciones(){
+    private void LoadCanciones() {
 
         // Controller de musica
         musicController = new MusicController();
@@ -79,7 +81,7 @@ public class HomeFragment extends Fragment implements AdapterCancionArtistaPorta
         musicController.getTracksChart(new TrackListener<TrackContainer>() {
             @Override
             public void finish(TrackContainer track) {
-                if(track != null){
+                if (track != null) {
                     tracks = track.getData();
                     setAdapter(tracks, rvPopular);
                     rlTop10.setVisibility(View.VISIBLE);
@@ -91,7 +93,7 @@ public class HomeFragment extends Fragment implements AdapterCancionArtistaPorta
         musicController.getTracksRadio(new TrackListener<TrackContainer>() {
             @Override
             public void finish(TrackContainer track) {
-                if(track != null){
+                if (track != null) {
                     tracks = track.getData();
                     setAdapter(tracks, rvAgregado);
                     rlRecentlyAdded.setVisibility(View.VISIBLE);
@@ -108,7 +110,7 @@ public class HomeFragment extends Fragment implements AdapterCancionArtistaPorta
         loadNewCancionesUsa(rvUsa);
     }
 
-    private void setAdapter(List<Track> tracks, RecyclerView recyclerView){
+    private void setAdapter(List<Track> tracks, RecyclerView recyclerView) {
         adapterCancionArtistaPortada = new AdapterCancionArtistaPortada(tracks, this);
         recyclerView.setAdapter(adapterCancionArtistaPortada);
         // TODO: Hacer aca el listener del scroll?
@@ -121,7 +123,7 @@ public class HomeFragment extends Fragment implements AdapterCancionArtistaPorta
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
 
-        ((MainActivity)getActivity()).getSupportActionBar().setTitle(sectionString);
+        ((MainActivity) getActivity()).getSupportActionBar().setTitle(sectionString);
 
         rlTop10 = view.findViewById(R.id.layoutTop10);
         rlRecentlyAdded = view.findViewById(R.id.layoutRecentlyAdded);
@@ -144,12 +146,12 @@ public class HomeFragment extends Fragment implements AdapterCancionArtistaPorta
         rvArgentina.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                if(!isLoading){
+                if (!isLoading) {
                     LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
                     int initPos = layoutManager.findLastVisibleItemPosition();
                     int finalPos = layoutManager.getItemCount();
 
-                    if(finalPos - initPos <= NUMERO_PARA_NUEVOS_RESULTADOS){
+                    if (finalPos - initPos <= NUMERO_PARA_NUEVOS_RESULTADOS) {
                         loadNewCancionesArg(rvArgentina);
                     }
                 }
@@ -159,12 +161,12 @@ public class HomeFragment extends Fragment implements AdapterCancionArtistaPorta
         rvUsa.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                if(!isLoading){
+                if (!isLoading) {
                     LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
                     int initPos = layoutManager.findLastVisibleItemPosition();
                     int finalPos = layoutManager.getItemCount();
 
-                    if(finalPos - initPos <= NUMERO_PARA_NUEVOS_RESULTADOS){
+                    if (finalPos - initPos <= NUMERO_PARA_NUEVOS_RESULTADOS) {
                         loadNewCancionesUsa(rvUsa);
                     }
                 }
@@ -175,7 +177,7 @@ public class HomeFragment extends Fragment implements AdapterCancionArtistaPorta
     }
 
     private void loadNewCancionesArg(final RecyclerView rv) {
-        if(musicController.getHayPaginasArgentina()){
+        if (musicController.getHayPaginasArgentina()) {
             isLoading = true;
             progressBar.setVisibility(View.VISIBLE);
             progressBar.setIndeterminate(true);
@@ -185,8 +187,8 @@ public class HomeFragment extends Fragment implements AdapterCancionArtistaPorta
                     progressBar.setIndeterminate(false);
                     progressBar.setVisibility(View.INVISIBLE);
                     isLoading = false;
-                    if(track != null){
-                        ((AdapterCancionArtistaPortada)rv.getAdapter()).addTracks(track.getData());
+                    if (track != null) {
+                        ((AdapterCancionArtistaPortada) rv.getAdapter()).addTracks(track.getData());
                         rlTopArg.setVisibility(View.VISIBLE);
                     }
                 }
@@ -195,7 +197,7 @@ public class HomeFragment extends Fragment implements AdapterCancionArtistaPorta
     }
 
     private void loadNewCancionesUsa(final RecyclerView rv) {
-        if(musicController.getHayPaginasUsa()){
+        if (musicController.getHayPaginasUsa()) {
             isLoading = true;
             progressBar.setVisibility(View.VISIBLE);
             progressBar.setIndeterminate(true);
@@ -205,8 +207,8 @@ public class HomeFragment extends Fragment implements AdapterCancionArtistaPorta
                     progressBar.setIndeterminate(false);
                     progressBar.setVisibility(View.INVISIBLE);
                     isLoading = false;
-                    if(track != null){
-                        ((AdapterCancionArtistaPortada)rv.getAdapter()).addTracks(track.getData());
+                    if (track != null) {
+                        ((AdapterCancionArtistaPortada) rv.getAdapter()).addTracks(track.getData());
                         rlTopUsa.setVisibility(View.VISIBLE);
                     }
                 }
@@ -226,11 +228,14 @@ public class HomeFragment extends Fragment implements AdapterCancionArtistaPorta
         notificadorActivity.recibirCancion(cancionClickeada, newTracks);
     }
 
-    public interface NotificadorActivity{
+    public interface NotificadorActivity {
         // Metodos que implementa MainActivity de HomeFragment
         void recibirCancion(Track cancion, ArrayList<Track> tracks);
+
         Track getCurrentPlaying();
+
         Boolean isPlaying();
+
         void playSong();
     }
 }

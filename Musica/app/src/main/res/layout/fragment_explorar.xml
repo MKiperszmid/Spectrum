@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".View.Fragments.ExplorarFragment"
-    android:background="@color/colorPrimaryDark">
+    android:background="@color/colorPrimaryDark"
+    tools:context=".View.Fragments.ExplorarFragment">
 
     <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
@@ -17,10 +17,11 @@
 
             <!-- Lista de Playlist Destacadas -->
             <RelativeLayout
+                android:id="@+id/explorarLayoutPlaylist"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/explorarLayoutPlaylist"
                 android:visibility="gone">
+
                 <TextView
                     android:id="@+id/playlistDestacadasID"
                     android:layout_width="wrap_content"
@@ -33,48 +34,51 @@
                     android:textColor="@color/colorWhite"
                     android:textSize="@dimen/maxSizeTitleName"
                     android:textStyle="bold" />
+
                 <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recyclerPlaylistDestacada"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/recyclerPlaylistDestacada"
-                    android:layout_below="@id/playlistDestacadasID"/>
+                    android:layout_below="@id/playlistDestacadasID" />
             </RelativeLayout>
 
 
             <!-- Lista de Géneros -->
-           <RelativeLayout
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:layout_below="@id/explorarLayoutPlaylist"
-               android:id="@+id/explorarLayoutGeneros"
-               android:visibility="gone">
-               <TextView
-                   android:id="@+id/genreChartID"
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-                   android:layout_centerHorizontal="true"
-                   android:layout_marginBottom="25dp"
-                   android:layout_marginTop="25dp"
-                   android:fontFamily="@font/montserrat"
-                   android:text="@string/genreChart"
-                   android:textColor="@color/colorWhite"
-                   android:textSize="@dimen/maxSizeTitleName"
-                   android:textStyle="bold" />
+            <RelativeLayout
+                android:id="@+id/explorarLayoutGeneros"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/explorarLayoutPlaylist"
+                android:visibility="gone">
 
-               <android.support.v7.widget.RecyclerView
-                   android:layout_width="match_parent"
-                   android:layout_height="wrap_content"
-                   android:id="@+id/recyclerGenreList"
-                   android:layout_below="@id/genreChartID"/>
-           </RelativeLayout>
+                <TextView
+                    android:id="@+id/genreChartID"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="25dp"
+                    android:layout_marginTop="25dp"
+                    android:fontFamily="@font/montserrat"
+                    android:text="@string/genreChart"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/maxSizeTitleName"
+                    android:textStyle="bold" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recyclerGenreList"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/genreChartID" />
+            </RelativeLayout>
 
             <!-- Lista de Artistas Populares -->
             <RelativeLayout
+                android:id="@+id/explorarLayoutArtistas"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/explorarLayoutGeneros"
-                android:id="@+id/explorarLayoutArtistas"
                 android:visibility="gone">
+
                 <TextView
                     android:id="@+id/artistChartID"
                     android:layout_width="wrap_content"
@@ -89,11 +93,11 @@
                     android:textStyle="bold" />
 
                 <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recyclerArtistChart"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/recyclerArtistChart"
                     android:layout_below="@id/artistChartID"
-                    android:layout_marginBottom="10dp"/>
+                    android:layout_marginBottom="10dp" />
             </RelativeLayout>
 
         </RelativeLayout>
@@ -101,11 +105,11 @@
     </ScrollView>
 
     <ProgressBar
+        android:id="@+id/explorarProgressbar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
         android:layout_margin="30dp"
-        android:visibility="invisible"
-        android:id="@+id/explorarProgressbar"/>
+        android:visibility="invisible" />
 </RelativeLayout>

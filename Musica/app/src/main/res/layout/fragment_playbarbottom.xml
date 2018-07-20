@@ -10,8 +10,8 @@
         android:id="@+id/relativeQueue"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorPrimary"
-        android:layout_marginBottom="1dp">
+        android:layout_marginBottom="1dp"
+        android:background="@color/colorPrimary">
 
         <ImageView
             android:id="@+id/upBtn"

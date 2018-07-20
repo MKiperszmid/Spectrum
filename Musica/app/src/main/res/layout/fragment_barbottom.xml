@@ -4,130 +4,131 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".View.Fragments.BarbottomFragment">
+
+    <LinearLayout
+        android:id="@+id/navBarID"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimary"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingBottom="3dp"
+        android:paddingTop="5dp">
+
         <LinearLayout
-            android:id="@+id/navBarID"
-            android:gravity="center"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/colorPrimary"
-            android:orientation="horizontal"
-            android:paddingTop="5dp"
-            android:paddingBottom="3dp">
+            android:id="@+id/homeBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
 
-            <LinearLayout
-                android:id="@+id/homeBtn"
+            <ImageView
+                android:id="@+id/homeIconID"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
+                android:layout_gravity="center"
+                android:layout_marginBottom="5dp"
+                android:adjustViewBounds="true"
+                android:maxHeight="@dimen/maxSizeNavBarIcon"
+                android:maxWidth="@dimen/maxSizeNavBarIcon"
+                android:src="@drawable/homeactivo" />
 
-                <ImageView
-                    android:id="@+id/homeIconID"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginBottom="5dp"
-                    android:adjustViewBounds="true"
-                    android:maxHeight="@dimen/maxSizeNavBarIcon"
-                    android:maxWidth="@dimen/maxSizeNavBarIcon"
-                    android:src="@drawable/homeactivo" />
-
-                <TextView
-                    android:id="@+id/homeTxtID"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/montserrat"
-                    android:gravity="center"
-                    android:text="Inicio"
-                    android:textColor="@color/colorAccent"
-                    android:textSize="@dimen/maxSizeNavBarItem" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/explorarBtn"
-                android:layout_width="wrap_content"
+            <TextView
+                android:id="@+id/homeTxtID"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:id="@+id/exploreIconID"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginBottom="5dp"
-                    android:adjustViewBounds="true"
-                    android:maxHeight="60dp"
-                    android:maxWidth="@dimen/maxSizeNavBarIcon"
-                    android:src="@drawable/explorar" />
-
-                <TextView
-                    android:id="@+id/explorarTxtID"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/montserrat"
-                    android:gravity="center"
-                    android:text="Explorar"
-                    android:textColor="@color/colorGraySemiWhite"
-                    android:textSize="@dimen/maxSizeNavBarItem" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/buscarBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:id="@+id/searchIconID"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginBottom="5dp"
-                    android:adjustViewBounds="true"
-                    android:maxHeight="@dimen/maxSizeNavBarIcon"
-                    android:maxWidth="@dimen/maxSizeNavBarIcon"
-                    android:src="@drawable/buscar" />
-
-                <TextView
-                    android:id="@+id/buscarTxtID"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/montserrat"
-                    android:gravity="center"
-                    android:text="Buscar"
-                    android:textColor="@color/colorGraySemiWhite"
-                    android:textSize="@dimen/maxSizeNavBarItem" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/perfilBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:id="@+id/profileIconID"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginBottom="5dp"
-                    android:adjustViewBounds="true"
-                    android:maxHeight="@dimen/maxSizeNavBarIcon"
-                    android:maxWidth="@dimen/maxSizeNavBarIcon"
-                    android:src="@drawable/perfil" />
-
-                <TextView
-                    android:id="@+id/perfilTxtID"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/montserrat"
-                    android:gravity="center"
-                    android:text="Perfil"
-                    android:textColor="@color/colorGraySemiWhite"
-                    android:textSize="@dimen/maxSizeNavBarItem" />
-            </LinearLayout>
+                android:fontFamily="@font/montserrat"
+                android:gravity="center"
+                android:text="Inicio"
+                android:textColor="@color/colorAccent"
+                android:textSize="@dimen/maxSizeNavBarItem" />
         </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/explorarBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/exploreIconID"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="5dp"
+                android:adjustViewBounds="true"
+                android:maxHeight="60dp"
+                android:maxWidth="@dimen/maxSizeNavBarIcon"
+                android:src="@drawable/explorar" />
+
+            <TextView
+                android:id="@+id/explorarTxtID"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat"
+                android:gravity="center"
+                android:text="Explorar"
+                android:textColor="@color/colorGraySemiWhite"
+                android:textSize="@dimen/maxSizeNavBarItem" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/buscarBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/searchIconID"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="5dp"
+                android:adjustViewBounds="true"
+                android:maxHeight="@dimen/maxSizeNavBarIcon"
+                android:maxWidth="@dimen/maxSizeNavBarIcon"
+                android:src="@drawable/buscar" />
+
+            <TextView
+                android:id="@+id/buscarTxtID"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat"
+                android:gravity="center"
+                android:text="Buscar"
+                android:textColor="@color/colorGraySemiWhite"
+                android:textSize="@dimen/maxSizeNavBarItem" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/perfilBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/profileIconID"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="5dp"
+                android:adjustViewBounds="true"
+                android:maxHeight="@dimen/maxSizeNavBarIcon"
+                android:maxWidth="@dimen/maxSizeNavBarIcon"
+                android:src="@drawable/perfil" />
+
+            <TextView
+                android:id="@+id/perfilTxtID"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat"
+                android:gravity="center"
+                android:text="Perfil"
+                android:textColor="@color/colorGraySemiWhite"
+                android:textSize="@dimen/maxSizeNavBarItem" />
+        </LinearLayout>
+    </LinearLayout>
 </FrameLayout>

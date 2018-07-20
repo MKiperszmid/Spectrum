@@ -14,7 +14,7 @@ import com.example.dh.tpmusicagrupo3.R;
 
 import java.util.List;
 
-public class AdapterSearchCancionResult extends RecyclerView.Adapter{
+public class AdapterSearchCancionResult extends RecyclerView.Adapter {
 
     private List<Track> tracks;
     private NotificadorSearchCancionResult notificadorSearchCancionResult;
@@ -42,9 +42,9 @@ public class AdapterSearchCancionResult extends RecyclerView.Adapter{
 
     @Override
     public int getItemCount() {
-        if (tracks!=null){
+        if (tracks != null) {
             return tracks.size();
-        }else{
+        } else {
             return 0;
         }
     }
@@ -79,7 +79,7 @@ public class AdapterSearchCancionResult extends RecyclerView.Adapter{
     }
 
 
-    public interface NotificadorSearchCancionResult{
+    public interface NotificadorSearchCancionResult {
         void notificar(Track track, List<Track> tracks);
     }
 

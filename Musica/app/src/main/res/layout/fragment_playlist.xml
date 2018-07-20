@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.dh.tpmusicagrupo3.View.Fragments.HomeFragment"
-    android:background="@color/colorPrimaryDark">
+    android:background="@color/colorPrimaryDark"
+    tools:context="com.example.dh.tpmusicagrupo3.View.Fragments.HomeFragment">
 
     <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".View.Fragments.Detalles.GenreFragment"
-        android:background="@color/colorPrimaryDark">
+        android:background="@color/colorPrimaryDark"
+        tools:context=".View.Fragments.Detalles.GenreFragment">
 
         <!-- Container general -->
         <RelativeLayout
@@ -32,8 +31,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="300dp"
                     android:alpha="0.4"
-                    tools:src="@drawable/playlisttest"
-                    android:scaleType="centerCrop"/>
+                    android:scaleType="centerCrop"
+                    tools:src="@drawable/playlisttest" />
 
                 <!-- Titulo -->
                 <TextView
@@ -51,14 +50,14 @@
 
                 <!-- Descripcion -->
                 <LinearLayout
+                    android:id="@+id/fp_ll_descripcion"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
-                    android:id="@+id/fp_ll_descripcion"
-                    android:orientation="horizontal"
                     android:layout_marginBottom="60dp"
+                    android:alpha="0.75"
                     android:gravity="center"
-                    android:alpha="0.75">
+                    android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/fp_tv_descripcion"
@@ -70,13 +69,13 @@
                         tools:text="100 canciones - Creada por " />
                     <!-- Creador -->
                     <TextView
+                        android:id="@+id/fp_tv_creador"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/fp_tv_creador"
-                        tools:text="Spectrum"
+                        android:textColor="@color/colorWhite"
                         android:textSize="18sp"
                         android:textStyle="italic|bold"
-                        android:textColor="@color/colorWhite"/>
+                        tools:text="Spectrum" />
                 </LinearLayout>
             </RelativeLayout>
 
@@ -99,30 +98,30 @@
 
             <!-- Contenedor lista de canciones -->
             <RelativeLayout
+                android:id="@+id/fp_rl_cancionesContainer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/fp_rl_datosPlaylist"
-                android:id="@+id/fp_rl_cancionesContainer"
-                android:visibility="visible"
-                android:layout_marginTop="10dp">
+                android:layout_marginTop="10dp"
+                android:visibility="visible">
 
                 <!-- RecyclerView lista canciones -->
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/fp_rv_canciones"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/cancionespopulares_tv_genrefragment"/>
+                    android:layout_below="@id/cancionespopulares_tv_genrefragment" />
             </RelativeLayout>
         </RelativeLayout>
     </ScrollView>
 
     <ProgressBar
+        android:id="@+id/fp_pb_progress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/fp_pb_progress"
-        android:layout_centerInParent="true"
         android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
         android:layout_margin="30dp"
-        android:visibility="invisible"/>
+        android:visibility="invisible" />
 
 </RelativeLayout>

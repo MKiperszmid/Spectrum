@@ -21,11 +21,12 @@ public class AdapterCancionArtistaPortada extends RecyclerView.Adapter {
     private List<Track> canciones;
     private NotificadorCancionCelda notificadorCancionCelda;
 
-    public AdapterCancionArtistaPortada(List<Track> canciones, NotificadorCancionCelda notificadorCancionCelda){
+    public AdapterCancionArtistaPortada(List<Track> canciones, NotificadorCancionCelda notificadorCancionCelda) {
         this.canciones = canciones;
         this.notificadorCancionCelda = notificadorCancionCelda;
     }
-    public AdapterCancionArtistaPortada(NotificadorCancionCelda notificadorCancionCelda){
+
+    public AdapterCancionArtistaPortada(NotificadorCancionCelda notificadorCancionCelda) {
         canciones = new ArrayList<>();
         this.notificadorCancionCelda = notificadorCancionCelda;
     }
@@ -48,17 +49,17 @@ public class AdapterCancionArtistaPortada extends RecyclerView.Adapter {
 
     @Override
     public int getItemCount() {
-        if(canciones != null)
+        if (canciones != null)
             return canciones.size();
         return -1;
     }
 
-    public void addTracks(List<Track> tracks){
+    public void addTracks(List<Track> tracks) {
         canciones.addAll(tracks);
         notifyDataSetChanged();
     }
 
-    private class CancionViewHolder extends RecyclerView.ViewHolder{
+    private class CancionViewHolder extends RecyclerView.ViewHolder {
 
         private TextView tvCancion, tvArtista;
         private ImageView ivPortada;
@@ -80,14 +81,15 @@ public class AdapterCancionArtistaPortada extends RecyclerView.Adapter {
             });
         }
 
-        public void bindCancion(Track cancion){
+        public void bindCancion(Track cancion) {
             tvCancion.setText(cancion.getTitle_short());
             tvArtista.setText(cancion.getArtist().getName());
 
             GlideController.loadImageFade(itemView, cancion.getAlbum().getCover_big(), ivPortada);
         }
     }
-    public interface NotificadorCancionCelda{
+
+    public interface NotificadorCancionCelda {
         void notificarCancionClickeada(Track cancionClickeada, List<Track> tracks);
     }
 }

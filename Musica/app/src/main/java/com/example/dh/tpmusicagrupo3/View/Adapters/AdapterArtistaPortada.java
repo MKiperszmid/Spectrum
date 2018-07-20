@@ -20,7 +20,7 @@ import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class AdapterArtistaPortada extends RecyclerView.Adapter{
+public class AdapterArtistaPortada extends RecyclerView.Adapter {
 
     private List<Artist> artistas;
     private NotificadorArtistaCelda notificadorArtistaCelda;
@@ -48,14 +48,14 @@ public class AdapterArtistaPortada extends RecyclerView.Adapter{
 
     @Override
     public int getItemCount() {
-        if (artistas != null){
+        if (artistas != null) {
             return artistas.size();
-        }else{
+        } else {
             return 0;
         }
     }
 
-    private class ArtistaViewHolder extends RecyclerView.ViewHolder{
+    private class ArtistaViewHolder extends RecyclerView.ViewHolder {
 
         private CircleImageView portadaArtista;
         private TextView nombreArtista;
@@ -73,13 +73,13 @@ public class AdapterArtistaPortada extends RecyclerView.Adapter{
             });
         }
 
-        public void bindArtista(Artist artist){
+        public void bindArtista(Artist artist) {
             nombreArtista.setText(artist.getName());
             GlideController.loadImages(itemView, artist.getPicture_big(), portadaArtista);
         }
     }
 
-    public interface NotificadorArtistaCelda{
+    public interface NotificadorArtistaCelda {
         void notificarArtistaClickeado(Artist artist);
     }
 }

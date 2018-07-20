@@ -30,7 +30,7 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class PlaylistFragment extends Fragment implements AdapterArtistaCanciones.NotificadorCancionArtista{
+public class PlaylistFragment extends Fragment implements AdapterArtistaCanciones.NotificadorCancionArtista {
 
     private Playlist playlist;
     private List<Track> tracks;
@@ -48,7 +48,7 @@ public class PlaylistFragment extends Fragment implements AdapterArtistaCancione
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        this.notificadorActivity = (HomeFragment.NotificadorActivity)context;
+        this.notificadorActivity = (HomeFragment.NotificadorActivity) context;
     }
 
     public PlaylistFragment() {
@@ -98,7 +98,7 @@ public class PlaylistFragment extends Fragment implements AdapterArtistaCancione
         tvReproducir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(tracks != null && tracks.size() > 0) {
+                if (tracks != null && tracks.size() > 0) {
                     notificarCancion(tracks.get(0));
                 }
             }
@@ -142,7 +142,7 @@ public class PlaylistFragment extends Fragment implements AdapterArtistaCancione
     }
 
     private void getCanciones(final RecyclerView rv) {
-        if(musicController.getHayPaginasUsa()){
+        if (musicController.getHayPaginasUsa()) {
             isLoading = true;
             progressBar.setVisibility(View.VISIBLE);
             progressBar.setIndeterminate(true);
@@ -152,9 +152,9 @@ public class PlaylistFragment extends Fragment implements AdapterArtistaCancione
                     progressBar.setIndeterminate(false);
                     progressBar.setVisibility(View.INVISIBLE);
                     isLoading = false;
-                    if(track != null){
+                    if (track != null) {
                         tracks.addAll(track.getData());
-                        ((AdapterArtistaCanciones)rv.getAdapter()).addTracks(track.getData());
+                        ((AdapterArtistaCanciones) rv.getAdapter()).addTracks(track.getData());
                     }
                 }
             }, playlist.getId().toString(), 0);

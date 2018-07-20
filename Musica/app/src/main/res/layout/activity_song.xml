@@ -6,13 +6,12 @@
     tools:context="com.example.dh.tpmusicagrupo3.View.Activities.SongActivity">
 
     <android.support.v4.view.ViewPager
+        android:id="@+id/songactivityViewPager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/songactivityViewPager"/>
+        android:layout_height="match_parent" />
 
     <FrameLayout
+        android:id="@+id/songID"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/songID">
-    </FrameLayout>
+        android:layout_height="match_parent"></FrameLayout>
 </RelativeLayout>

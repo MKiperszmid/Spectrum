@@ -17,7 +17,7 @@ import com.example.dh.tpmusicagrupo3.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class BarbottomFragment extends Fragment{
+public class BarbottomFragment extends Fragment {
 
     private NotificadorActivityBarBottom notificadorActivityBarBottom;
 
@@ -33,9 +33,6 @@ public class BarbottomFragment extends Fragment{
     private TextView perfilBtnTxt;
 
 
-
-
-
     public BarbottomFragment() {
         // Required empty public constructor
     }
@@ -47,7 +44,7 @@ public class BarbottomFragment extends Fragment{
     }
 
 
-    public interface NotificadorActivityBarBottom{
+    public interface NotificadorActivityBarBottom {
         void recibirSeccion(Fragment fragment);
     }
 
@@ -56,7 +53,6 @@ public class BarbottomFragment extends Fragment{
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_barbottom, container, false);
-
 
 
         homeBtnIcon = view.findViewById(R.id.homeIconID);
@@ -76,7 +72,7 @@ public class BarbottomFragment extends Fragment{
             @Override
             public void onClick(View view) {
                 notificadorActivityBarBottom.recibirSeccion(new HomeFragment());
-               // Toast.makeText(getActivity(), "Home", Toast.LENGTH_SHORT).show();
+                // Toast.makeText(getActivity(), "Home", Toast.LENGTH_SHORT).show();
                 cambiarIcono("home");
             }
         });
@@ -109,28 +105,25 @@ public class BarbottomFragment extends Fragment{
             @Override
             public void onClick(View v) {
                 notificadorActivityBarBottom.recibirSeccion(new PerfilFragment());
-               // Toast.makeText(getActivity(), "Perfil", Toast.LENGTH_SHORT).show();
+                // Toast.makeText(getActivity(), "Perfil", Toast.LENGTH_SHORT).show();
                 cambiarIcono("perfil");
             }
         });
-
-
 
 
         return view;
     }
 
 
-
-    private void cambiarColor(TextView textview, int color){
+    private void cambiarColor(TextView textview, int color) {
         textview.setTextColor(getResources().getColor(color));
     }
 
-    private void cambiarIcono(ImageView imageView, int icono){
+    private void cambiarIcono(ImageView imageView, int icono) {
         imageView.setImageResource(icono);
     }
 
-    private void cambiarTodo(TextView textView, int color, ImageView imageView, int icono){
+    private void cambiarTodo(TextView textView, int color, ImageView imageView, int icono) {
         cambiarColor(textView, color);
         cambiarIcono(imageView, icono);
     }
@@ -144,19 +137,19 @@ public class BarbottomFragment extends Fragment{
         cambiarTodo(perfilBtnTxt, R.color.colorGraySemiWhite, perfilBtnIcon, R.drawable.perfil);
 
         // Dependiendo cual toco le cambio icono y color de texto
-        switch(seccionNombre){
+        switch (seccionNombre) {
             case "home":
                 cambiarTodo(homeBtnTxt, R.color.colorAccent, homeBtnIcon, R.drawable.homeactivo);
-            break;
+                break;
             case "explorar":
                 cambiarTodo(explorarBtnTxt, R.color.colorAccent, explorarBtnIcon, R.drawable.exploraractivo);
-            break;
+                break;
             case "buscar":
                 cambiarTodo(buscarBtnTxt, R.color.colorAccent, buscarBtnIcon, R.drawable.buscaractivo);
-            break;
+                break;
             case "perfil":
                 cambiarTodo(perfilBtnTxt, R.color.colorAccent, perfilBtnIcon, R.drawable.perfilactivo);
-            break;
+                break;
         }
     }
 

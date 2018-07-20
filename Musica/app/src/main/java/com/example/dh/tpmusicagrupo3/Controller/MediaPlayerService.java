@@ -48,8 +48,8 @@ public class MediaPlayerService extends Service {
 
     private final IBinder iBinder = new MyBinder();
 
-    public class MyBinder extends Binder{
-        public MediaPlayerService getService(){
+    public class MyBinder extends Binder {
+        public MediaPlayerService getService() {
             return MediaPlayerService.this;
         }
     }
@@ -72,13 +72,13 @@ public class MediaPlayerService extends Service {
         mediaSessionCompat = new MediaSessionCompat(this, "tag");
     }
 
-    public void closeNotification(){
+    public void closeNotification() {
         NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         manager.cancel(App.NOTIFICATION_ID.REPRODUCTOR_SERVICE);
     }
 
-    public void sendNotification(final Boolean onGoing){
-        if(currentPlaying == null) return;
+    public void sendNotification(final Boolean onGoing) {
+        if (currentPlaying == null) return;
         Intent intent = new Intent(this, MainActivity.class);
         final PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
         Glide.with(this).asBitmap().load(currentPlaying.getAlbum().getCover_big()).into(new SimpleTarget<Bitmap>() {
@@ -97,8 +97,8 @@ public class MediaPlayerService extends Service {
                         .addAction(R.drawable.playresize, "Play", null)
                         .addAction(R.drawable.nextresize, "Next", null)
                         .setStyle(new android.support.v4.media.app.NotificationCompat.MediaStyle()
-                        .setShowActionsInCompactView(0, 1, 2)
-                        .setMediaSession(mediaSessionCompat.getSessionToken()))
+                                .setShowActionsInCompactView(0, 1, 2)
+                                .setMediaSession(mediaSessionCompat.getSessionToken()))
                         .setColor(getResources().getColor(R.color.colorAccent))
                         .build();
                 notificationManagerCompat.notify(App.NOTIFICATION_ID.REPRODUCTOR_SERVICE, notification);
@@ -106,16 +106,16 @@ public class MediaPlayerService extends Service {
         });
     }
 
-    public void showNotification(){
+    public void showNotification() {
         Intent intent = new Intent(this, MainActivity.class);
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Bundle bundle = intent.getExtras();
-        Track track = (Track)bundle.getSerializable(PLAY_TRACK);
+        Track track = (Track) bundle.getSerializable(PLAY_TRACK);
         ArrayList<Track> tracks = (ArrayList<Track>) bundle.getSerializable(PLAY_TRACKS);
-        if(track != null){
+        if (track != null) {
             startSong(track, tracks);
         }
 /*
@@ -146,15 +146,15 @@ public class MediaPlayerService extends Service {
         return iBinder;
     }
 
-    private void clearPlayer(){
-        if(mediaPlayer != null)
+    private void clearPlayer() {
+        if (mediaPlayer != null)
             mediaPlayer.release();
     }
 
-    public void startSong(Track track, List<Track> tracks){
+    public void startSong(Track track, List<Track> tracks) {
         clearPlayer();
         mediaPlayer = new MediaPlayer();
-        try{
+        try {
             mediaPlayer.setDataSource(track.getPreview());
             mediaPlayer.prepareAsync();
             currentPlaying = track;
@@ -174,23 +174,23 @@ public class MediaPlayerService extends Service {
             });
 
             sendNotification(true);
-        }
-        catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             //
         }
     }
 
-    public void pausePlayer(){
+    public void pausePlayer() {
         mediaPlayer.pause();
         changeImage(false);
     }
 
-    public Track getCurrentPlaying(){ return this.currentPlaying; }
+    public Track getCurrentPlaying() {
+        return this.currentPlaying;
+    }
 
-    public void changeImage(Boolean playing){
+    public void changeImage(Boolean playing) {
         Intent intent = new Intent(CHANGEIMAGE);
         Bundle bundle = new Bundle();
         bundle.putBoolean(IS_PLAYING, playing);
@@ -198,7 +198,7 @@ public class MediaPlayerService extends Service {
         LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
     }
 
-    public void changeSong(Boolean finish){
+    public void changeSong(Boolean finish) {
         Intent intent = new Intent(CHANGESONG);
         Bundle bundle = new Bundle();
         bundle.putBoolean(IS_FINISHED, finish);
@@ -211,24 +211,28 @@ public class MediaPlayerService extends Service {
         changeImage(true);
     }
 
-    public void togglePlayer(){
+    public void togglePlayer() {
         // El boton de play/pausa llama a este metodo.
         // Este metodo llama a play o pausa, y esos metodos cambian el icono del boton.
-        if(mediaPlayer.isPlaying())
+        if (mediaPlayer.isPlaying())
             pausePlayer();
         else
             playPlayer();
     }
 
-    public void goToPosition(int position){
+    public void goToPosition(int position) {
         mediaPlayer.seekTo(position);
     }
 
-    public List<Track> getCurrentTracks(){ return  currentTracks; }
+    public List<Track> getCurrentTracks() {
+        return currentTracks;
+    }
 
-    public Integer getCurrentDuration(){
+    public Integer getCurrentDuration() {
         return mediaPlayer.getCurrentPosition();
     }
 
-    public Boolean isPlaying() { return mediaPlayer.isPlaying(); }
+    public Boolean isPlaying() {
+        return mediaPlayer.isPlaying();
+    }
 }

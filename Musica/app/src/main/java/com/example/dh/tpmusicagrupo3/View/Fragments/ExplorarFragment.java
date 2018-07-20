@@ -80,9 +80,9 @@ public class ExplorarFragment extends Fragment implements AdapterArtistaPortada.
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view =  inflater.inflate(R.layout.fragment_explorar, container, false);
+        View view = inflater.inflate(R.layout.fragment_explorar, container, false);
 
-        ((MainActivity)getActivity()).getSupportActionBar().setTitle(sectionString);
+        ((MainActivity) getActivity()).getSupportActionBar().setTitle(sectionString);
         progressBar = view.findViewById(R.id.explorarProgressbar);
 
         // Recycler View  Playlist Destacadas
@@ -106,7 +106,7 @@ public class ExplorarFragment extends Fragment implements AdapterArtistaPortada.
         return view;
     }
 
-    private void progressbarVisible(){
+    private void progressbarVisible() {
 
     }
 
@@ -118,7 +118,7 @@ public class ExplorarFragment extends Fragment implements AdapterArtistaPortada.
         musicController.getPlaylistsChart(new TrackListener<PlaylistContainer>() {
             @Override
             public void finish(PlaylistContainer track) {
-                if(track != null){
+                if (track != null) {
                     rlPlaylist.setVisibility(View.VISIBLE);
                     playlists = track.getData();
                     setAdapter(playlists, rvPlaylists);
@@ -130,7 +130,7 @@ public class ExplorarFragment extends Fragment implements AdapterArtistaPortada.
         musicController.getGenreList(new TrackListener<GenreContainer>() {
             @Override
             public void finish(GenreContainer track) {
-                if(track != null){
+                if (track != null) {
                     rlGenero.setVisibility(View.VISIBLE);
                     genres = track.getData();
                     setAdapterGenres(genres, rvGenresList);
@@ -142,7 +142,7 @@ public class ExplorarFragment extends Fragment implements AdapterArtistaPortada.
         musicController.getArtistsChart(new TrackListener<ArtistContainer>() {
             @Override
             public void finish(ArtistContainer track) {
-                if(track != null){
+                if (track != null) {
                     rlArtista.setVisibility(View.VISIBLE);
                     artists = track.getData();
                     setAdapterArtist(artists, rvArtistChart);
@@ -156,19 +156,19 @@ public class ExplorarFragment extends Fragment implements AdapterArtistaPortada.
     }
 
     // Adapter Playlist Destacadas
-    private void setAdapter(List<Playlist> playlists, RecyclerView recyclerView){
+    private void setAdapter(List<Playlist> playlists, RecyclerView recyclerView) {
         adapterPlaylistItem = new AdapterPlaylistItem(playlists, this);
         recyclerView.setAdapter(adapterPlaylistItem);
     }
 
     // Adapter Artistas Destacados
-    private void setAdapterArtist(List<Artist> artist, RecyclerView recyclerView){
+    private void setAdapterArtist(List<Artist> artist, RecyclerView recyclerView) {
         adapterArtistaPortada = new AdapterArtistaPortada(artist, this);
         recyclerView.setAdapter(adapterArtistaPortada);
     }
 
     // Adapter Generos
-    private void setAdapterGenres(List<Genre> genre, RecyclerView recyclerView){
+    private void setAdapterGenres(List<Genre> genre, RecyclerView recyclerView) {
         adapterGeneroItem = new AdapterGeneroItem(genre, this);
         recyclerView.setAdapter(adapterGeneroItem);
     }

@@ -33,7 +33,7 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class GenreFragment extends Fragment implements AdapterArtistaCanciones.NotificadorCancionArtista{
+public class GenreFragment extends Fragment implements AdapterArtistaCanciones.NotificadorCancionArtista {
 
     private TextView nombreGeneroTV;
     private ImageView portadaGeneroIV;
@@ -73,7 +73,7 @@ public class GenreFragment extends Fragment implements AdapterArtistaCanciones.N
         reproducirBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(tracks != null && tracks.size() > 0) {
+                if (tracks != null && tracks.size() > 0) {
                     notificarCancion(tracks.get(0));
                 }
             }
@@ -81,7 +81,7 @@ public class GenreFragment extends Fragment implements AdapterArtistaCanciones.N
 
         // Obtengo el bundle
         Bundle bundle = getArguments();
-        Genre genre = (Genre)bundle.getSerializable(TypeController.KEY_T);
+        Genre genre = (Genre) bundle.getSerializable(TypeController.KEY_T);
 
         currentGenre = genre;
         cargarGeneroInfo(view);
@@ -89,7 +89,7 @@ public class GenreFragment extends Fragment implements AdapterArtistaCanciones.N
         return view;
     }
 
-    private void cargarGeneroInfo(View view){
+    private void cargarGeneroInfo(View view) {
         // Seteo los datos en los views
         nombreGeneroTV.setText(currentGenre.getName());
         portadaGeneroIV.setImageResource(currentGenre.getGradient());
@@ -102,22 +102,22 @@ public class GenreFragment extends Fragment implements AdapterArtistaCanciones.N
         final AdapterArtistaCanciones.NotificadorCancionArtista notificadorCancionArtista = this;
 
         musicController.getGenreTracks(new TrackListener<TrackContainer>() {
-                @Override
-                public void finish(TrackContainer track) {
-                    tracks = track.getData();
-                    AdapterArtistaCanciones adapterArtistaCanciones = new AdapterArtistaCanciones(tracks, notificadorCancionArtista);
-                    rvCancionesPopularesGenero.setAdapter(adapterArtistaCanciones);
-                    rvCancionesPopularesGenero.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
-                    progressBar.setVisibility(View.INVISIBLE);
-                    progressBar.setIndeterminate(false);
-                }
-            }, currentGenre.getId());
+            @Override
+            public void finish(TrackContainer track) {
+                tracks = track.getData();
+                AdapterArtistaCanciones adapterArtistaCanciones = new AdapterArtistaCanciones(tracks, notificadorCancionArtista);
+                rvCancionesPopularesGenero.setAdapter(adapterArtistaCanciones);
+                rvCancionesPopularesGenero.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+                progressBar.setVisibility(View.INVISIBLE);
+                progressBar.setIndeterminate(false);
+            }
+        }, currentGenre.getId());
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        this.notificadorActivity = (HomeFragment.NotificadorActivity)context;
+        this.notificadorActivity = (HomeFragment.NotificadorActivity) context;
     }
 
     @Override
