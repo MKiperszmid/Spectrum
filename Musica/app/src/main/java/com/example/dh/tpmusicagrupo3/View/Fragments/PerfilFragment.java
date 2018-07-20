@@ -45,7 +45,9 @@ import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -78,6 +80,9 @@ public class PerfilFragment extends Fragment implements AdapterCancionArtistaPor
 
     private ExplorarFragment.NotificarClickeado notificarClickeado;
     private HomeFragment.NotificadorActivity notificadorActivity;
+
+    private LoginButton loginButton;
+    private CallbackManager callbackManager;
 
     public PerfilFragment() {
         // Required empty public constructor
@@ -114,19 +119,16 @@ public class PerfilFragment extends Fragment implements AdapterCancionArtistaPor
     }
 
     private void loadFacebook(View view){
-        /*LoginButton loginButton;
-        CallbackManager callbackManager;
 
         callbackManager = CallbackManager.Factory.create();
 
-
-        loginButton = view.findViewById(R.id.login_button);
         loginButton.setReadPermissions("email", "public_profile");
         loginButton.setFragment(this);
 
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
+                handleFacebookAccessToken(loginResult.getAccessToken());
                 Toast.makeText(getContext(), "SUCCESS", Toast.LENGTH_SHORT).show();
                 // App code
             }
@@ -142,7 +144,7 @@ public class PerfilFragment extends Fragment implements AdapterCancionArtistaPor
                 // App code
                 Toast.makeText(getContext(), "ERROR", Toast.LENGTH_SHORT).show();
             }
-        });*/
+        });
     }
 
     private void createAccount(String email, String password){
@@ -223,25 +225,22 @@ public class PerfilFragment extends Fragment implements AdapterCancionArtistaPor
             @Override
             public void onClick(View v) {
                 FirebaseUser user = mAuth.getCurrentUser();
-                if(user != null)
+                if(user != null) {
+                    showLoggedin(false);
                     mAuth.signOut();
-
-                /*AccessToken accessToken = AccessToken.getCurrentAccessToken();
-                if(accessToken != null && !accessToken.isExpired()) {
-                    LoginManager.getInstance().logOut();
-                }*/
-                showLoggedin(false);
+                    AccessToken accessToken = AccessToken.getCurrentAccessToken();
+                    if(accessToken != null && !accessToken.isExpired()) {
+                        LoginManager.getInstance().logOut();
+                    }
+                }
             }
         });
     }
 
     private void loggedOutContent(View view){
-
-
-
-
         final TextInputEditText etPass;
 
+        loginButton = view.findViewById(R.id.login_button);
         final TextInputEditText etEmail = view.findViewById(R.id.fp_tiet_email);
         emailContainer = view.findViewById(R.id.fp_til_emailContainer);
         etPass = view.findViewById(R.id.fp_tiet_pass);
@@ -362,6 +361,21 @@ public class PerfilFragment extends Fragment implements AdapterCancionArtistaPor
         });
     }
 
+    private void handleFacebookAccessToken(AccessToken token) {
+
+        AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
+        mAuth.signInWithCredential(credential)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            showLoggedin(true);
+                        }
+                    }
+                });
+    }
+
     @Override
     public void onStart() {
         super.onStart();
@@ -376,7 +390,7 @@ public class PerfilFragment extends Fragment implements AdapterCancionArtistaPor
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        //callbackManager.onActivityResult(requestCode, resultCode, data);
+        callbackManager.onActivityResult(requestCode, resultCode, data);
         super.onActivityResult(requestCode, resultCode, data);
     }
 

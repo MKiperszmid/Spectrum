@@ -73,12 +73,12 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Noti
         getSupportActionBar().setTitle("Inicio");
 
         LoadFragment(new BarbottomFragment(), R.id.barBottom);
-        try{
-            ArtistController artistController = new ArtistController((Artist)getIntent().getExtras().getSerializable(ArtistaKey));
-            notificar(artistController);
-        }
-        catch (Exception e){
+        Artist artist = (Artist) getIntent().getExtras().getSerializable(ArtistaKey);
+        if(artist == null){
             LoadFragment(new HomeFragment(), R.id.homeID);
+        } else {
+            ArtistController artistController = new ArtistController(artist);
+            notificar(artistController);
         }
 
         //LoadFragment(new PlaybarbottomFragment(), R.id.playBarBottom);

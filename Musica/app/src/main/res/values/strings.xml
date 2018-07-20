@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Spectrum</string>
-    <string name="facebook_app_id">184644635565780</string>
-    <string name="fb_login_protocol_scheme">fb184644635565780</string>
+    <string name="facebook_app_id">2505505142808834</string>
+    <string name="fb_login_protocol_scheme">fb2505505142808834</string>
 
     <string name="home">Inicio</string>
     <string name="nowTrending">Popular ahora</string>
