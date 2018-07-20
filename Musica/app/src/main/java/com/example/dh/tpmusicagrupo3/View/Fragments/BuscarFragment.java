@@ -34,8 +34,6 @@ import java.util.List;
  * A simple {@link Fragment} subclass.
  */
 public class BuscarFragment extends Fragment implements AdapterSearchCancionResult.NotificadorSearchCancionResult {
-
-
     private HomeFragment.NotificadorActivity notificadorActivity;
     private String sectionString = "Buscar";
     private EditText searchET;
@@ -57,7 +55,7 @@ public class BuscarFragment extends Fragment implements AdapterSearchCancionResu
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_buscar, container, false);
 
-        ((MainActivity)getActivity()).getSupportActionBar().setTitle(sectionString);
+        ((MainActivity) getActivity()).getSupportActionBar().setTitle(sectionString);
 
         // Buscador EditText
         searchET = view.findViewById(R.id.searchET_buscarFragment);
@@ -75,13 +73,12 @@ public class BuscarFragment extends Fragment implements AdapterSearchCancionResu
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (s != null || s.equals("")){
+                if (s != null || s.equals("")) {
                     LoadResults(s.toString().toLowerCase());
                 }
 
             }
         });
-
 
 
         // RecyclerView con resultados
@@ -99,7 +96,7 @@ public class BuscarFragment extends Fragment implements AdapterSearchCancionResu
         musicController.getSearchTracks(new TrackListener<TrackContainer>() {
             @Override
             public void finish(TrackContainer track) {
-                if(track != null){
+                if (track != null) {
                     tracks = track.getData();
                     setAdapter(tracks, rvSearch);
                 }
@@ -108,9 +105,8 @@ public class BuscarFragment extends Fragment implements AdapterSearchCancionResu
     }
 
 
-
     private void setAdapter(List<Track> tracks, RecyclerView recyclerView) {
-        adapterSearchCancionResult =  new AdapterSearchCancionResult(tracks, this);
+        adapterSearchCancionResult = new AdapterSearchCancionResult(tracks, this);
         recyclerView.setAdapter(adapterSearchCancionResult);
     }
 
@@ -130,11 +126,14 @@ public class BuscarFragment extends Fragment implements AdapterSearchCancionResu
         notificadorActivity.recibirCancion(track, newTracks);
     }
 
-    public interface NotificadorActivity{
+    public interface NotificadorActivity {
         // Metodos que implementa MainActivity de HomeFragment
         void recibirCancion(Track cancion, ArrayList<Track> tracks);
+
         Track getCurrentPlaying();
+
         Boolean isPlaying();
+
         void playSong();
     }
 

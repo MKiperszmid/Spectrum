@@ -18,7 +18,7 @@ public class MiliSecondsToTimer {
         // Prepending 0 to seconds if it is one digit
         if (seconds < 10) {
             secondsString = "0" + seconds;
-        }   else {
+        } else {
             secondsString = "" + seconds;
         }
 

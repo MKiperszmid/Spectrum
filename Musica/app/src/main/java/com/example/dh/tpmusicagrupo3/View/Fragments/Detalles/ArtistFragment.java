@@ -57,7 +57,7 @@ public class ArtistFragment extends Fragment implements AdapterArtistaCanciones.
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        this.notificadorActivity = (HomeFragment.NotificadorActivity)context;
+        this.notificadorActivity = (HomeFragment.NotificadorActivity) context;
     }
 
     @Override
@@ -79,7 +79,7 @@ public class ArtistFragment extends Fragment implements AdapterArtistaCanciones.
         tvReproducir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(tracks != null && tracks.size() > 0) {
+                if (tracks != null && tracks.size() > 0) {
                     notificarCancion(tracks.get(0));
                 }
             }
@@ -102,7 +102,7 @@ public class ArtistFragment extends Fragment implements AdapterArtistaCanciones.
     }
 
     // Cargar datos en view
-    private void loadContent(View view){
+    private void loadContent(View view) {
 
         TextView tvArtistName = view.findViewById(R.id.fa_tv_artistName);
         TextView tvArtistSeguidores = view.findViewById(R.id.fa_tv_artistFollowers);
@@ -123,18 +123,18 @@ public class ArtistFragment extends Fragment implements AdapterArtistaCanciones.
 
 
     // Agregar puntos a lo numeros
-    private String addDotsToNumber(String number){
-        if(number.length() < 3)
+    private String addDotsToNumber(String number) {
+        if (number.length() < 3)
             return number;
         int counter = 0;
         String result = "";
         List<Character> chars = new ArrayList<>();
-        for(int i = 0; i < number.length(); i++){
+        for (int i = 0; i < number.length(); i++) {
             chars.add(number.charAt(i));
         }
 
-        for(int i = chars.size() - 1; i >= 0; i--){
-            if(counter >= 3){
+        for (int i = chars.size() - 1; i >= 0; i--) {
+            if (counter >= 3) {
                 result = "." + result;
                 counter = 0;
             }
@@ -145,7 +145,7 @@ public class ArtistFragment extends Fragment implements AdapterArtistaCanciones.
         return result;
     }
 
-    private void getArtistInfo(){
+    private void getArtistInfo() {
         //TODO: Agregar Paginacion en albums
 
         final AdapterArtistaCanciones.NotificadorCancionArtista notificadorCancionArtista = this;

@@ -1,26 +1,27 @@
-<ScrollView
-xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.dh.tpmusicagrupo3.View.Fragments.Detalles.ArtistFragment"
-    android:background="@color/colorPrimaryDark">
+    android:background="@color/colorPrimaryDark"
+    tools:context="com.example.dh.tpmusicagrupo3.View.Fragments.Detalles.ArtistFragment">
+
     <RelativeLayout
+        android:id="@+id/fa_rl_datos"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/fa_rl_datos"
         android:visibility="gone">
+
         <ImageView
+            android:id="@+id/fa_iv_artwork"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:src="@drawable/playlisttest"
             android:layout_alignParentTop="true"
+            android:layout_marginBottom="20dp"
             android:adjustViewBounds="true"
+            android:alpha="0.45"
             android:maxHeight="300dp"
             android:scaleType="centerCrop"
-            android:id="@+id/fa_iv_artwork"
-            android:alpha="0.45"
-            android:layout_marginBottom="20dp"/>
+            tools:src="@drawable/playlisttest" />
 
         <TextView
             android:id="@+id/fa_tv_artistName"
@@ -64,10 +65,11 @@ xmlns:android="http://schemas.android.com/apk/res/android"
             android:textColor="@color/colorBlack"
             android:textSize="18sp"
             android:visibility="gone" />
+
         <RelativeLayout
+            android:id="@+id/fa_rl_layoutCanciones"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/fa_rl_layoutCanciones"
             android:layout_below="@id/fa_iv_artwork"
             android:visibility="gone">
 
@@ -81,34 +83,38 @@ xmlns:android="http://schemas.android.com/apk/res/android"
                 android:text="Canciones Populares"
                 android:textColor="@color/colorWhite"
                 android:textSize="18sp" />
+
             <android.support.v7.widget.RecyclerView
+                android:id="@+id/fa_rv_cancionesPopulares"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/fa_tv_cancionesPopulares"
-                android:id="@+id/fa_rv_cancionesPopulares"/>
+                android:layout_below="@id/fa_tv_cancionesPopulares" />
 
         </RelativeLayout>
+
         <RelativeLayout
+            android:id="@+id/fa_rl_layoutAlbumes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/fa_rl_layoutCanciones"
-            android:id="@+id/fa_rl_layoutAlbumes"
             android:visibility="gone">
+
             <TextView
+                android:id="@+id/fa_tv_albumesPopulares"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Albums"
-                android:fontFamily="@font/montserrat"
-                android:textColor="@color/colorWhite"
-                android:layout_margin="10dp"
-                android:textSize="18sp"
                 android:layout_centerHorizontal="true"
-                android:id="@+id/fa_tv_albumesPopulares"/>
+                android:layout_margin="10dp"
+                android:fontFamily="@font/montserrat"
+                android:text="Albums"
+                android:textColor="@color/colorWhite"
+                android:textSize="18sp" />
+
             <android.support.v7.widget.RecyclerView
+                android:id="@+id/fa_rv_albumesPopulares"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/fa_tv_albumesPopulares"
-                android:id="@+id/fa_rv_albumesPopulares"/>
+                android:layout_below="@id/fa_tv_albumesPopulares" />
         </RelativeLayout>
     </RelativeLayout>
 </ScrollView>

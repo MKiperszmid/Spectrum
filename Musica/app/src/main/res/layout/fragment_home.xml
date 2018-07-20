@@ -2,8 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.dh.tpmusicagrupo3.View.Fragments.HomeFragment"
-    android:background="@color/colorPrimaryDark">
+    android:background="@color/colorPrimaryDark"
+    tools:context="com.example.dh.tpmusicagrupo3.View.Fragments.HomeFragment">
 
     <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
@@ -18,11 +18,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
+
                 <RelativeLayout
+                    android:id="@+id/layoutTop10"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/layoutTop10"
                     android:visibility="gone">
+
                     <TextView
                         android:id="@+id/nowTrendingID"
                         android:layout_width="wrap_content"
@@ -35,18 +37,20 @@
                         android:textColor="@color/colorWhite"
                         android:textSize="@dimen/maxSizeTitleName"
                         android:textStyle="bold" />
+
                     <android.support.v7.widget.RecyclerView
+                        android:id="@+id/recyclerPopularAhora"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/recyclerPopularAhora"
-                        android:layout_below="@id/nowTrendingID"/>
+                        android:layout_below="@id/nowTrendingID" />
                 </RelativeLayout>
 
                 <RelativeLayout
+                    android:id="@+id/layoutRecentlyAdded"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/layoutRecentlyAdded"
                     android:visibility="gone">
+
                     <TextView
                         android:id="@+id/recentlyAddedID"
                         android:layout_width="wrap_content"
@@ -59,73 +63,79 @@
                         android:textColor="@color/colorWhite"
                         android:textSize="@dimen/maxSizeTitleName"
                         android:textStyle="bold" />
+
                     <android.support.v7.widget.RecyclerView
+                        android:id="@+id/recyclerAgregadoRecientemente"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/recyclerAgregadoRecientemente"
-                        android:layout_below="@id/recentlyAddedID"/>
+                        android:layout_below="@id/recentlyAddedID" />
                 </RelativeLayout>
 
                 <RelativeLayout
+                    android:id="@+id/layoutTopArg"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/layoutTopArg"
                     android:visibility="gone">
+
                     <TextView
                         android:id="@+id/trendingArgentinaID"
                         android:layout_width="wrap_content"
-                        android:textColor="@color/colorWhite"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
+                        android:layout_marginBottom="25dp"
                         android:layout_marginTop="25dp"
                         android:fontFamily="@font/montserrat"
-                        android:layout_marginBottom="25dp"
                         android:text="@string/trendingArgentina"
+                        android:textColor="@color/colorWhite"
                         android:textSize="@dimen/maxSizeTitleName"
-                        android:textStyle="bold"/>
+                        android:textStyle="bold" />
+
                     <android.support.v7.widget.RecyclerView
+                        android:id="@+id/recyclerTrendingArgentina"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/recyclerTrendingArgentina"
-                        android:layout_below="@id/trendingArgentinaID"/>
+                        android:layout_below="@id/trendingArgentinaID" />
                 </RelativeLayout>
 
                 <RelativeLayout
+                    android:id="@+id/layoutTopUsa"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/layoutTopUsa"
                     android:visibility="gone">
+
                     <TextView
                         android:id="@+id/trendingUSA"
                         android:layout_width="wrap_content"
-                        android:textColor="@color/colorWhite"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
+                        android:layout_marginBottom="25dp"
                         android:layout_marginTop="25dp"
                         android:fontFamily="@font/montserrat"
-                        android:layout_marginBottom="25dp"
                         android:text="@string/trending_usa"
+                        android:textColor="@color/colorWhite"
                         android:textSize="@dimen/maxSizeTitleName"
-                        android:textStyle="bold"/>
+                        android:textStyle="bold" />
+
                     <android.support.v7.widget.RecyclerView
+                        android:id="@+id/recyclerTrendingUsa"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/recyclerTrendingUsa"
-                        android:layout_below="@id/trendingUSA"/>
+                        android:layout_below="@id/trendingUSA" />
                 </RelativeLayout>
             </LinearLayout>
 
         </RelativeLayout>
 
     </ScrollView>
+
     <ProgressBar
+        android:id="@+id/progressBarHome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/progressBarHome"
-        android:layout_centerInParent="true"
         android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
         android:layout_margin="30dp"
-        android:visibility="invisible"/>
+        android:visibility="invisible" />
 
 </RelativeLayout>
 

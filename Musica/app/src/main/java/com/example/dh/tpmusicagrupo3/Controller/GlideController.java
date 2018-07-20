@@ -11,7 +11,7 @@ import com.example.dh.tpmusicagrupo3.R;
  */
 
 public class GlideController {
-    public static void loadImageFade(View view, String url, ImageView imageView){
+    public static void loadImageFade(View view, String url, ImageView imageView) {
         GlideApp.with(view)
                 .load(url)
                 .placeholder(R.drawable.placeholder)
@@ -19,7 +19,7 @@ public class GlideController {
                 .into(imageView);
     }
 
-    public static void loadImages(View view, String url, ImageView imageView){
+    public static void loadImages(View view, String url, ImageView imageView) {
         GlideApp.with(view)
                 .load(url)
                 .placeholder(R.drawable.placeholder)

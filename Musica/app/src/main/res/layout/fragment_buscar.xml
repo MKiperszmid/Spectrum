@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".View.Fragments.BuscarFragment"
     android:background="@color/colorPrimaryDark"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".View.Fragments.BuscarFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,21 +15,22 @@
         <ImageView
             android:layout_width="25dp"
             android:layout_height="25dp"
-            android:src="@drawable/buscar"
+            android:layout_marginLeft="15dp"
             android:layout_marginTop="10dp"
-            android:layout_marginLeft="15dp"/>
+            android:src="@drawable/buscar" />
+
         <EditText
             android:id="@+id/searchET_buscarFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/colorWhite"
-            android:textColorHint="@color/colorGray"
+            android:layout_marginHorizontal="10dp"
             android:backgroundTint="@color/colorAccent"
             android:hint="Buscar"
-            android:maxLines="1"
             android:imeOptions="actionSearch"
             android:inputType="text"
-            android:layout_marginHorizontal="10dp"/>
+            android:maxLines="1"
+            android:textColor="@color/colorWhite"
+            android:textColorHint="@color/colorGray" />
 
     </LinearLayout>
 
@@ -37,5 +38,5 @@
         android:id="@+id/rvSearch_buscarFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"/>
+        android:layout_margin="20dp" />
 </LinearLayout>

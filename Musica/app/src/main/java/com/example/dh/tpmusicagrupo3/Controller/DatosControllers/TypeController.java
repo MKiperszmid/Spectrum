@@ -4,7 +4,7 @@ import android.support.v4.app.Fragment;
 
 import java.util.List;
 
-public abstract class TypeController <T>{
+public abstract class TypeController<T> {
     public static final String KEY_T = "keytemplate";
     private T data;
     private Fragment fragment;

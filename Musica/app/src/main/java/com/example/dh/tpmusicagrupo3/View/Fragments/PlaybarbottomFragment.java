@@ -83,20 +83,20 @@ public class PlaybarbottomFragment extends Fragment {
         Bundle bundle = getArguments();
         posicion = bundle.getInt(CLAVE_CANCION);
 
-        trackList = (ArrayList<Track>)bundle.getSerializable(CLAVE_CANCIONES);
-        cancion = (Track)bundle.getSerializable(CLAVE_PLAYING);
+        trackList = (ArrayList<Track>) bundle.getSerializable(CLAVE_CANCIONES);
+        cancion = (Track) bundle.getSerializable(CLAVE_PLAYING);
         cancionPlaying = view.findViewById(R.id.cancionCurrentPlayingID);
         artistaPlaying = view.findViewById(R.id.artistCurrentPlayingID);
         separatorPlaying = view.findViewById(R.id.separatorCurrentPlayingID);
         queue = view.findViewById(R.id.relativeQueue);
 
-       cancionPlaying.setText(cancion.getTitle_short());
-       artistaPlaying.setText(cancion.getArtist().getName());
-       separatorPlaying.setText(" - ");
+        cancionPlaying.setText(cancion.getTitle_short());
+        artistaPlaying.setText(cancion.getArtist().getName());
+        separatorPlaying.setText(" - ");
 
-        queue.setOnClickListener(new View.OnClickListener(){
+        queue.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if (cancion != null){
+                if (cancion != null) {
                     notificadorActivity.recibirCancion(cancion, trackList);
                 }
             }
@@ -119,7 +119,7 @@ public class PlaybarbottomFragment extends Fragment {
         upBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (cancion != null){
+                if (cancion != null) {
                     notificadorActivity.recibirCancion(cancion, trackList);
                 }
             }
@@ -128,15 +128,15 @@ public class PlaybarbottomFragment extends Fragment {
         return view;
     }
 
-    private void changeSong(){
+    private void changeSong() {
         cancion = trackList.get(posicion);
         cancionPlaying.setText(cancion.getTitle_short());
         artistaPlaying.setText(cancion.getArtist().getName());
-        posicion ++;
+        posicion++;
     }
 
-    public void changeImage(Boolean playing){
-        if(playing)
+    public void changeImage(Boolean playing) {
+        if (playing)
             playBtn.setImageResource(R.drawable.stop);
         else
             playBtn.setImageResource(R.drawable.play);
@@ -146,18 +146,17 @@ public class PlaybarbottomFragment extends Fragment {
     public void onResume() {
         super.onResume();
         cancion = notificadorActivity.getCurrentPlaying();
-        if(cancion == null) return;
+        if (cancion == null) return;
 
         cancionPlaying.setText(cancion.getTitle_short());
         artistaPlaying.setText(cancion.getArtist().getName());
-        try{
-            if(notificadorActivity.isPlaying()){
+        try {
+            if (notificadorActivity.isPlaying()) {
                 playBtn.setImageResource(R.drawable.stop);
-            }else{
+            } else {
                 playBtn.setImageResource(R.drawable.play);
             }
-        }
-        catch (IllegalStateException e){
+        } catch (IllegalStateException e) {
             e.printStackTrace();
             playBtn.setImageResource(R.drawable.stop);
         }

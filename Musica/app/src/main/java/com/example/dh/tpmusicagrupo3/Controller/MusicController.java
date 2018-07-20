@@ -35,7 +35,7 @@ public class MusicController {
     private Integer limitPlaylist = 25;
     //IF track == null , devolver una lista descargada.
 
-    public MusicController(){
+    public MusicController() {
         offsetArgentina = 0;
         hayPaginasArgentina = true;
         offsetUsa = 0;
@@ -44,7 +44,7 @@ public class MusicController {
         hayPaginasPlaylist = true;
     }
 
-    public void getChart(final TrackListener<Chart> listener){
+    public void getChart(final TrackListener<Chart> listener) {
         connector.getChart(new TrackListener<Chart>() {
             @Override
             public void finish(Chart track) {
@@ -54,7 +54,7 @@ public class MusicController {
     }
 
     // Agregado recientemente
-    public void getTracksRadio(final TrackListener<TrackContainer> listener, String id){
+    public void getTracksRadio(final TrackListener<TrackContainer> listener, String id) {
         connector.getTracksRadio(new TrackListener<TrackContainer>() {
             @Override
             public void finish(TrackContainer track) {
@@ -64,12 +64,12 @@ public class MusicController {
     }
 
     // Popular Argentina
-    public void getTracksPlaylist(final TrackListener<TrackContainer> listener, String id, Integer index){
+    public void getTracksPlaylist(final TrackListener<TrackContainer> listener, String id, Integer index) {
         connector.getTracksPlaylist(new TrackListener<TrackContainer>() {
             @Override
             public void finish(TrackContainer track) {
-                if(track != null){
-                    if(track.getData().size() < limitPlaylist){
+                if (track != null) {
+                    if (track.getData().size() < limitPlaylist) {
                         hayPaginasPlaylist = false;
                     }
                     offsetPlaylist += track.getData().size();
@@ -80,12 +80,12 @@ public class MusicController {
     }
 
     // Popular Argentina
-    public void getTopArgentina(final TrackListener<TrackContainer> listener){
+    public void getTopArgentina(final TrackListener<TrackContainer> listener) {
         getTracksPlaylist(new TrackListener<TrackContainer>() {
             @Override
             public void finish(TrackContainer track) {
-                if(track != null){
-                    if(track.getData().size() < limitArgentina){
+                if (track != null) {
+                    if (track.getData().size() < limitArgentina) {
                         hayPaginasArgentina = false;
                     }
                     offsetArgentina += track.getData().size();
@@ -96,12 +96,12 @@ public class MusicController {
     }
 
     // Trending USA
-    public void getTopUsa(final TrackListener<TrackContainer> listener){
+    public void getTopUsa(final TrackListener<TrackContainer> listener) {
         getTracksPlaylist(new TrackListener<TrackContainer>() {
             @Override
             public void finish(TrackContainer track) {
-                if(track != null){
-                    if(track.getData().size() < limitUsa){
+                if (track != null) {
+                    if (track.getData().size() < limitUsa) {
                         hayPaginasUsa = false;
                     }
                     offsetUsa += track.getData().size();
@@ -113,7 +113,7 @@ public class MusicController {
     }
 
     // Cancion basado en ID
-    public void getTrack(final TrackListener<Track> listener, String id){
+    public void getTrack(final TrackListener<Track> listener, String id) {
         connector.getTrack(new TrackListener<Track>() {
             @Override
             public void finish(Track track) {
@@ -123,17 +123,17 @@ public class MusicController {
     }
 
     // Artistas populares
-    public void getArtistsChart(final TrackListener<ArtistContainer> listener){
+    public void getArtistsChart(final TrackListener<ArtistContainer> listener) {
         connector.getArtistsChart(new TrackListener<ArtistContainer>() {
             @Override
             public void finish(ArtistContainer track) {
-               listener.finish(track);
+                listener.finish(track);
             }
         });
     }
 
     // TOP 10
-    public void getTracksChart(final TrackListener<TrackContainer> listener){
+    public void getTracksChart(final TrackListener<TrackContainer> listener) {
         connector.getTracksChart(new TrackListener<TrackContainer>() {
             @Override
             public void finish(TrackContainer track) {
@@ -143,7 +143,7 @@ public class MusicController {
     }
 
     // Generos
-    public void getGenreList(final TrackListener<GenreContainer> listener){
+    public void getGenreList(final TrackListener<GenreContainer> listener) {
         connector.getGenreList(new TrackListener<GenreContainer>() {
             @Override
             public void finish(GenreContainer track) {
@@ -153,7 +153,7 @@ public class MusicController {
     }
 
     // TOP 10 Playlists
-    public void getPlaylistsChart(final TrackListener<PlaylistContainer> listener){
+    public void getPlaylistsChart(final TrackListener<PlaylistContainer> listener) {
         connector.getPlaylistsChart(new TrackListener<PlaylistContainer>() {
             @Override
             public void finish(PlaylistContainer track) {
@@ -163,7 +163,7 @@ public class MusicController {
     }
 
     // Get Artista
-    public void getArtist(final TrackListener<Artist> listener, Integer id){
+    public void getArtist(final TrackListener<Artist> listener, Integer id) {
         connector.getArtist(new TrackListener<Artist>() {
             @Override
             public void finish(Artist track) {
@@ -173,7 +173,7 @@ public class MusicController {
     }
 
     // Canciones de un Artista en especifico
-    public void getArtistTracks(final TrackListener<TrackContainer> listener, Integer id){
+    public void getArtistTracks(final TrackListener<TrackContainer> listener, Integer id) {
         connector.getArtistTracks(new TrackListener<TrackContainer>() {
             @Override
             public void finish(TrackContainer track) {
@@ -183,7 +183,7 @@ public class MusicController {
     }
 
     // Albums de un Artista en especifico
-    public void getArtistAlbums(final TrackListener<AlbumContainer> listener, Integer id){
+    public void getArtistAlbums(final TrackListener<AlbumContainer> listener, Integer id) {
         connector.getArtistAlbums(new TrackListener<AlbumContainer>() {
             @Override
             public void finish(AlbumContainer track) {
@@ -193,7 +193,7 @@ public class MusicController {
     }
 
     // Canciones de un Genero en especifico
-    public void getGenreTracks(final TrackListener<TrackContainer> listener, Integer id){
+    public void getGenreTracks(final TrackListener<TrackContainer> listener, Integer id) {
         connector.getGenreTracks(new TrackListener<TrackContainer>() {
             @Override
             public void finish(TrackContainer track) {
@@ -202,12 +202,16 @@ public class MusicController {
         }, id, 8); // 8 Hardcodeado para el diseño de ArtistFragment?
     }
 
-    public Boolean getHayPaginasArgentina(){ return hayPaginasArgentina; }
+    public Boolean getHayPaginasArgentina() {
+        return hayPaginasArgentina;
+    }
 
-    public Boolean getHayPaginasUsa(){ return hayPaginasUsa; }
+    public Boolean getHayPaginasUsa() {
+        return hayPaginasUsa;
+    }
 
     // Buscar cancion
-    public void getSearchTracks(final TrackListener<TrackContainer> listener, String s){
+    public void getSearchTracks(final TrackListener<TrackContainer> listener, String s) {
         connector.getSearchTracks(new TrackListener<TrackContainer>() {
             @Override
             public void finish(TrackContainer track) {
@@ -218,13 +222,13 @@ public class MusicController {
     }
 
 
-    private TrackContainer validateTracks(TrackContainer trackContainer){
-        if(trackContainer == null)
+    private TrackContainer validateTracks(TrackContainer trackContainer) {
+        if (trackContainer == null)
             return trackContainer;
 
         List<Track> trackList = new ArrayList<>();
-        for(Track t : trackContainer.getData()){
-            if(!t.getPreview().equals("")){
+        for (Track t : trackContainer.getData()) {
+            if (!t.getPreview().equals("")) {
                 trackList.add(t);
             }
         }

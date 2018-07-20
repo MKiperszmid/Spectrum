@@ -38,7 +38,7 @@ import com.example.dh.tpmusicagrupo3.View.Activities.MainActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class SongFragment extends Fragment{
+public class SongFragment extends Fragment {
 
     public static final String cancionKey = "CANCION";
     public static final String CANCIONESKEY = "CANCIONES";
@@ -67,6 +67,7 @@ public class SongFragment extends Fragment{
 
     public static final String CANCIONKEY = "cancion";
     private NotificadorFragmentActivity notificadorFragmentActivity;
+
     public SongFragment() {
         // Required empty public constructor
     }
@@ -76,23 +77,23 @@ public class SongFragment extends Fragment{
         super.onAttach(context);
         this.notificadorCambioCancion = (NotificadorCambioCancion) context;
         this.notificadorFragmentService = (NotificadorFragmentService) context;
-        this.notificadorFragmentActivity = (NotificadorFragmentActivity)context;
+        this.notificadorFragmentActivity = (NotificadorFragmentActivity) context;
     }
 
-    private Boolean isLoggedIn(){
+    private Boolean isLoggedIn() {
         FirebaseUser user = mAuth.getCurrentUser();
         //TODO: Agregar FB.
-        if(user != null){
+        if (user != null) {
             return true;
         }
         return false;
     }
 
-    public Track getCancion(){
+    public Track getCancion() {
         return this.cancion;
     }
 
-    public static SongFragment dameFragment(Track cancion){
+    public static SongFragment dameFragment(Track cancion) {
         SongFragment fragment = new SongFragment();
         Bundle bundle = new Bundle();
         bundle.putSerializable(CANCIONKEY, cancion);
@@ -163,10 +164,9 @@ public class SongFragment extends Fragment{
         heartClick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(isLoggedIn()){
+                if (isLoggedIn()) {
                     Toast.makeText(getActivity(), "Me Gusta", Toast.LENGTH_SHORT).show();
-                }
-                else {
+                } else {
                     Toast.makeText(getActivity(), "Necesitas estar logueado", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -185,7 +185,7 @@ public class SongFragment extends Fragment{
             @Override
             public void onClick(View view) {
                 notificadorFragmentService.playSong();
-               // mediaPlayerController.playPause(pauseplayClick);
+                // mediaPlayerController.playPause(pauseplayClick);
             }
         });
 
@@ -202,7 +202,7 @@ public class SongFragment extends Fragment{
             @Override
             public void onClick(View view) {
                 //Toast.makeText(getActivity(), "Abrir más opciones", Toast.LENGTH_SHORT).show();
-                if(!menuMasOpcionesStatus){
+                if (!menuMasOpcionesStatus) {
                     Animation animation;
                     animation = AnimationUtils.loadAnimation(getContext(),
                             R.anim.slide_up);
@@ -221,7 +221,7 @@ public class SongFragment extends Fragment{
             @Override
             public void onClick(View v) {
                 //Toast.makeText(getActivity(), "cerrar más opciones", Toast.LENGTH_SHORT).show();
-                if(menuMasOpcionesStatus){
+                if (menuMasOpcionesStatus) {
                     Animation animation;
                     animation = AnimationUtils.loadAnimation(getContext(),
                             R.anim.slide_down);
@@ -238,10 +238,9 @@ public class SongFragment extends Fragment{
         viewAgregarPlaylist.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(isLoggedIn()){
+                if (isLoggedIn()) {
                     Toast.makeText(getActivity(), "Agregar a Playlist", Toast.LENGTH_SHORT).show();
-                }
-                else {
+                } else {
                     Toast.makeText(getActivity(), "Necesitas estar logueado", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -253,7 +252,7 @@ public class SongFragment extends Fragment{
                 Intent share = new Intent(android.content.Intent.ACTION_SEND);
                 share.setType("text/plain");
                 share.putExtra(Intent.EXTRA_SUBJECT, "Te recomiendo esta canción!");
-                String cancionInfo = cancion.getArtist().toString() + " " +  cancion.getTitle_short().toString();
+                String cancionInfo = cancion.getArtist().toString() + " " + cancion.getTitle_short().toString();
 
 
                 // TODO: Levantar atributo "Share" de api y ponerlo en cancionURL
@@ -270,15 +269,15 @@ public class SongFragment extends Fragment{
         return view;
     }
 
-    private String segundosToTiempo(Integer segundos){
+    private String segundosToTiempo(Integer segundos) {
         Integer minutos = segundos / 60;
         String segundosText, minutosText;
-        if(minutos > 1){
+        if (minutos > 1) {
             segundos -= minutos * 60;
         }
 
         segundosText = segundos.toString();
-        if(segundos < 10){
+        if (segundos < 10) {
             segundosText = "0" + segundos;
         }
         minutosText = minutos.toString();
@@ -286,22 +285,23 @@ public class SongFragment extends Fragment{
     }
 
 
-    public interface NotificadorCambioCancion{
+    public interface NotificadorCambioCancion {
         // Envia a SongActivity
         public void retroceder();
+
         public void adelantar();
     }
 
-    public interface NotificadorFragmentActivity{
+    public interface NotificadorFragmentActivity {
         void notificarArtista(Artist artist);
     }
 
     // Cada 1 segundo actualiza el textview de por que segundo va la cancion y la seekbar
-    public void actualizarMusicaInfo(){
+    public void actualizarMusicaInfo() {
         final Handler handler = new Handler();
-        handler.postDelayed(new Runnable(){
+        handler.postDelayed(new Runnable() {
             @Override
-            public void run(){
+            public void run() {
                 int currentDuration;
                 //currentDuration = MediaPlayerController.getCurrentDuration();
                 currentDuration = notificadorFragmentService.getCurrentDuration();
@@ -311,14 +311,14 @@ public class SongFragment extends Fragment{
         }, 0); // si delay 0 para arrancar
     }
 
-    private void updateSeekBar(int currentDuration){
+    private void updateSeekBar(int currentDuration) {
         MiliSecondsToTimer miliSecondsToTimer = new MiliSecondsToTimer();
         currentDurationTV.setText(miliSecondsToTimer.milliSecondsToTimer((long) currentDuration));
         seekBar.setProgress(currentDuration / 1000);
     }
 
-    public void changeImage(Boolean playing){
-        if(playing)
+    public void changeImage(Boolean playing) {
+        if (playing)
             pauseplayClick.setImageResource(R.drawable.stop);
         else
             pauseplayClick.setImageResource(R.drawable.play);
@@ -328,10 +328,9 @@ public class SongFragment extends Fragment{
     public void onResume() {
         super.onResume();
 
-        if(notificadorFragmentService.isPlaying()){
+        if (notificadorFragmentService.isPlaying()) {
             pauseplayClick.setImageResource(R.drawable.stop);
-        }
-        else {
+        } else {
             pauseplayClick.setImageResource(R.drawable.play);
         }
 
@@ -344,11 +343,15 @@ public class SongFragment extends Fragment{
         LocalBroadcastManager.getInstance(getActivity()).unregisterReceiver(receiver);
     }
 
-    public interface NotificadorFragmentService{
+    public interface NotificadorFragmentService {
         void playSong();
+
         Integer getCurrentDuration();
+
         void startSong(Track track);
+
         Track getCurrentSong();
+
         Boolean isPlaying();
     }
 

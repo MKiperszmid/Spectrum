@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".View.Fragments.Detalles.GenreFragment"
-    android:background="@color/colorPrimaryDark">
+    android:background="@color/colorPrimaryDark"
+    tools:context=".View.Fragments.Detalles.GenreFragment">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -64,12 +64,12 @@
 
             <!-- Contenedor lista de canciones -->
             <RelativeLayout
+                android:id="@+id/rl_genrefragment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/infoGenero_rl_generofragment"
-                android:id="@+id/rl_genrefragment"
-                android:visibility="visible"
-                android:layout_marginTop="10dp">
+                android:layout_marginTop="10dp"
+                android:visibility="visible">
 
                 <!-- Titulo lista  -->
                 <TextView
@@ -89,7 +89,7 @@
                     android:id="@+id/cancionpopulares_rl_genrefragment"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/cancionespopulares_tv_genrefragment"/>
+                    android:layout_below="@id/cancionespopulares_tv_genrefragment" />
 
             </RelativeLayout>
 
@@ -98,9 +98,9 @@
     </ScrollView>
 
     <ProgressBar
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/fg_pb_progress"
         style="@style/Progressbar"
-        android:id="@+id/fg_pb_progress"/>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
 </RelativeLayout>

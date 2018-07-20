@@ -1,4 +1,5 @@
 package com.example.dh.tpmusicagrupo3.View.Activities;
+
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
@@ -41,7 +42,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements HomeFragment.NotificadorActivity, BarbottomFragment.NotificadorActivityBarBottom,
-        ExplorarFragment.NotificarClickeado{
+        ExplorarFragment.NotificarClickeado {
 
     public static MediaPlayerService mediaPlayerService;
     private Boolean isServiceBounded = false;
@@ -74,7 +75,7 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Noti
 
         LoadFragment(new BarbottomFragment(), R.id.barBottom);
         Artist artist = (Artist) getIntent().getExtras().getSerializable(ArtistaKey);
-        if(artist == null){
+        if (artist == null) {
             LoadFragment(new HomeFragment(), R.id.homeID);
         } else {
             ArtistController artistController = new ArtistController(artist);
@@ -85,14 +86,14 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Noti
         //printHash();
     }
 
-    public void LoadFragment(Fragment fragment, int id){
+    public void LoadFragment(Fragment fragment, int id) {
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
         transaction.replace(id, fragment);
         transaction.commit();
     }
 
-    public void LoadFragment(Fragment fragment, int id, Bundle bundle){
+    public void LoadFragment(Fragment fragment, int id, Bundle bundle) {
         fragment.setArguments(bundle);
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
@@ -105,7 +106,7 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Noti
     public void recibirCancion(Track cancion, ArrayList<Track> tracks) {
 
         cancionActual = cancion;
-        if(tracks != null)
+        if (tracks != null)
             this.tracks = tracks;
 
         startSong(cancion, tracks);//TODO: Borrar esta linea para sacar el service
@@ -115,7 +116,7 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Noti
         loadSongActivity(cancion, tracks);
     }
 
-    private void loadSongActivity(Track cancion, ArrayList<Track> tracks){
+    private void loadSongActivity(Track cancion, ArrayList<Track> tracks) {
         Intent intent = new Intent(this, SongActivity.class);
         Bundle bundle = new Bundle();
         bundle.putInt(SongFragment.CANCIONPOS, tracks.indexOf(cancion));
@@ -125,7 +126,7 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Noti
         startActivity(intent);
     }
 
-    private void loadPlayBar(Track cancion, ArrayList<Track> tracks){
+    private void loadPlayBar(Track cancion, ArrayList<Track> tracks) {
         Bundle bundlePB = new Bundle();
         bundlePB.putInt(PlaybarbottomFragment.CLAVE_CANCION, tracks.indexOf(cancion));
         bundlePB.putSerializable(PlaybarbottomFragment.CLAVE_CANCIONES, tracks);
@@ -138,8 +139,8 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Noti
         LoadFragment(playbarbottomFragment, R.id.playBarBottom);
     }
 
-    public void startSong(Track cancion, ArrayList<Track> tracks){
-        if(mediaPlayerService == null || !mediaPlayerService.getCurrentPlaying().equals(cancion)) {
+    public void startSong(Track cancion, ArrayList<Track> tracks) {
+        if (mediaPlayerService == null || !mediaPlayerService.getCurrentPlaying().equals(cancion)) {
             Intent playerService = new Intent(getApplicationContext(), MediaPlayerService.class);
             Bundle bundleService = new Bundle();
             bundleService.putSerializable(MediaPlayerService.PLAY_TRACK, cancion);
@@ -169,14 +170,14 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Noti
     @Override
     public Track getCurrentPlaying() {
         Track track = cancionActual;
-        if(mediaPlayerService != null)
+        if (mediaPlayerService != null)
             track = mediaPlayerService.getCurrentPlaying();
         return track;
     }
 
     @Override
     public Boolean isPlaying() {
-        if(mediaPlayerService == null){
+        if (mediaPlayerService == null) {
             return false;
         }
         return mediaPlayerService.isPlaying();
@@ -197,13 +198,13 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Noti
         Fragment fragment = controller.getFragment();
         Bundle bundle = new Bundle();
         bundle.putSerializable(TypeController.KEY_T, (Serializable) controller.getData());
-        LoadFragment(fragment,R.id.homeID, bundle);
+        LoadFragment(fragment, R.id.homeID, bundle);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        if(mediaPlayerService != null && mediaPlayerService.getCurrentPlaying() != null) {
+        if (mediaPlayerService != null && mediaPlayerService.getCurrentPlaying() != null) {
             loadPlayBar(mediaPlayerService.getCurrentPlaying(), (ArrayList<Track>) mediaPlayerService.getCurrentTracks());
         }
     }

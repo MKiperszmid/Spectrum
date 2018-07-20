@@ -50,13 +50,13 @@ public class AdapterGeneroItem extends RecyclerView.Adapter {
 
         // Lleno el array de generos con cada genero y le agrego un gradiente de la lista de gradients de arriba
         for (Genre genero : generos) {
-            if(numgr < drawablesGradients.size() -1 ){
+            if (numgr < drawablesGradients.size() - 1) {
                 numgr++;
-            }else {
+            } else {
                 // Al llegar al ultimo gradiente de la lista, vuelve al primero
                 numgr = 0;
             }
-            generosFinal.add(new Genre(genero.getId(), genero.getName(), drawablesGradients.get(numgr) ));
+            generosFinal.add(new Genre(genero.getId(), genero.getName(), drawablesGradients.get(numgr)));
         }
 
         this.notificadorGeneroCelda = notificadorGeneroCelda;
@@ -80,9 +80,9 @@ public class AdapterGeneroItem extends RecyclerView.Adapter {
 
     @Override
     public int getItemCount() {
-        if(generosFinal != null){
+        if (generosFinal != null) {
             return generosFinal.size();
-        }else{
+        } else {
             return 0;
         }
     }
@@ -112,7 +112,7 @@ public class AdapterGeneroItem extends RecyclerView.Adapter {
         }
     }
 
-    public interface NotificadorGeneroCelda{
+    public interface NotificadorGeneroCelda {
         void notificarGeneroClickeado(Genre genre);
     }
 }

@@ -71,7 +71,7 @@ public class Track implements Serializable {
 
     @Override
     public boolean equals(Object obj) {
-        if(!(obj instanceof Track)) return false;
+        if (!(obj instanceof Track)) return false;
         Track track = (Track) obj;
         return track.getId().equals(this.id) && track.getTitle_short().equals(this.title_short) && track.getArtist().getName().equals(this.artist.getName());
     }

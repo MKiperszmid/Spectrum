@@ -8,7 +8,7 @@ import com.example.dh.tpmusicagrupo3.View.Fragments.SongFragment;
 
 import java.util.List;
 
-public class TrackController extends TypeController <Track> {
+public class TrackController extends TypeController<Track> {
 
     public TrackController(Track data) {
         super(data);

@@ -33,7 +33,7 @@ public class SongActivity extends AppCompatActivity implements SongFragment.Noti
         @Override
         public void onReceive(Context context, Intent intent) {
             Boolean songChange = intent.getExtras().getBoolean(MediaPlayerService.IS_FINISHED, false);
-            if(songChange){
+            if (songChange) {
                 adelantar();
             }
         }
@@ -47,7 +47,7 @@ public class SongActivity extends AppCompatActivity implements SongFragment.Noti
         fragments = new ArrayList<>();
         index = getIntent().getExtras().getInt(SongFragment.CANCIONPOS) + 1;
 
-        tracks = (ArrayList<Track>)getIntent().getExtras().getSerializable(SongFragment.CANCIONESKEY);
+        tracks = (ArrayList<Track>) getIntent().getExtras().getSerializable(SongFragment.CANCIONESKEY);
         CargarFragments();
         pager = findViewById(R.id.songactivityViewPager);
         final AdapterSongPager adapter = new AdapterSongPager(getSupportFragmentManager(), fragments);
@@ -63,9 +63,9 @@ public class SongActivity extends AppCompatActivity implements SongFragment.Noti
             //TODO: Mostrar codigo a Nico.
             @Override
             public void onPageSelected(int position) {
-                if(position >= adapter.getCount()  - 1) {
+                if (position >= adapter.getCount() - 1) {
                     pager.setCurrentItem(1, false);
-                } else if(position <= 0) {
+                } else if (position <= 0) {
                     pager.setCurrentItem(fragments.size() - 2, false);
                 }
                 MainActivity.mediaPlayerService.startSong(fragments.get(position).getCancion(), tracks);
@@ -88,7 +88,7 @@ public class SongActivity extends AppCompatActivity implements SongFragment.Noti
         canciones.addAll(tracks);
         canciones.add(tracks.get(0));
 
-        for(Track cancion : canciones){
+        for (Track cancion : canciones) {
             fragments.add(SongFragment.dameFragment(cancion));
         }
     }

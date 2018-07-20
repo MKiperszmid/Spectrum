@@ -19,15 +19,16 @@ public class AdapterArtistaCanciones extends RecyclerView.Adapter {
     private List<Track> trackList;
     private NotificadorCancionArtista notificadorCancionArtista;
 
-    public AdapterArtistaCanciones(NotificadorCancionArtista notificadorCancionArtista){
+    public AdapterArtistaCanciones(NotificadorCancionArtista notificadorCancionArtista) {
         this.notificadorCancionArtista = notificadorCancionArtista;
         trackList = new ArrayList<>();
     }
 
-    public AdapterArtistaCanciones(List<Track> canciones, NotificadorCancionArtista notificadorCancionArtista){
+    public AdapterArtistaCanciones(List<Track> canciones, NotificadorCancionArtista notificadorCancionArtista) {
         this.trackList = canciones;
         this.notificadorCancionArtista = notificadorCancionArtista;
     }
+
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -46,12 +47,12 @@ public class AdapterArtistaCanciones extends RecyclerView.Adapter {
 
     @Override
     public int getItemCount() {
-        if(trackList == null)
+        if (trackList == null)
             return 0;
         return trackList.size();
     }
 
-    public void addTracks(List<Track> tracks){
+    public void addTracks(List<Track> tracks) {
         trackList.addAll(tracks);
         notifyDataSetChanged(); //TODO: Cambiar por Range para hacerlo un poco mas performante
     }
@@ -74,14 +75,14 @@ public class AdapterArtistaCanciones extends RecyclerView.Adapter {
             });
         }
 
-        public void bindTrack(Track track){
+        public void bindTrack(Track track) {
             GlideController.loadImageFade(itemView, track.getAlbum().getCover_medium(), ivArtwork);
             tvSongName.setText(track.getTitle_short());
             tvArtistName.setText(track.getArtist().getName());
         }
     }
 
-    public interface NotificadorCancionArtista{
+    public interface NotificadorCancionArtista {
         void notificarCancion(Track cancion);
     }
 }

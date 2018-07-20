@@ -17,7 +17,7 @@ import java.util.List;
 public class AdapterArtistaAlbumes extends RecyclerView.Adapter {
     private List<Album> albums;
 
-    public AdapterArtistaAlbumes(List<Album> albums){
+    public AdapterArtistaAlbumes(List<Album> albums) {
         this.albums = albums;
     }
 
@@ -31,7 +31,7 @@ public class AdapterArtistaAlbumes extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        ArtistaAlbumViewHolder artistaAlbumViewHolder = (ArtistaAlbumViewHolder)holder;
+        ArtistaAlbumViewHolder artistaAlbumViewHolder = (ArtistaAlbumViewHolder) holder;
         Album album = albums.get(position);
         artistaAlbumViewHolder.bindAlbum(album);
     }
@@ -51,7 +51,7 @@ public class AdapterArtistaAlbumes extends RecyclerView.Adapter {
             tvAlbumName = itemView.findViewById(R.id.caa_tv_albumName);
         }
 
-        public void bindAlbum(Album album){
+        public void bindAlbum(Album album) {
             GlideController.loadImageFade(itemView, album.getCover_big(), ivArtwork);
             tvAlbumName.setText(album.getTitle());
         }
