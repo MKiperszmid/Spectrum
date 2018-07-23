@@ -254,10 +254,7 @@ public class SongFragment extends Fragment {
                 share.putExtra(Intent.EXTRA_SUBJECT, "Te recomiendo esta canción!");
                 String cancionInfo = cancion.getArtist().toString() + " " + cancion.getTitle_short().toString();
 
-
-                // TODO: Levantar atributo "Share" de api y ponerlo en cancionURL
-                String cancionURL = "https://www.deezer.com/track/3135556?utm_source=deezer&utm_content=track-3135556&utm_term=0_1530416266&utm_medium=web";
-                cancionURL = "https://www.deezer.com/en/track/" + cancion.getId();
+                String cancionURL = "https://www.deezer.com/en/track/" + cancion.getId();
                 share.putExtra(Intent.EXTRA_TEXT, "Te recomiendo esta canción: " + cancionInfo + " - " + cancionURL);
                 startActivity(Intent.createChooser(share, "Compartir " + cancionInfo));
             }
@@ -265,6 +262,9 @@ public class SongFragment extends Fragment {
 
         // Llamo al Runnable
         actualizarMusicaInfo();
+
+        MediaPlayerService mediaPlayerService = MediaPlayerService.getInstance();
+        mediaPlayerService.closeNotification();
 
         return view;
     }

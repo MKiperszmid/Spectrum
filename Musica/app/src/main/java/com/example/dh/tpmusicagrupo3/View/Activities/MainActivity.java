@@ -154,14 +154,15 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Noti
 
     @Override
     protected void onDestroy() {
-        try{
+        try {
             getApplicationContext().unbindService(serviceConnection);
             mediaPlayerService.closeNotification();
-        } catch (Exception e){
+        } catch (Exception e) {
 
         }
         super.onDestroy();
     }
+
 
     @Override
     protected void onStop() {
@@ -211,6 +212,7 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Noti
         super.onResume();
         if (mediaPlayerService != null && mediaPlayerService.getCurrentPlaying() != null) {
             loadPlayBar(mediaPlayerService.getCurrentPlaying(), (ArrayList<Track>) mediaPlayerService.getCurrentTracks());
+            mediaPlayerService.sendNotification(true);
         }
     }
 

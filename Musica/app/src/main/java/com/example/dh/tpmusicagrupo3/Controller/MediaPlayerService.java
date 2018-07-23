@@ -28,17 +28,13 @@ import com.example.dh.tpmusicagrupo3.Model.POJO.Track;
 import com.example.dh.tpmusicagrupo3.R;
 import com.example.dh.tpmusicagrupo3.Utils.App;
 import com.example.dh.tpmusicagrupo3.View.Activities.MainActivity;
+import com.example.dh.tpmusicagrupo3.View.Activities.SongActivity;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class MediaPlayerService extends Service {
-
-    // TODO: Estoy testeando un par de cosas
-    // Se supone que el Service es lo que hay que usar, en vez de el MediaPlayerController.
-    // Pero en un futuro.
-
 
     private MediaPlayer mediaPlayer;
     private Track currentPlaying;
@@ -62,13 +58,14 @@ public class MediaPlayerService extends Service {
     public static final String CHANGEIMAGE = "changeImage";
     public static final String CHANGESONG = "changeSong";
     public static final String IS_FINISHED = "isFinished";
+    private PendingIntent previousPending, playPending, nextPending;
 
     public MediaPlayerService() {
 
     }
 
-    public static MediaPlayerService getInstance(){
-        if(mediaPlayerService == null){
+    public static MediaPlayerService getInstance() {
+        if (mediaPlayerService == null) {
             mediaPlayerService = new MediaPlayerService();
         }
         return mediaPlayerService;
@@ -79,11 +76,22 @@ public class MediaPlayerService extends Service {
         super.onCreate();
         notificationManagerCompat = NotificationManagerCompat.from(this);
         mediaSessionCompat = new MediaSessionCompat(this, "tag");
+        previousPending = createPending(NotificationReceiver.PREVIOUS_ACTION);
+        playPending = createPending(NotificationReceiver.PLAY_ACTION);
+        nextPending = createPending(NotificationReceiver.NEXT_ACTION);
     }
 
     public void closeNotification() {
         NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         manager.cancel(App.NOTIFICATION_ID.REPRODUCTOR_SERVICE);
+    }
+
+    private PendingIntent createPending(String action) {
+        Intent intent = new Intent(getApplicationContext(), NotificationReceiver.class);
+        Bundle bundle = new Bundle();
+        bundle.putString(NotificationReceiver.ACTION_KEY, action);
+        intent.putExtras(bundle);
+        return PendingIntent.getBroadcast(getApplicationContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
     }
 
     public void sendNotification(final Boolean onGoing) {
@@ -98,11 +106,6 @@ public class MediaPlayerService extends Service {
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         final PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
 
-
-        Intent playIntent = new Intent(getApplicationContext(), NotificationReceiver.class);
-        playIntent.putExtra(NotificationReceiver.ACTION_KEY, NotificationReceiver.PLAY_ACTION);
-        final PendingIntent playPending = PendingIntent.getBroadcast(getApplicationContext(), 0, playIntent,PendingIntent.FLAG_UPDATE_CURRENT);
-
         Glide.with(this).asBitmap().load(currentPlaying.getAlbum().getCover_big()).into(new SimpleTarget<Bitmap>() {
             @Override
             public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
@@ -115,9 +118,9 @@ public class MediaPlayerService extends Service {
                         .setCategory(NotificationCompat.CATEGORY_SERVICE)
                         .setContentIntent(pendingIntent)
                         .setOngoing(onGoing)
-                        .addAction(R.drawable.prevresize, "Previous", null)
+                        .addAction(R.drawable.prevresize, "Previous", previousPending)
                         .addAction(R.drawable.playresize, "Play", playPending)
-                        .addAction(R.drawable.nextresize, "Next", null)
+                        .addAction(R.drawable.nextresize, "Next", nextPending)
                         .setStyle(new android.support.v4.media.app.NotificationCompat.MediaStyle()
                                 .setShowActionsInCompactView(0, 1, 2)
                                 .setMediaSession(mediaSessionCompat.getSessionToken()))
@@ -126,10 +129,6 @@ public class MediaPlayerService extends Service {
                 notificationManagerCompat.notify(App.NOTIFICATION_ID.REPRODUCTOR_SERVICE, notification);
             }
         });
-    }
-
-    public void showNotification() {
-        Intent intent = new Intent(this, MainActivity.class);
     }
 
     @Override
@@ -173,6 +172,26 @@ public class MediaPlayerService extends Service {
             mediaPlayer.release();
     }
 
+    public void nextSong() {
+        try {
+            Track current = currentPlaying;
+            Integer index = currentTracks.indexOf(current);
+            startSong(currentTracks.get(index + 1), currentTracks);
+        } catch (Exception e) {
+            startSong(currentTracks.get(0), currentTracks);
+        }
+    }
+
+    public void previousSong() {
+        try {
+            Track current = currentPlaying;
+            Integer index = currentTracks.indexOf(current);
+            startSong(currentTracks.get(index - 1), currentTracks);
+        } catch (Exception e) {
+            startSong(currentTracks.get(currentTracks.size() - 1), currentTracks);
+        }
+    }
+
     public void startSong(Track track, List<Track> tracks) {
         clearPlayer();
         mediaPlayer = new MediaPlayer();
@@ -195,7 +214,8 @@ public class MediaPlayerService extends Service {
                 }
             });
 
-            sendNotification(true);
+            if (!SongActivity.isDisplayed)
+                sendNotification(true);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (Exception e) {

@@ -41,6 +41,7 @@ public class PlaybarbottomFragment extends Fragment {
     public static Integer posicion;
     private Track cancion;
     private ArrayList<Track> trackList;
+    private MediaPlayerService mediaPlayerService;
 
     private BroadcastReceiver receiver = new BroadcastReceiver() {
         @Override
@@ -82,6 +83,7 @@ public class PlaybarbottomFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_playbarbottom, container, false);
         Bundle bundle = getArguments();
         posicion = bundle.getInt(CLAVE_CANCION);
+        mediaPlayerService = MediaPlayerService.getInstance();
 
         trackList = (ArrayList<Track>) bundle.getSerializable(CLAVE_CANCIONES);
         cancion = (Track) bundle.getSerializable(CLAVE_PLAYING);
@@ -108,7 +110,8 @@ public class PlaybarbottomFragment extends Fragment {
         playBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                notificadorActivity.playSong();
+                mediaPlayerService.togglePlayer();
+                //notificadorActivity.playSong();
             }
         });
 
@@ -129,10 +132,16 @@ public class PlaybarbottomFragment extends Fragment {
     }
 
     private void changeSong() {
-        cancion = trackList.get(posicion);
-        cancionPlaying.setText(cancion.getTitle_short());
-        artistaPlaying.setText(cancion.getArtist().getName());
-        posicion++;
+        try {
+            //cancion = trackList.get(posicion);
+            MediaPlayerService mediaPlayerService = MediaPlayerService.getInstance();
+            cancion = mediaPlayerService.getCurrentPlaying();
+            cancionPlaying.setText(cancion.getTitle_short());
+            artistaPlaying.setText(cancion.getArtist().getName());
+            posicion++;
+        } catch (Exception e) {
+
+        }
     }
 
     public void changeImage(Boolean playing) {
@@ -145,13 +154,13 @@ public class PlaybarbottomFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        cancion = notificadorActivity.getCurrentPlaying();
+        cancion = mediaPlayerService.getCurrentPlaying();
         if (cancion == null) return;
 
         cancionPlaying.setText(cancion.getTitle_short());
         artistaPlaying.setText(cancion.getArtist().getName());
         try {
-            if (notificadorActivity.isPlaying()) {
+            if (mediaPlayerService.isPlaying()) {
                 playBtn.setImageResource(R.drawable.stop);
             } else {
                 playBtn.setImageResource(R.drawable.play);

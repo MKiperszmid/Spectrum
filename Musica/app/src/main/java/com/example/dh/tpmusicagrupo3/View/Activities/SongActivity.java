@@ -28,6 +28,7 @@ public class SongActivity extends AppCompatActivity implements SongFragment.Noti
     public static Integer index;
     private ViewPager pager;
     private List<Track> tracks;
+    public static Boolean isDisplayed = false;
 
     private BroadcastReceiver receiver = new BroadcastReceiver() {
         @Override
@@ -38,6 +39,20 @@ public class SongActivity extends AppCompatActivity implements SongFragment.Noti
             }
         }
     };
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        MediaPlayerService mediaPlayerService = MediaPlayerService.getInstance();
+        mediaPlayerService.closeNotification();
+        isDisplayed = true;
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        isDisplayed = false;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
