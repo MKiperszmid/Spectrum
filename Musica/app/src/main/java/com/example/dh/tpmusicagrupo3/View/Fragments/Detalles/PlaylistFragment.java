@@ -72,13 +72,13 @@ public class PlaylistFragment extends Fragment implements AdapterArtistaCancione
 
     private void cargarDatos(View view) {
         musicController = new MusicController();
-        tvNombre = view.findViewById(R.id.fp_tv_nombrePlaylist);
+        tvNombre = view.findViewById(R.id.fal_tv_nombreAlbum);
         tvDescripcion = view.findViewById(R.id.fp_tv_descripcion);
         tvCreador = view.findViewById(R.id.fp_tv_creador);
-        ivArtWork = view.findViewById(R.id.fp_iv_portada);
-        rvPlaylist = view.findViewById(R.id.fp_rv_canciones);
-        progressBar = view.findViewById(R.id.fp_pb_progress);
-        tvReproducir = view.findViewById(R.id.fp_tv_reproducir);
+        ivArtWork = view.findViewById(R.id.fal_iv_portada);
+        rvPlaylist = view.findViewById(R.id.fal_rv_canciones);
+        progressBar = view.findViewById(R.id.fal_pb_progress);
+        tvReproducir = view.findViewById(R.id.fal_tv_reproducir);
 
         isLoading = false;
         tracks = new ArrayList<>();
@@ -88,9 +88,7 @@ public class PlaylistFragment extends Fragment implements AdapterArtistaCancione
         tvCreador.setText("Spectrum"); //TODO: Cambiar por creador
         GlideController.loadImages(view, playlist.getPicture_big(), ivArtWork);
 
-        final AdapterArtistaCanciones.NotificadorCancionArtista notificadorCancionArtista = this;
-
-        AdapterArtistaCanciones adapterArtistaCanciones = new AdapterArtistaCanciones(notificadorCancionArtista);
+        AdapterArtistaCanciones adapterArtistaCanciones = new AdapterArtistaCanciones(this);
         rvPlaylist.setAdapter(adapterArtistaCanciones);
         rvPlaylist.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         getCanciones(rvPlaylist);

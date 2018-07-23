@@ -30,6 +30,7 @@ import com.example.dh.tpmusicagrupo3.Model.POJO.Playlist;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Track;
 import com.example.dh.tpmusicagrupo3.R;
 import com.example.dh.tpmusicagrupo3.View.Fragments.BarbottomFragment;
+import com.example.dh.tpmusicagrupo3.View.Fragments.Detalles.ArtistFragment;
 import com.example.dh.tpmusicagrupo3.View.Fragments.ExplorarFragment;
 import com.example.dh.tpmusicagrupo3.View.Fragments.HomeFragment;
 import com.example.dh.tpmusicagrupo3.View.Fragments.PlaybarbottomFragment;
@@ -42,7 +43,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements HomeFragment.NotificadorActivity, BarbottomFragment.NotificadorActivityBarBottom,
-        ExplorarFragment.NotificarClickeado {
+        ExplorarFragment.NotificarClickeado, ArtistFragment.NotificadorActivity {
 
     public static MediaPlayerService mediaPlayerService;
     private Boolean isServiceBounded = false;
@@ -232,6 +233,4 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Noti
             e.printStackTrace();
         }
     }
-
-
 }

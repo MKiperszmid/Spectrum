@@ -79,6 +79,15 @@ public class MusicController {
         }, id, offsetPlaylist);
     }
 
+    public void getTracksAlbum(final TrackListener<TrackContainer> listener, String id){
+        connector.getTracksAlbum(new TrackListener<TrackContainer>() {
+            @Override
+            public void finish(TrackContainer track) {
+                listener.finish(track);
+            }
+        }, id);
+    }
+
     // Popular Argentina
     public void getTopArgentina(final TrackListener<TrackContainer> listener) {
         getTracksPlaylist(new TrackListener<TrackContainer>() {

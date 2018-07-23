@@ -47,6 +47,21 @@ public class RetrofitConnector {
         });
     }
 
+    public void getTracksAlbum(final TrackListener<TrackContainer> listener, String id){
+        Call<TrackContainer> call = service.getTracksAlbum(id);
+        call.enqueue(new Callback<TrackContainer>() {
+            @Override
+            public void onResponse(Call<TrackContainer> call, Response<TrackContainer> response) {
+                listener.finish(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<TrackContainer> call, Throwable t) {
+                listener.finish(null);
+            }
+        });
+    }
+
     //
     public void getTracksPlaylist(final TrackListener<TrackContainer> listener, String id, Integer index) {
         Call<TrackContainer> trackCall = service.getTracksPlaylist(id, index);

@@ -189,6 +189,6 @@ public class ExplorarFragment extends Fragment implements AdapterArtistaPortada.
     }
 
     public interface NotificarClickeado {
-        public void notificar(TypeController controller);
+        void notificar(TypeController controller);
     }
 }

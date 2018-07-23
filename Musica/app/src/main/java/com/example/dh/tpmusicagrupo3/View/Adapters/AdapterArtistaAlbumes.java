@@ -17,9 +17,11 @@ import java.util.List;
 
 public class AdapterArtistaAlbumes extends RecyclerView.Adapter {
     private List<Album> albums;
+    private NotificadorAlbumClickeado notificadorAlbumClickeado;
 
-    public AdapterArtistaAlbumes(List<Album> albums) {
+    public AdapterArtistaAlbumes(List<Album> albums, NotificadorAlbumClickeado notificadorAlbumClickeado) {
         this.albums = albums;
+        this.notificadorAlbumClickeado = notificadorAlbumClickeado;
     }
 
     @NonNull
@@ -54,7 +56,7 @@ public class AdapterArtistaAlbumes extends RecyclerView.Adapter {
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Toast.makeText(itemView.getContext(), albums.get(getAdapterPosition()).getTitle() + ". Continuara..", Toast.LENGTH_SHORT).show();
+                    notificadorAlbumClickeado.notificarAlbumClickeado(albums.get(getAdapterPosition()));
                 }
             });
         }
@@ -63,5 +65,9 @@ public class AdapterArtistaAlbumes extends RecyclerView.Adapter {
             GlideController.loadImageFade(itemView, album.getCover_big(), ivArtwork);
             tvAlbumName.setText(album.getTitle());
         }
+    }
+
+    public interface NotificadorAlbumClickeado{
+        void notificarAlbumClickeado(Album album);
     }
 }

@@ -18,6 +18,7 @@ public class Album implements Serializable {
     private String tracklist;
     private Artist artist;
     private TrackContainer tracks;
+    private Integer nb_tracks;
 
     public Album(Integer id, String title, String cover_big, String tracklist, Artist artist, TrackContainer tracks, String cover_medium) {
         this.id = id;
@@ -27,6 +28,14 @@ public class Album implements Serializable {
         this.artist = artist;
         this.tracks = tracks;
         this.cover_medium = cover_medium;
+    }
+
+    public Integer getNb_tracks() {
+        return nb_tracks;
+    }
+
+    public void setNb_tracks(Integer nb_tracks) {
+        this.nb_tracks = nb_tracks;
     }
 
     public String getCover_medium() {

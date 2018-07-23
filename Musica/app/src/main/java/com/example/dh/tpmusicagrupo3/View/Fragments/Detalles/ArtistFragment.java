@@ -4,6 +4,8 @@ package com.example.dh.tpmusicagrupo3.View.Fragments.Detalles;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -14,6 +16,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.dh.tpmusicagrupo3.Controller.DatosControllers.AlbumController;
+import com.example.dh.tpmusicagrupo3.Controller.DatosControllers.ArtistController;
 import com.example.dh.tpmusicagrupo3.Controller.DatosControllers.TypeController;
 import com.example.dh.tpmusicagrupo3.Controller.GlideController;
 import com.example.dh.tpmusicagrupo3.Controller.MusicController;
@@ -35,7 +39,7 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ArtistFragment extends Fragment implements AdapterArtistaCanciones.NotificadorCancionArtista {
+public class ArtistFragment extends Fragment implements AdapterArtistaCanciones.NotificadorCancionArtista, AdapterArtistaAlbumes.NotificadorAlbumClickeado {
 
     private Artist currentArtist;
     private List<Track> tracks;
@@ -49,6 +53,7 @@ public class ArtistFragment extends Fragment implements AdapterArtistaCanciones.
     private RelativeLayout rlDatos;
     private TextView tvReproducir;
     private HomeFragment.NotificadorActivity notificadorActivity;
+    private NotificadorActivity notificador;
 
     public ArtistFragment() {
         // Required empty public constructor
@@ -58,6 +63,7 @@ public class ArtistFragment extends Fragment implements AdapterArtistaCanciones.
     public void onAttach(Context context) {
         super.onAttach(context);
         this.notificadorActivity = (HomeFragment.NotificadorActivity) context;
+        this.notificador = (NotificadorActivity) context;
     }
 
     @Override
@@ -163,12 +169,13 @@ public class ArtistFragment extends Fragment implements AdapterArtistaCanciones.
             }
         }, artist.getId());
 
+        final AdapterArtistaAlbumes.NotificadorAlbumClickeado notificadorAlbumClickeado = this;
         // Obtener albums del artista seleccionado
         musicController.getArtistAlbums(new TrackListener<AlbumContainer>() {
             @Override
             public void finish(AlbumContainer track) {
                 albums = track.getData();
-                AdapterArtistaAlbumes adapterArtistaAlbumes = new AdapterArtistaAlbumes(albums);
+                AdapterArtistaAlbumes adapterArtistaAlbumes = new AdapterArtistaAlbumes(albums, notificadorAlbumClickeado);
                 rvAlbumes.setAdapter(adapterArtistaAlbumes);
                 rvAlbumes.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
                 rlAlbumes.setVisibility(View.VISIBLE);
@@ -181,5 +188,14 @@ public class ArtistFragment extends Fragment implements AdapterArtistaCanciones.
         ArrayList<Track> newTrack = new ArrayList<>();
         newTrack.addAll(tracks);
         notificadorActivity.recibirCancion(cancion, newTrack);
+    }
+
+    @Override
+    public void notificarAlbumClickeado(Album album) {
+        notificador.notificar(new AlbumController(album));
+    }
+
+    public interface NotificadorActivity{
+        void notificar(TypeController typeController);
     }
 }

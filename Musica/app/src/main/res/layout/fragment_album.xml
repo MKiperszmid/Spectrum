@@ -49,34 +49,19 @@
                     tools:text="Top Argentina" />
 
                 <!-- Descripcion -->
-                <LinearLayout
+
+                <TextView
                     android:id="@+id/fal_tv_descripcion"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto"
+                    android:textColor="@color/colorWhite"
                     android:layout_alignParentBottom="true"
                     android:layout_marginBottom="60dp"
-                    android:alpha="0.75"
+                    android:textSize="18sp"
                     android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/fp_tv_descripcion"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/roboto"
-                        android:textColor="@color/colorWhite"
-                        android:textSize="18sp"
-                        tools:text="100 canciones - Creada por " />
-                    <!-- Creador -->
-                    <TextView
-                        android:id="@+id/fp_tv_creador"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/colorWhite"
-                        android:textSize="18sp"
-                        android:textStyle="italic|bold"
-                        tools:text="Spectrum" />
-                </LinearLayout>
+                    android:alpha="0.75"
+                    tools:text="100 canciones" />
             </RelativeLayout>
 
             <!-- Btn Reproducir -->

@@ -73,5 +73,7 @@ public interface DeezerService {
     @GET("search/track")
     Call<TrackContainer> getSearchTracks(@Query("q") String q);
 
+    @GET("album/{id}/tracks")
+    Call<TrackContainer> getTracksAlbum(@Path("id") String id);
 
 }
