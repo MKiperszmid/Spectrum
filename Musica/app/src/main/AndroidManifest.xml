@@ -14,7 +14,8 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".View.Activities.MainActivity"
-            android:theme="@style/MainTheme">
+            android:theme="@style/MainTheme"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -22,7 +23,8 @@
             </intent-filter>
         </activity>
         <receiver android:name=".Controller.NotificationReceiver"/>
-        <activity android:name=".View.Activities.SongActivity" />
+        <activity android:name=".View.Activities.SongActivity"
+            android:screenOrientation="portrait"/>
 
         <meta-data android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id"/>

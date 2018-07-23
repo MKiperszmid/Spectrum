@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.dh.tpmusicagrupo3.Controller.GlideController;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Album;
@@ -45,10 +46,17 @@ public class AdapterArtistaAlbumes extends RecyclerView.Adapter {
         ImageView ivArtwork;
         TextView tvAlbumName;
 
-        public ArtistaAlbumViewHolder(View itemView) {
+        public ArtistaAlbumViewHolder(final View itemView) {
             super(itemView);
             ivArtwork = itemView.findViewById(R.id.caa_iv_artwork);
             tvAlbumName = itemView.findViewById(R.id.caa_tv_albumName);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Toast.makeText(itemView.getContext(), albums.get(getAdapterPosition()).getTitle() + ". Continuara..", Toast.LENGTH_SHORT).show();
+                }
+            });
         }
 
         public void bindAlbum(Album album) {

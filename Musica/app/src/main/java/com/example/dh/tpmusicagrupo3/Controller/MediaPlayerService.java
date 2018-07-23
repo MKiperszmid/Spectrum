@@ -87,6 +87,12 @@ public class MediaPlayerService extends Service {
     }
 
     public void sendNotification(final Boolean onGoing) {
+
+        //TODO: Ver si se puede guardar el builder, asi no se crea de 0 siempre
+        //Y en el SendNotification, cambiarle la imagen y texto y mostrarlo.
+        //setContentTitle (cancion) setContentText(artista) y el listener de Glide.
+
+
         if (currentPlaying == null) return;
 
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);

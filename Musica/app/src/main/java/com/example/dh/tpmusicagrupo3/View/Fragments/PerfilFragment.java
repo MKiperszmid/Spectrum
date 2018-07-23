@@ -65,13 +65,9 @@ import de.hdodenhof.circleimageview.CircleImageView;
  */
 public class PerfilFragment extends Fragment implements AdapterCancionArtistaPortada.NotificadorCancionCelda, AdapterPlaylistItem.NotificadorPlaylistCelda {
 
-    //  private CallbackManager callbackManager;
-    //  private LoginButton loginButton;
-
     private FirebaseAuth mAuth;
     private LinearLayout layoutCreateAccount;
     private LinearLayout layoutProfile;
-
 
     private String sectionString = "Perfil";
     private MusicController musicController;
@@ -226,23 +222,18 @@ public class PerfilFragment extends Fragment implements AdapterCancionArtistaPor
         progressBar.setIndeterminate(true);
         progressBar.setVisibility(View.VISIBLE);
 
-
-
-
-        if(Profile.getCurrentProfile() != null){
-            Uri photoUri = Profile.getCurrentProfile().getProfilePictureUri(200,200);
+        if (Profile.getCurrentProfile() != null) {
+            Uri photoUri = Profile.getCurrentProfile().getProfilePictureUri(200, 200);
             Uri coverUri = Profile.getCurrentProfile().getProfilePictureUri(450, 300);
             Picasso.get().load(photoUri).into(imageFg);
             Picasso.get().load(coverUri).into(imageBg);
 
             name.setText(Profile.getCurrentProfile().getFirstName());
-        }else{
+        } else {
             name.setText(user.getEmail());
             imageBg.setImageResource(R.drawable.drake);
             imageFg.setImageResource(R.drawable.defaultuser);
         }
-
-
 
         rvCanciones.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         rvPlaylists.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
@@ -355,6 +346,7 @@ public class PerfilFragment extends Fragment implements AdapterCancionArtistaPor
     }
 
     private void loadDatabase() {
+        //TODO: Agarrar de los favoritos.
         getPlaylistsDb();
         getCancionesDb();
     }
@@ -390,7 +382,6 @@ public class PerfilFragment extends Fragment implements AdapterCancionArtistaPor
     }
 
     private void handleFacebookAccessToken(AccessToken token) {
-
         AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
