@@ -101,7 +101,7 @@ public class MediaPlayerService extends Service {
             @Override
             public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
                 Notification notification = new NotificationCompat.Builder(getApplicationContext(), App.CHANNEL_ID)
-                        .setSmallIcon(R.drawable.icon_spectrum)
+                        .setSmallIcon(R.drawable.spclogo)
                         .setLargeIcon(resource)
                         .setContentTitle(currentPlaying.getTitle_short())
                         .setContentText(currentPlaying.getArtist().getName())

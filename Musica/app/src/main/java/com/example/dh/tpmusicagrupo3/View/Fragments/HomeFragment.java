@@ -3,6 +3,7 @@ package com.example.dh.tpmusicagrupo3.View.Fragments;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -32,6 +33,8 @@ public class HomeFragment extends Fragment implements AdapterCancionArtistaPorta
     public static Track cancionActual;
     private static List<Track> tracks;
     private static List<Track> tracksFragment;
+
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     private AdapterCancionArtistaPortada adapterCancionArtistaPortada;
     private RecyclerView rvPopular;
@@ -129,6 +132,9 @@ public class HomeFragment extends Fragment implements AdapterCancionArtistaPorta
         rlRecentlyAdded = view.findViewById(R.id.layoutRecentlyAdded);
         rlTopArg = view.findViewById(R.id.layoutTopArg);
         rlTopUsa = view.findViewById(R.id.layoutTopUsa);
+        swipeRefreshLayout = view.findViewById(R.id.fh_sr_refresh);
+
+
 
         /* Feed */
 
@@ -170,6 +176,14 @@ public class HomeFragment extends Fragment implements AdapterCancionArtistaPorta
                         loadNewCancionesUsa(rvUsa);
                     }
                 }
+            }
+        });
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                LoadCanciones();
+                swipeRefreshLayout.setRefreshing(false);
             }
         });
 
