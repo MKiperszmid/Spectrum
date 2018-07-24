@@ -27,7 +27,6 @@ public class NotificationReceiver extends BroadcastReceiver {
         switch (intentString){
             case PLAY_ACTION:
                 mediaPlayerService.togglePlayer();
-                mediaPlayerService.sendNotification(true);
                 break;
             case PREVIOUS_ACTION:
                 mediaPlayerService.previousSong();

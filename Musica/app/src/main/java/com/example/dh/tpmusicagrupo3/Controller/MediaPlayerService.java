@@ -39,7 +39,6 @@ public class MediaPlayerService extends Service {
     private List<Track> currentTracks;
     private MediaSessionCompat mediaSessionCompat;
     private static MediaPlayerService mediaPlayerService;
-    private NotificationCompat.Builder builder;
 
     private final IBinder iBinder = new MyBinder();
 
@@ -56,7 +55,7 @@ public class MediaPlayerService extends Service {
     public static final String CHANGEIMAGE = "changeImage";
     public static final String CHANGESONG = "changeSong";
     public static final String IS_FINISHED = "isFinished";
-    private PendingIntent previousPending, playPending, nextPending;
+    private PendingIntent previousPending, playPending, nextPending, pendingIntent;
     public static Boolean isDisplayed = false;
 
     public MediaPlayerService() {
@@ -67,6 +66,7 @@ public class MediaPlayerService extends Service {
         if (mediaPlayerService == null) {
             mediaPlayerService = new MediaPlayerService();
         }
+        //TODO: Arregalr esto.
         return mediaPlayerService;
     }
 
@@ -78,7 +78,8 @@ public class MediaPlayerService extends Service {
         previousPending = createPending(NotificationReceiver.PREVIOUS_ACTION, 0);
         playPending = createPending(NotificationReceiver.PLAY_ACTION, 1);
         nextPending = createPending(NotificationReceiver.NEXT_ACTION, 2);
-        createNotification();
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
     }
 
     public void setDisplayed(Boolean bool) {
@@ -102,39 +103,37 @@ public class MediaPlayerService extends Service {
         return PendingIntent.getBroadcast(getApplicationContext(), requestAction, intent, PendingIntent.FLAG_UPDATE_CURRENT);
     }
 
-    private void createNotification() {
-        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-        final PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
-
-        builder = new NotificationCompat.Builder(getApplicationContext(), App.CHANNEL_ID)
-                .setSmallIcon(R.drawable.spclogo)
-                //.setLargeIcon(); //En el SendNotification
-                //.setContentTitle(currentPlaying.getTitle_short()) // SN
-                //.setContentText(currentPlaying.getArtist().getName()); //SN
-                .setPriority(NotificationCompat.PRIORITY_LOW)
-                .setCategory(NotificationCompat.CATEGORY_SERVICE)
-                .setContentIntent(pendingIntent)
-                .addAction(R.drawable.prevresize, "Previous", previousPending)
-                .addAction(R.drawable.playresize, "Play", playPending)
-                .addAction(R.drawable.nextresize, "Next", nextPending)
-                .setStyle(new android.support.v4.media.app.NotificationCompat.MediaStyle()
-                        .setShowActionsInCompactView(0, 1, 2)
-                        .setMediaSession(mediaSessionCompat.getSessionToken()))
-                .setColor(getResources().getColor(R.color.colorAccent));
-    }
-
     public void sendNotification(final Boolean onGoing) {
-        if (currentPlaying == null || !isDisplayed) return;
-
+        if (currentPlaying == null) return;
 
         Glide.with(this).asBitmap().load(currentPlaying.getAlbum().getCover_big()).into(new SimpleTarget<Bitmap>() {
             @Override
             public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
-                Notification songNotification = builder.setContentTitle(currentPlaying.getTitle_short())
-                        .setContentText(currentPlaying.getArtist().getName())
+                NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), App.CHANNEL_ID)
+                        .setSmallIcon(R.drawable.spclogo)
                         .setLargeIcon(resource)
+                        .setContentTitle(currentPlaying.getTitle_short())
+                        .setContentText(currentPlaying.getArtist().getName())
+                        .setPriority(NotificationCompat.PRIORITY_LOW)
+                        .setCategory(NotificationCompat.CATEGORY_SERVICE)
+                        .setContentIntent(pendingIntent)
                         .setOngoing(onGoing)
-                        .build();
+                        .addAction(R.drawable.prevresize, "Previous", previousPending);
+
+                if(!isPlaying()){
+                    builder.addAction(R.drawable.playresize, "Play", playPending);
+                }
+                else {
+                    builder.addAction(R.drawable.stopresize, "Pause", playPending);
+                }
+
+                builder.addAction(R.drawable.nextresize, "Next", nextPending)
+                        .setStyle(new android.support.v4.media.app.NotificationCompat.MediaStyle()
+                        .setShowActionsInCompactView(0, 1, 2)
+                        .setMediaSession(mediaSessionCompat.getSessionToken()))
+                        .setColor(getResources().getColor(R.color.colorAccent));
+
+                Notification songNotification = builder.build();
 
                 notificationManagerCompat.notify(App.NOTIFICATION_ID.REPRODUCTOR_SERVICE, songNotification);
             }
@@ -149,26 +148,7 @@ public class MediaPlayerService extends Service {
         if (track != null) {
             startSong(track, tracks);
         }
-/*
-        if(intent.getAction().equals(App.ACTION.START_FOREGROUND)){
-            Log.i("MPS", "START FOREGROUND");
-            //Mostrar notificacion que contiene al reproductor
-        }
-        else if(intent.getAction().equals(App.ACTION.PREVIOUS_ACTION)){
-            Log.i("MPS", "PREVIOUS ACTION");
-        }
-        else if(intent.getAction().equals(App.ACTION.NEXT_ACTION)){
-            Log.i("MPS", "NEXT ACTION");
-        }
-        else if(intent.getAction().equals(App.ACTION.PLAY_ACTION)){
-            Log.i("MPS", "PLAY ACTION");
-        }
-        else if(intent.getAction().equals(App.ACTION.STOP_FOREGROUND)){
-            Log.i("MPS", "STOP FOREGROUND");
-            stopForeground(true);
-            stopSelf();
-        }
-*/
+
         return START_REDELIVER_INTENT;
     }
 
@@ -215,7 +195,7 @@ public class MediaPlayerService extends Service {
             mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
                 @Override
                 public void onPrepared(MediaPlayer mp) {
-                    playPlayer();
+                    togglePlayer();
                 }
             });
             mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
@@ -225,9 +205,9 @@ public class MediaPlayerService extends Service {
                     changeSong(true);
                 }
             });
+            if (!isDisplayed)
+                sendNotification(true);
 
-
-            sendNotification(true);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (Exception e) {
@@ -272,6 +252,8 @@ public class MediaPlayerService extends Service {
             pausePlayer();
         else
             playPlayer();
+        if (!isDisplayed)
+            sendNotification(true);
     }
 
     public void goToPosition(int position) {
