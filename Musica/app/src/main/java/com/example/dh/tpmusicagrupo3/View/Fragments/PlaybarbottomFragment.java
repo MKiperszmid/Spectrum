@@ -38,7 +38,6 @@ public class PlaybarbottomFragment extends Fragment {
 
     private RelativeLayout queue;
     private HomeFragment.NotificadorActivity notificadorActivity;
-    public static Integer posicion;
     private Track cancion;
     private ArrayList<Track> trackList;
     private MediaPlayerService mediaPlayerService;
@@ -52,22 +51,8 @@ public class PlaybarbottomFragment extends Fragment {
         }
     };
 
-    /*private BroadcastReceiver songReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            Boolean songChange = intent.getExtras().getBoolean(MediaPlayerService.IS_FINISHED, false);
-            if(songChange){
-                changeSong();
-            }
-        }
-    };*/
-
     public PlaybarbottomFragment() {
         // Required empty public constructor
-    }
-
-    public static ImageView getPlayBtn() {
-        return playBtn;
     }
 
     @Override
@@ -82,7 +67,6 @@ public class PlaybarbottomFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_playbarbottom, container, false);
         Bundle bundle = getArguments();
-        posicion = bundle.getInt(CLAVE_CANCION);
         mediaPlayerService = MediaPlayerService.getInstance();
 
         trackList = (ArrayList<Track>) bundle.getSerializable(CLAVE_CANCIONES);
@@ -95,6 +79,7 @@ public class PlaybarbottomFragment extends Fragment {
         cancionPlaying.setText(cancion.getTitle_short());
         artistaPlaying.setText(cancion.getArtist().getName());
         separatorPlaying.setText(" - ");
+        mediaPlayerService = MediaPlayerService.getInstance();
 
         queue.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -111,11 +96,8 @@ public class PlaybarbottomFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 mediaPlayerService.togglePlayer();
-                //notificadorActivity.playSong();
             }
         });
-
-
 
         /* Botón UP (Ver Canción) */
         ImageView upBtn = view.findViewById(R.id.upBtn);
@@ -132,16 +114,9 @@ public class PlaybarbottomFragment extends Fragment {
     }
 
     private void changeSong() {
-        try {
-            //cancion = trackList.get(posicion);
-            MediaPlayerService mediaPlayerService = MediaPlayerService.getInstance();
-            cancion = mediaPlayerService.getCurrentPlaying();
-            cancionPlaying.setText(cancion.getTitle_short());
-            artistaPlaying.setText(cancion.getArtist().getName());
-            posicion++;
-        } catch (Exception e) {
-
-        }
+        cancion = mediaPlayerService.getCurrentPlaying();
+        cancionPlaying.setText(cancion.getTitle_short());
+        artistaPlaying.setText(cancion.getArtist().getName());
     }
 
     public void changeImage(Boolean playing) {

@@ -14,20 +14,19 @@ import com.example.dh.tpmusicagrupo3.Model.POJO.Artist;
 import com.example.dh.tpmusicagrupo3.Model.POJO.Track;
 import com.example.dh.tpmusicagrupo3.R;
 import com.example.dh.tpmusicagrupo3.View.Adapters.AdapterSongPager;
-import com.example.dh.tpmusicagrupo3.View.Fragments.HomeFragment;
-import com.example.dh.tpmusicagrupo3.View.Fragments.PlaybarbottomFragment;
 import com.example.dh.tpmusicagrupo3.View.Fragments.SongFragment;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SongActivity extends AppCompatActivity implements SongFragment.NotificadorCambioCancion, SongFragment.NotificadorFragmentService, SongFragment.NotificadorFragmentActivity {
+public class SongActivity extends AppCompatActivity implements SongFragment.NotificadorCambioCancion, SongFragment.NotificadorFragmentActivity {
 
     private List<SongFragment> fragments;
     private List<Track> canciones;
     public static Integer index;
     private ViewPager pager;
     private List<Track> tracks;
+    private MediaPlayerService mediaPlayerService;
     public static Boolean isDisplayed = false;
 
     private BroadcastReceiver receiver = new BroadcastReceiver() {
@@ -46,12 +45,14 @@ public class SongActivity extends AppCompatActivity implements SongFragment.Noti
         MediaPlayerService mediaPlayerService = MediaPlayerService.getInstance();
         mediaPlayerService.closeNotification();
         isDisplayed = true;
+        mediaPlayerService.setDisplayed(true);
     }
 
     @Override
     protected void onStop() {
         super.onStop();
         isDisplayed = false;
+        mediaPlayerService.setDisplayed(false);
     }
 
     @Override
@@ -60,13 +61,16 @@ public class SongActivity extends AppCompatActivity implements SongFragment.Noti
         getSupportActionBar().hide();
         setContentView(R.layout.activity_song);
         fragments = new ArrayList<>();
-        index = getIntent().getExtras().getInt(SongFragment.CANCIONPOS) + 1;
-
         tracks = (ArrayList<Track>) getIntent().getExtras().getSerializable(SongFragment.CANCIONESKEY);
+        mediaPlayerService = MediaPlayerService.getInstance();
         CargarFragments();
         pager = findViewById(R.id.songactivityViewPager);
         final AdapterSongPager adapter = new AdapterSongPager(getSupportFragmentManager(), fragments);
         pager.setAdapter(adapter);
+
+        //TODO: Ver como hacer para que esto se llame 1 vez por cancion, y no todo el tiempo que se clickea incluso la misma cancion.
+        index = tracks.indexOf(mediaPlayerService.getCurrentPlaying()) + 1; // +1 Ya que el viewpager empieza en 1 (el 0 es la ultima cancion)
+
         pager.setCurrentItem(index);
 
         pager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -83,11 +87,7 @@ public class SongActivity extends AppCompatActivity implements SongFragment.Noti
                 } else if (position <= 0) {
                     pager.setCurrentItem(fragments.size() - 2, false);
                 }
-                MainActivity.mediaPlayerService.startSong(fragments.get(position).getCancion(), tracks);
-                //mediaPlayerController.create(fragments.get(position).getCancion());
-                HomeFragment.cancionActual = canciones.get(position);
-                index = position;
-                PlaybarbottomFragment.posicion = position - 1; //TODO: Arreglar esto para que no use STATIC.
+                mediaPlayerService.startSong(fragments.get(position).getCancion(), tracks);
             }
 
             @Override
@@ -119,31 +119,6 @@ public class SongActivity extends AppCompatActivity implements SongFragment.Noti
     }
 
     @Override
-    public void playSong() {
-        MainActivity.mediaPlayerService.togglePlayer();
-    }
-
-    @Override
-    public Integer getCurrentDuration() {
-        return MainActivity.mediaPlayerService.getCurrentDuration();
-    }
-
-    @Override
-    public void startSong(Track track) {
-        MainActivity.mediaPlayerService.startSong(track, tracks);
-    }
-
-    @Override
-    public Track getCurrentSong() {
-        return MainActivity.mediaPlayerService.getCurrentPlaying();
-    }
-
-    @Override
-    public Boolean isPlaying() {
-        return MainActivity.mediaPlayerService.isPlaying();
-    }
-
-    @Override
     public void notificarArtista(Artist artist) {
         Intent intent = new Intent(this, MainActivity.class);
         Bundle bundle = new Bundle();
@@ -155,13 +130,6 @@ public class SongActivity extends AppCompatActivity implements SongFragment.Noti
     @Override
     protected void onResume() {
         super.onResume();
-
-        //TODO: Preguntar a Nico como arreglar bug:
-
-        //Escucho cancion en songfragment. Pasa cancion
-        //Escucho en home fragment, pasa cancion
-        //Escucho en songfragment denuevo, crashea.
-
         LocalBroadcastManager.getInstance(this).registerReceiver(receiver, new IntentFilter(MediaPlayerService.CHANGESONG));
     }
 

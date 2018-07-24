@@ -30,9 +30,7 @@ import java.util.List;
 public class HomeFragment extends Fragment implements AdapterCancionArtistaPortada.NotificadorCancionCelda {
 
     private NotificadorActivity notificadorActivity;
-    public static Track cancionActual;
     private static List<Track> tracks;
-    private static List<Track> tracksFragment;
 
     private SwipeRefreshLayout swipeRefreshLayout;
 
@@ -59,18 +57,6 @@ public class HomeFragment extends Fragment implements AdapterCancionArtistaPorta
         super.onAttach(context);
         this.notificadorActivity = (NotificadorActivity) context;
     }
-
-    public static List<Track> getCancionesFragment() {
-        return tracksFragment;
-    }
-
-   /* public static void LoadCancionesFragment(List<Track> newTracks){
-        tracksFragment = new ArrayList<>();
-        tracksFragment.add(newTracks.get(newTracks.size() - 1));
-        tracksFragment.addAll(newTracks);
-        tracksFragment.add(newTracks.get(0));
-        tracks = newTracks;
-    }*/
 
     private void LoadCanciones() {
 
@@ -125,7 +111,6 @@ public class HomeFragment extends Fragment implements AdapterCancionArtistaPorta
 
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
-
         ((MainActivity) getActivity()).getSupportActionBar().setTitle(sectionString);
 
         rlTop10 = view.findViewById(R.id.layoutTop10);
@@ -133,8 +118,6 @@ public class HomeFragment extends Fragment implements AdapterCancionArtistaPorta
         rlTopArg = view.findViewById(R.id.layoutTopArg);
         rlTopUsa = view.findViewById(R.id.layoutTopUsa);
         swipeRefreshLayout = view.findViewById(R.id.fh_sr_refresh);
-
-
 
         /* Feed */
 
@@ -232,10 +215,6 @@ public class HomeFragment extends Fragment implements AdapterCancionArtistaPorta
 
     @Override
     public void notificarCancionClickeada(Track cancionClickeada, List<Track> myTracks) {
-        // Llega track desde AdapterCancionArtistaPortada y se ejecuta el Media Player
-        cancionActual = cancionClickeada;
-        SongActivity.index = cancionClickeada.getId();
-
         ArrayList<Track> newTracks = new ArrayList<>();
         newTracks.addAll(myTracks);
         // Se envia a MainActivity la cancion y position
@@ -245,11 +224,5 @@ public class HomeFragment extends Fragment implements AdapterCancionArtistaPorta
     public interface NotificadorActivity {
         // Metodos que implementa MainActivity de HomeFragment
         void recibirCancion(Track cancion, ArrayList<Track> tracks);
-
-        Track getCurrentPlaying();
-
-        Boolean isPlaying();
-
-        void playSong();
     }
 }

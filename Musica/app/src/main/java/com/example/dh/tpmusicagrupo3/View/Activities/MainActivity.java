@@ -155,43 +155,12 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Noti
     @Override
     protected void onDestroy() {
         try {
+            mediaPlayerService.clearPlayer();
             getApplicationContext().unbindService(serviceConnection);
-            mediaPlayerService.closeNotification();
         } catch (Exception e) {
 
         }
         super.onDestroy();
-    }
-
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-       /* if(isServiceBounded){
-            unbindService(serviceConnection);
-            isServiceBounded = false;
-        }*/
-    }
-
-    @Override
-    public Track getCurrentPlaying() {
-        Track track = cancionActual;
-        if (mediaPlayerService != null)
-            track = mediaPlayerService.getCurrentPlaying();
-        return track;
-    }
-
-    @Override
-    public Boolean isPlaying() {
-        if (mediaPlayerService == null) {
-            return false;
-        }
-        return mediaPlayerService.isPlaying();
-    }
-
-    @Override
-    public void playSong() {
-        MainActivity.mediaPlayerService.togglePlayer();
     }
 
     @Override
@@ -215,7 +184,6 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Noti
             mediaPlayerService.sendNotification(true);
         }
     }
-
 
     private void printHash() {
         try {

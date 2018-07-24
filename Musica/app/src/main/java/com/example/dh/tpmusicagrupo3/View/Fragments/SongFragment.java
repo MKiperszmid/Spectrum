@@ -47,6 +47,7 @@ public class SongFragment extends Fragment {
     private Track cancion;
     private FirebaseAuth mAuth;
     private NotificadorCambioCancion notificadorCambioCancion;
+    private MediaPlayerService mediaPlayerService;
 
     private BroadcastReceiver receiver = new BroadcastReceiver() {
         @Override
@@ -63,8 +64,6 @@ public class SongFragment extends Fragment {
 
     private Boolean menuMasOpcionesStatus = false;
 
-    private NotificadorFragmentService notificadorFragmentService;
-
     public static final String CANCIONKEY = "cancion";
     private NotificadorFragmentActivity notificadorFragmentActivity;
 
@@ -76,7 +75,6 @@ public class SongFragment extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         this.notificadorCambioCancion = (NotificadorCambioCancion) context;
-        this.notificadorFragmentService = (NotificadorFragmentService) context;
         this.notificadorFragmentActivity = (NotificadorFragmentActivity) context;
     }
 
@@ -122,6 +120,7 @@ public class SongFragment extends Fragment {
 
         menuMasOpciones = view.findViewById(R.id.menuMasOpciones);
         FrameLayout cerrarMenuMasOpciones = view.findViewById(R.id.cerrarMenuMasOpciones);
+        mediaPlayerService = MediaPlayerService.getInstance();
         View viewCompartirCancion = view.findViewById(R.id.fs_v_compartirCancion);
 
 
@@ -184,7 +183,7 @@ public class SongFragment extends Fragment {
         pauseplayClick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                notificadorFragmentService.playSong();
+                mediaPlayerService.togglePlayer();
                 // mediaPlayerController.playPause(pauseplayClick);
             }
         });
@@ -304,7 +303,7 @@ public class SongFragment extends Fragment {
             public void run() {
                 int currentDuration;
                 //currentDuration = MediaPlayerController.getCurrentDuration();
-                currentDuration = notificadorFragmentService.getCurrentDuration();
+                currentDuration = mediaPlayerService.getCurrentDuration();
                 updateSeekBar(currentDuration);
                 handler.postDelayed(this, 1000);
             }
@@ -328,7 +327,7 @@ public class SongFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
-        if (notificadorFragmentService.isPlaying()) {
+        if (mediaPlayerService.isPlaying()) {
             pauseplayClick.setImageResource(R.drawable.stop);
         } else {
             pauseplayClick.setImageResource(R.drawable.play);
@@ -342,19 +341,6 @@ public class SongFragment extends Fragment {
         super.onPause();
         LocalBroadcastManager.getInstance(getActivity()).unregisterReceiver(receiver);
     }
-
-    public interface NotificadorFragmentService {
-        void playSong();
-
-        Integer getCurrentDuration();
-
-        void startSong(Track track);
-
-        Track getCurrentSong();
-
-        Boolean isPlaying();
-    }
-
 
     // Recibe un view contenedor y un estado, y hace unclickeable a todos sus childs
     public void setClickable(View view, boolean status) {
