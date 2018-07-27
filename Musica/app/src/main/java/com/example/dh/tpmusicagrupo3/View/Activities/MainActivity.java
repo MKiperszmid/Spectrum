@@ -155,7 +155,7 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Noti
     @Override
     protected void onDestroy() {
         try {
-            mediaPlayerService.clearPlayer();
+            mediaPlayerService.clearPlayer(true);
             getApplicationContext().unbindService(serviceConnection);
         } catch (Exception e) {
 

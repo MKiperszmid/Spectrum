@@ -66,7 +66,7 @@ public class MediaPlayerService extends Service {
         if (mediaPlayerService == null) {
             mediaPlayerService = new MediaPlayerService();
         }
-        //TODO: Arregalr esto.
+
         return mediaPlayerService;
     }
 
@@ -157,11 +157,13 @@ public class MediaPlayerService extends Service {
         return iBinder;
     }
 
-    public void clearPlayer() {
+    public void clearPlayer(Boolean bye) {
         if (mediaPlayer != null)
             mediaPlayer.release();
-        closeNotification();
-        changeImage(false);
+        if(bye){
+            closeNotification();
+            changeImage(false);
+        }
     }
 
     public void nextSong() {
@@ -185,7 +187,7 @@ public class MediaPlayerService extends Service {
     }
 
     public void startSong(Track track, List<Track> tracks) {
-        clearPlayer();
+        clearPlayer(false);
         mediaPlayer = new MediaPlayer();
         try {
             mediaPlayer.setDataSource(track.getPreview());
